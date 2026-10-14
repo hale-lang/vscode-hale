@@ -1,0 +1,157 @@
+{
+  "schema": "1.19",
+  "semantics": 2,
+  "shape_hash": "47fa9c0deb459d72",
+  "sorts": {
+    "loci": ["DeltaTriage", "GammaResearch", "Org"],
+    "fns": ["DeltaTriage::on_task", "GammaResearch::on_audit", "GammaResearch::on_metric", "Org::run", "main"],
+    "topics": ["Audits", "Metrics", "Tasks"]
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+      {"fn": "DeltaTriage::on_task", "subject": "Metrics"},
+      {"fn": "Org::run", "subject": "Tasks"}
+    ],
+    "subscribes": [
+      {"subject": "Audits", "locus": "GammaResearch", "handler": "on_audit"},
+      {"subject": "Metrics", "locus": "GammaResearch", "handler": "on_metric"},
+      {"subject": "Tasks", "locus": "DeltaTriage", "handler": "on_task"}
+    ]
+  },
+  "groups": {
+    "delta_wing": ["DeltaTriage"],
+    "gamma_wing": ["GammaResearch"]
+  },
+  "labels": {
+  },
+  "phases": {
+    "DeltaTriage::on_task": {"phase": "on_task", "kind": "method"},
+    "GammaResearch::on_audit": {"phase": "on_audit", "kind": "method"},
+    "GammaResearch::on_metric": {"phase": "on_metric", "kind": "method"},
+    "Org::run": {"phase": "run", "kind": "hook"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "DeltaTriage::on_task": ["publish", "alloc"],
+    "Org::run": ["syscall", "block", "publish", "time", "alloc"],
+    "main": ["alloc"]
+  },
+  "supervision": [
+  ],
+  "unknowns": [
+  ],
+  "endpoint_identity": [
+    {"verb": "publish", "fn": "DeltaTriage::on_task", "site": 0, "wire": "metrics", "topic": "Metrics"},
+    {"verb": "publish", "fn": "Org::run", "site": 0, "wire": "tasks", "topic": "Tasks"},
+    {"verb": "publish", "locus": "DeltaTriage", "wire": "metrics", "topic": "Metrics"},
+    {"verb": "publish", "locus": "Org", "wire": "audit", "topic": "Audits"},
+    {"verb": "publish", "locus": "Org", "wire": "tasks", "topic": "Tasks"},
+    {"verb": "subscribe", "fn": "DeltaTriage::on_task", "site": 0, "wire": "tasks", "topic": "Tasks"},
+    {"verb": "subscribe", "fn": "GammaResearch::on_audit", "site": 1, "wire": "audit", "topic": "Audits"},
+    {"verb": "subscribe", "fn": "GammaResearch::on_metric", "site": 0, "wire": "metrics", "topic": "Metrics"}
+  ],
+  "sources": [
+    {"id": 0, "path": "main.hl", "digest": "9432747dde72c456"}
+  ],
+  "provenance": {
+    "calls": [
+    ],
+    "publishes": [
+      {"fn": "DeltaTriage::on_task", "subject": "Metrics", "source": 0, "span": [1750, 1780]},
+      {"fn": "Org::run", "subject": "Tasks", "source": 0, "span": [2610, 2634]}
+    ],
+    "subscribes": [
+      {"subject": "Audits", "locus": "GammaResearch", "handler": "on_audit", "source": 0, "span": [1885, 1914]},
+      {"subject": "Metrics", "locus": "GammaResearch", "handler": "on_metric", "source": 0, "span": [1853, 1884]},
+      {"subject": "Tasks", "locus": "DeltaTriage", "handler": "on_task", "source": 0, "span": [1634, 1661]}
+    ],
+    "decls": {
+      "Audit": {"source": 0, "span": [1388, 1393]},
+      "Audits": {"source": 0, "span": [1528, 1534]},
+      "DeltaTriage": {"source": 0, "span": [1580, 1591]},
+      "GammaResearch": {"source": 0, "span": [1796, 1809]},
+      "Metric": {"source": 0, "span": [1360, 1366]},
+      "Metrics": {"source": 0, "span": [1473, 1480]},
+      "Org": {"source": 0, "span": [2099, 2102]},
+      "Task": {"source": 0, "span": [1333, 1337]},
+      "Tasks": {"source": 0, "span": [1424, 1429]},
+      "delta_wing": {"source": 0, "span": [2019, 2029]},
+      "gamma_wing": {"source": 0, "span": [2055, 2065]},
+      "main": {"source": 0, "span": [2717, 2721]}
+    },
+    "supervision": [
+    ]
+  },
+  "topics": [
+    {"name": "Audits", "subject": "audit", "shape": "note:s", "payload_hash": "615cefb8372569b1"},
+    {"name": "Metrics", "subject": "metrics", "shape": "n:i", "payload_hash": "27c62efee9b83b3f"},
+    {"name": "Tasks", "subject": "tasks", "shape": "id:i", "payload_hash": "16cf3b12c4a31eb5"}
+  ],
+  "endpoints": [{"verb": "publish", "subject": "audit", "via": "declaration", "locus": "Org", "topic": "Audits", "file": "main.hl", "span": [2249, 2264]}, {"verb": "publish", "subject": "metrics", "via": "declaration", "locus": "DeltaTriage", "topic": "Metrics", "file": "main.hl", "span": [1662, 1678]}, {"verb": "publish", "subject": "metrics", "via": "site", "fn": "DeltaTriage::on_task", "site": 0, "topic": "Metrics", "file": "main.hl", "span": [1750, 1780]}, {"verb": "publish", "subject": "tasks", "via": "declaration", "locus": "Org", "topic": "Tasks", "file": "main.hl", "span": [2234, 2248]}, {"verb": "publish", "subject": "tasks", "via": "site", "fn": "Org::run", "site": 0, "topic": "Tasks", "file": "main.hl", "span": [2610, 2634]}, {"verb": "subscribe", "subject": "audit", "via": "declaration", "fn": "GammaResearch::on_audit", "site": 1, "topic": "Audits", "file": "main.hl", "span": [1885, 1914]}, {"verb": "subscribe", "subject": "metrics", "via": "declaration", "fn": "GammaResearch::on_metric", "site": 0, "topic": "Metrics", "file": "main.hl", "span": [1853, 1884]}, {"verb": "subscribe", "subject": "tasks", "via": "declaration", "fn": "DeltaTriage::on_task", "site": 0, "topic": "Tasks", "file": "main.hl", "span": [1634, 1661]}],
+  "declares_publish": [{"locus": "DeltaTriage", "subject": "metrics", "topic": "Metrics", "file": "main.hl", "span": [1662, 1678]}, {"locus": "Org", "subject": "audit", "topic": "Audits", "file": "main.hl", "span": [2249, 2264]}, {"locus": "Org", "subject": "tasks", "topic": "Tasks", "file": "main.hl", "span": [2234, 2248]}],
+  "contracts": [{"locus": "DeltaTriage", "sealed": false, "params": [{"name": "seen", "type": "Int"}], "methods": ["DeltaTriage::on_task"], "publishes": ["Metrics"], "subscribes": [{"topic": "Tasks", "handler": "DeltaTriage::on_task", "capacity": null, "shed": "none"}], "supervises": [], "instances": [{"path": "Org.triage", "owner": "Org", "domain": "main"}], "file": "main.hl", "span": [1580, 1591]}, {"locus": "GammaResearch", "sealed": false, "params": [{"name": "total", "type": "Int"}], "methods": ["GammaResearch::on_audit", "GammaResearch::on_metric"], "publishes": [], "subscribes": [{"topic": "Audits", "handler": "GammaResearch::on_audit", "capacity": null, "shed": "none"}, {"topic": "Metrics", "handler": "GammaResearch::on_metric", "capacity": null, "shed": "none"}], "supervises": [], "instances": [{"path": "Org.research", "owner": "Org", "domain": "main"}], "file": "main.hl", "span": [1796, 1809]}, {"locus": "Org", "sealed": false, "params": [{"name": "triage", "type": "DeltaTriage"}, {"name": "research", "type": "GammaResearch"}], "methods": ["Org::run"], "publishes": ["Audits", "Tasks"], "subscribes": [], "supervises": [], "instances": [{"path": "Org", "owner": null, "domain": "main"}], "file": "main.hl", "span": [2099, 2102]}],
+  "bindings": [],
+  "claims": [
+    {"name": "single_writer", "form": "count publishers(topic Metrics) == 1", "result": "holds", "ordinal": 0},
+    {"name": "consumed", "form": "require subscribes(some gamma_wing, topic Metrics)", "result": "holds", "ordinal": 1},
+    {"name": "audited", "form": "require subscribes(some gamma_wing, topic Audits)", "result": "holds", "ordinal": 2},
+    {"name": "iso", "form": "forbid reaches(gamma_wing, delta_wing)", "result": "holds", "ordinal": 3}
+  ],
+  "lowered": [
+  ],
+  "law": {
+    "law_digest": "5a225361f7d46e55",
+    "inputs_digest": "8b4f831070f63907",
+    "fn_universe": [{"name": "DeltaTriage::on_task", "display": "DeltaTriage::on_task", "analyzed": true, "summarized": true, "kind": "method", "owner": "DeltaTriage"}, {"name": "GammaResearch::on_audit", "display": "GammaResearch::on_audit", "analyzed": true, "summarized": true, "kind": "method", "owner": "GammaResearch"}, {"name": "GammaResearch::on_metric", "display": "GammaResearch::on_metric", "analyzed": true, "summarized": true, "kind": "method", "owner": "GammaResearch"}, {"name": "Org::run", "display": "Org::run", "analyzed": true, "summarized": true, "kind": "hook", "owner": "Org"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "DeltaTriage", "display": "DeltaTriage", "analyzable": true}, {"name": "GammaResearch", "display": "GammaResearch", "analyzable": true}, {"name": "Org", "display": "Org", "analyzable": true}],
+    "groups": [{"name": "delta_wing", "display": "delta_wing"}, {"name": "gamma_wing", "display": "gamma_wing"}],
+    "topics": [{"name": "Audits", "display": "Audits", "subject": "audit"}, {"name": "Metrics", "display": "Metrics", "subject": "metrics"}, {"name": "Tasks", "display": "Tasks", "subject": "tasks"}],
+    "subjects": ["audit", "metrics", "tasks"],
+    "effect_classes": [],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+      {"ordinal": 0, "name": "single_writer", "origin": "main", "family": "endpoint", "verdict": "holds", "law": {"kind": "count", "publishers": true, "topic": {"name": "Metrics", "display": "Metrics", "resolved": true, "file": "main.hl", "span": [2326, 2333]}, "cmp": "==", "n": 1}, "file": "main.hl", "span": [2288, 2301]},
+      {"ordinal": 1, "name": "consumed", "origin": "main", "family": "endpoint", "verdict": "holds", "law": {"kind": "require_endpoint", "publishers": false, "group": {"name": "gamma_wing", "display": "gamma_wing", "resolved": true, "file": "main.hl", "span": [2383, 2393]}, "topic": {"name": "Metrics", "display": "Metrics", "resolved": true, "file": "main.hl", "span": [2401, 2408]}}, "file": "main.hl", "span": [2349, 2357]},
+      {"ordinal": 2, "name": "audited", "origin": "main", "family": "endpoint", "verdict": "holds", "law": {"kind": "require_endpoint", "publishers": false, "group": {"name": "gamma_wing", "display": "gamma_wing", "resolved": true, "file": "main.hl", "span": [2452, 2462]}, "topic": {"name": "Audits", "display": "Audits", "resolved": true, "file": "main.hl", "span": [2470, 2476]}}, "file": "main.hl", "span": [2419, 2426]},
+      {"ordinal": 3, "name": "iso", "origin": "main", "family": "reachability", "verdict": "holds", "law": {"kind": "forbid_reaches", "src": {"group": {"name": "gamma_wing", "display": "gamma_wing", "resolved": true, "file": "main.hl", "span": [2507, 2517]}}, "dst": {"group": {"name": "delta_wing", "display": "delta_wing", "resolved": true, "file": "main.hl", "span": [2519, 2529]}}, "via": ["calls", "bus"]}, "file": "main.hl", "span": [2487, 2490]}
+    ]
+  },
+  "capabilities": {
+    "exact_calls": true,
+    "exact_publishes": true,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": true,
+    "exact_placement": true,
+    "exact_routes": true,
+    "exact_effects": true,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "exact",
+    "boundary": "exact",
+    "endpoint": "exact",
+    "bound": "exact",
+    "certificate": "exact",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "6cfb12d017f1963e"
+}

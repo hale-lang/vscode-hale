@@ -1,0 +1,17 @@
+flows: 4 locus type(s) reclaimed when their run() completes — a `release(c: T)` anywhere in the program, imported seeds included, makes every T a flow, whether or not its declaring locus is instantiated:
+
+  __StdApiHttpPeer — a flow, by:
+    release(p: __StdApiHttpPeer) in __StdApiHttpConns  (no seed location)
+
+  __StdApiUnixPeer — a flow, by:
+    release(p: __StdApiUnixPeer) in __StdApiUnixConns  (no seed location)
+
+  __StdApiWsPeer — a flow, by:
+    release(p: __StdApiWsPeer) in __StdApiWsConns  (no seed location)
+    release(c: __StdApiWsPeer) in std::api::udp::Endpoint  (no seed location)
+
+  __StdIoTcpConnFlow — a flow, by:
+    release(f: __StdIoTcpConnFlow) in __StdIoTcpFlows  (no seed location)
+
+A resident's run() returning means "ready"; it lives on, ends by its own `terminate;` or with its owner's dissolve cascade. Dropping one owner's hook leaves T a flow while any clause above remains.
+ok: 1 file(s) typechecked

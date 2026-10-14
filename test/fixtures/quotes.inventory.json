@@ -1,0 +1,116 @@
+{
+  "inventory": 1,
+  "app": "App",
+  "surfaces": [
+    {
+      "name": "Quotes",
+      "digest": "fnv1a64:b653ec4b3d7b2657",
+      "members": [
+        {
+          "name": "Book::quote",
+          "request": {
+            "$ref": "#/schemas/QuoteRequest"
+          },
+          "response": {
+            "$ref": "#/schemas/QuoteReply"
+          },
+          "error": null,
+          "requires": []
+        },
+        {
+          "name": "Book::stats",
+          "request": null,
+          "response": {
+            "$ref": "#/schemas/Stats"
+          },
+          "error": null,
+          "requires": []
+        }
+      ]
+    }
+  ],
+  "exposures": [
+    {
+      "exposure": "Quotes@fnv1a64:b653ec4b3d7b2657/quotes",
+      "name": "quotes",
+      "surface": "Quotes",
+      "digest": "fnv1a64:b653ec4b3d7b2657",
+      "listener": {
+        "transport": "unix",
+        "address": "/tmp/quotes.sock"
+      },
+      "codec": "json",
+      "principals": {
+        "source": "kernel"
+      },
+      "roles": {
+        "source": "none"
+      },
+      "receivers": [
+        {
+          "type": "Book",
+          "instance": "self.book",
+          "binding": "explicit",
+          "pool": "main"
+        }
+      ]
+    }
+  ],
+  "hubs": [],
+  "schemas": {
+    "QuoteReply": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string"
+        },
+        "px": {
+          "type": "string"
+        },
+        "seen": {
+          "type": "integer"
+        },
+        "known": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "symbol",
+        "px",
+        "seen",
+        "known"
+      ]
+    },
+    "QuoteRequest": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "symbol"
+      ]
+    },
+    "Stats": {
+      "type": "object",
+      "properties": {
+        "symbols": {
+          "type": "integer"
+        },
+        "ticks": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "symbols",
+        "ticks"
+      ]
+    }
+  },
+  "notes": {
+    "inventory": "every exposure with its listener, its sources and its receivers: a deployment inventory, never an authorization statement for any caller",
+    "authorization": "requires is checked against this exposure's role source at the serve site, before a request is queued: a boundary check, never a proof over the program's internal call paths",
+    "lifecycle": "a request accepted runs to completion: a timeout or a lost connection does not mean it did not run, and ending the wait never rolls it back"
+  }
+}

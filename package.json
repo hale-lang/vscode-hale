@@ -1,0 +1,543 @@
+{
+  "name": "vscode-hale",
+  "displayName": "Hale",
+  "description": "Hale language support: the whole language visible beside the source. Diagnostics and navigation from hale lsp; every view reads what the compiler derives.",
+  "version": "0.1.0",
+  "publisher": "hale-lang",
+  "license": "MIT",
+  "icon": "media/hale.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hale-lang/vscode-hale"
+  },
+  "bugs": {
+    "url": "https://github.com/hale-lang/vscode-hale/issues"
+  },
+  "homepage": "https://hale-lang.org",
+  "keywords": [
+    "hale",
+    "locus",
+    "language",
+    "lsp",
+    "topology"
+  ],
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:hale",
+    "workspaceContains:**/*.hl",
+    "workspaceContains:hale.toml"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "hale",
+        "aliases": [
+          "Hale",
+          "hale"
+        ],
+        "extensions": [
+          ".hl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hale",
+        "scopeName": "source.hale",
+        "path": "./syntaxes/hale.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "Hale",
+      "properties": {
+        "hale.path": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the hale binary. Empty: `hale` on PATH, then target/release/hale in the workspace or a sibling hale checkout."
+        },
+        "hale.env": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environment variables added to every hale process the extension starts (the LSP, checks, tasks)."
+        },
+        "hale.checkOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Refresh the graph views from a topology dump when a .hl file is saved."
+        },
+        "hale.codeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Write the compiler's rows above declarations: a locus's place in the tower, its bus and effects; a topic's ends; a surface's exposures; a claim's verdict."
+        },
+        "hale.observePort": {
+          "type": "number",
+          "default": 8787,
+          "description": "The port `hale run --observe` serves the iris session on; the Observe command opens it."
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "hale",
+          "title": "Hale",
+          "icon": "media/hale.svg"
+        }
+      ]
+    },
+    "views": {
+      "hale": [
+        {
+          "id": "hale.program",
+          "name": "Program"
+        },
+        {
+          "id": "hale.here",
+          "name": "Here"
+        },
+        {
+          "id": "hale.language",
+          "name": "Language"
+        },
+        {
+          "id": "hale.next",
+          "name": "Next steps"
+        },
+        {
+          "id": "hale.tower",
+          "name": "Tower"
+        },
+        {
+          "id": "hale.lifecycle",
+          "name": "Lifecycle",
+          "visibility": "collapsed"
+        },
+        {
+          "id": "hale.bus",
+          "name": "Bus"
+        },
+        {
+          "id": "hale.placement",
+          "name": "Placement",
+          "visibility": "collapsed"
+        },
+        {
+          "id": "hale.effects",
+          "name": "Effects",
+          "visibility": "collapsed"
+        },
+        {
+          "id": "hale.law",
+          "name": "Law"
+        },
+        {
+          "id": "hale.units",
+          "name": "Units",
+          "visibility": "collapsed"
+        },
+        {
+          "id": "hale.advice",
+          "name": "Advice",
+          "visibility": "collapsed"
+        },
+        {
+          "id": "hale.changes",
+          "name": "Changes",
+          "visibility": "collapsed"
+        },
+        {
+          "id": "hale.holes",
+          "name": "Holes",
+          "visibility": "collapsed"
+        },
+        {
+          "id": "hale.other",
+          "name": "Other sections",
+          "visibility": "collapsed"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "hale.program",
+        "contents": "Open a .hl file. The Program view lists the entry, the api surfaces and where each is served, the hubs, the topics (the compiler's own grouped apart), what crosses the process boundary, the loci by role, and the law."
+      },
+      {
+        "view": "hale.next",
+        "contents": "Nothing to suggest for the open file. Each row here is one step the examples show: a transport, a role, a stream, a supervisor, a claim, a test."
+      },
+      {
+        "view": "hale.tower",
+        "contents": "No checked seed yet. Open a .hl file; the tower fills on open and on save.\n[Refresh](command:hale.refresh)"
+      },
+      {
+        "view": "hale.bus",
+        "contents": "No topics in this seed.\nA topic is `topic Name { payload: SomeType; subject: \"a.b\"; }`; loci take part with `bus { subscribe Name as handler; publish Name; }`."
+      },
+      {
+        "view": "hale.placement",
+        "contents": "No instances in this seed.\nThe main locus's params are the tower; `placement { field: pinned(core = 1); }` in main moves one to its own thread."
+      },
+      {
+        "view": "hale.law",
+        "contents": "No claims in this seed.\nA `claims { }` block on the main locus states laws the compiler checks, e.g. `one_writer: count publishers(topic T) == 1;`."
+      },
+      {
+        "view": "hale.holes",
+        "contents": "Nothing checked yet."
+      },
+      {
+        "view": "hale.other",
+        "contents": "Every artifact section has a view."
+      },
+      {
+        "view": "hale.language",
+        "contents": "Open a .hl file. Every construct of the language is listed here under the chapter that teaches it: the ones this seed spells, with their uses, and the ones it does not, with their chapter and examples."
+      },
+      {
+        "view": "hale.lifecycle",
+        "contents": "No checked seed yet.\nA locus declares up to seven hooks, run in order: `birth()`, `accept(c: T)`, `release(c: T)`, `run()`, `drain()`, `dissolve()`, and `on_failure(c: T, err: ClosureViolation)` for a child's structural failure."
+      },
+      {
+        "view": "hale.effects",
+        "contents": "No checked seed yet.\nThe compiler infers what every fn reaches: syscall, block, alloc, publish, time, env, ffi. `@effects(none: {syscall})` on a fn makes the absence law; `@no_block` and `@deterministic` are its short forms."
+      },
+      {
+        "view": "hale.units",
+        "contents": "No checked seed yet.\n`unit cent; type Money = quantity Int in cent;` declares a quantity: arithmetic keeps the unit, mixing units is a check error, and `hale check --units` reports every denomination and narrowing."
+      },
+      {
+        "view": "hale.advice",
+        "contents": "No checked seed yet.\nWhat the compiler advises beyond the check: which loci could be `@sealed` (`--sealable`), which locus types are flows (`--flows`), the threads and pools the placement implies (`--dump-resource-budget`), and what `hale verify` would fail on."
+      },
+      {
+        "view": "hale.changes",
+        "contents": "Save a .hl file twice. `hale model diff` says what the edit did to the program's shape: identical, source-only, a contract moved, or the model changed, with every declaration added, removed, renamed or moved."
+      },
+      {
+        "view": "hale.here",
+        "contents": "Put the cursor in a .hl file. This view follows it: which block it is in, what that block is for, what this seed already has there, what you can write there (each row inserts it), and what must hold."
+      }
+    ],
+    "commands": [
+      {
+        "command": "hale.refresh",
+        "title": "Hale: Refresh graph views",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "hale.showGraph",
+        "title": "Hale: Show graph",
+        "icon": "$(type-hierarchy)"
+      },
+      {
+        "command": "hale.check",
+        "title": "Hale: Check seed"
+      },
+      {
+        "command": "hale.verify",
+        "title": "Hale: Verify seed (any finding fails)"
+      },
+      {
+        "command": "hale.build",
+        "title": "Hale: Build seed"
+      },
+      {
+        "command": "hale.run",
+        "title": "Hale: Run seed"
+      },
+      {
+        "command": "hale.runObserve",
+        "title": "Hale: Run seed with observer (iris)"
+      },
+      {
+        "command": "hale.test",
+        "title": "Hale: Test"
+      },
+      {
+        "command": "hale.fmtCheck",
+        "title": "Hale: fmt --check workspace"
+      },
+      {
+        "command": "hale.docStdlib",
+        "title": "Hale: Open stdlib reference"
+      },
+      {
+        "command": "hale.restartLsp",
+        "title": "Hale: Restart language server"
+      },
+      {
+        "command": "hale.showApiDocs",
+        "title": "Hale: Show API docs",
+        "icon": "$(book)"
+      },
+      {
+        "command": "hale.serveSurface",
+        "title": "Hale: Serve a surface from the main locus"
+      },
+      {
+        "command": "hale.examplesFor",
+        "title": "Hale: Examples of a construct"
+      },
+      {
+        "command": "hale.applyTip",
+        "title": "Hale: Apply a next step"
+      },
+      {
+        "command": "hale.openSource",
+        "title": "Hale: Open a file of the hale checkout"
+      },
+      {
+        "command": "hale.seedDocs",
+        "title": "Hale: Show this seed's reference (hale doc)",
+        "icon": "$(book)"
+      },
+      {
+        "command": "hale.checkEnv",
+        "title": "Hale: Check for an environment (constitution)"
+      },
+      {
+        "command": "hale.checkMatrix",
+        "title": "Hale: Check every (entrypoint, environment) pair"
+      },
+      {
+        "command": "hale.buildTarget",
+        "title": "Hale: Build for a target (wasm32, a triple)"
+      },
+      {
+        "command": "hale.observe",
+        "title": "Hale: Observe: run with iris beside it",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "hale.openIris",
+        "title": "Hale: Open the iris session"
+      },
+      {
+        "command": "hale.runRecord",
+        "title": "Hale: Run and record (LOTUS_OBS_RECORD)"
+      },
+      {
+        "command": "hale.replay",
+        "title": "Hale: Replay a recording (--diff)"
+      },
+      {
+        "command": "hale.bench",
+        "title": "Hale: Bench"
+      },
+      {
+        "command": "hale.apiExportCheck",
+        "title": "Hale: Hold a surface's exported bundle to spec/ (api export --check)"
+      },
+      {
+        "command": "hale.fleetCheck",
+        "title": "Hale: Fleet check (the plan in hale.toml)"
+      },
+      {
+        "command": "hale.sealLocus",
+        "title": "Hale: Seal a locus (@sealed)"
+      },
+      {
+        "command": "hale.pinBaseline",
+        "title": "Hale: Pin this check as the Changes baseline",
+        "icon": "$(pin)"
+      },
+      {
+        "command": "hale.unpinBaseline",
+        "title": "Hale: Unpin the Changes baseline (diff against the previous check)",
+        "icon": "$(pinned)"
+      },
+      {
+        "command": "hale.language.usedOnly",
+        "title": "Hale: Language view: only what this seed uses",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "hale.language.all",
+        "title": "Hale: Language view: the whole language",
+        "icon": "$(filter-filled)"
+      },
+      {
+        "command": "hale.openChapter",
+        "title": "Hale: Open a chapter of the book"
+      },
+      {
+        "command": "hale.insertConstruct",
+        "title": "Hale: Insert a construct"
+      },
+      {
+        "command": "hale.focusView",
+        "title": "Hale: Open a Hale view"
+      },
+      {
+        "command": "hale.languageOf",
+        "title": "Hale: What is this? (the construct under the cursor)"
+      },
+      {
+        "command": "hale.revealAt",
+        "title": "Hale: Reveal a position"
+      },
+      {
+        "command": "hale.insertHere",
+        "title": "Hale: Insert here"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "hale.refresh",
+          "when": "view =~ /^hale\\./",
+          "group": "navigation@9"
+        },
+        {
+          "command": "hale.showGraph",
+          "when": "view == hale.program || view == hale.tower || view == hale.bus",
+          "group": "navigation@2"
+        },
+        {
+          "command": "hale.showApiDocs",
+          "when": "view == hale.program",
+          "group": "navigation@3"
+        },
+        {
+          "command": "hale.seedDocs",
+          "when": "view == hale.program",
+          "group": "navigation@4"
+        },
+        {
+          "command": "hale.language.usedOnly",
+          "when": "view == hale.language && !hale.languageUsedOnly",
+          "group": "navigation@1"
+        },
+        {
+          "command": "hale.language.all",
+          "when": "view == hale.language && hale.languageUsedOnly",
+          "group": "navigation@1"
+        },
+        {
+          "command": "hale.pinBaseline",
+          "when": "view == hale.changes && !hale.baselinePinned",
+          "group": "navigation@1"
+        },
+        {
+          "command": "hale.unpinBaseline",
+          "when": "view == hale.changes && hale.baselinePinned",
+          "group": "navigation@1"
+        },
+        {
+          "command": "hale.observe",
+          "when": "view == hale.tower",
+          "group": "navigation@3"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "hale.showGraph",
+          "when": "resourceLangId == hale",
+          "group": "navigation@1"
+        },
+        {
+          "command": "hale.showApiDocs",
+          "when": "resourceLangId == hale",
+          "group": "navigation@2"
+        },
+        {
+          "command": "hale.observe",
+          "when": "resourceLangId == hale",
+          "group": "navigation@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "hale.revealAt",
+          "when": "false"
+        },
+        {
+          "command": "hale.focusView",
+          "when": "false"
+        },
+        {
+          "command": "hale.openChapter",
+          "when": "false"
+        },
+        {
+          "command": "hale.sealLocus",
+          "when": "false"
+        },
+        {
+          "command": "hale.language.usedOnly",
+          "when": "false"
+        },
+        {
+          "command": "hale.language.all",
+          "when": "false"
+        },
+        {
+          "command": "hale.insertHere",
+          "when": "false"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "hale.languageOf",
+          "when": "resourceLangId == hale",
+          "group": "navigation@1"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "hale.languageOf",
+        "key": "ctrl+shift+h",
+        "mac": "cmd+shift+h",
+        "when": "editorTextFocus && resourceLangId == hale"
+      }
+    ]
+  },
+  "scripts": {
+    "grammar": "node scripts/gen-grammar.mjs",
+    "typecheck": "tsc --noEmit -p .",
+    "bundle": "node esbuild.mjs",
+    "compile": "npm run grammar && npm run typecheck && npm run bundle",
+    "test": "node test/artifact.test.mjs && node test/grammar.test.mjs && node test/language.test.mjs && node test/reports.test.mjs && node test/contexts.test.mjs",
+    "package": "npm run compile && node scripts/pack.mjs",
+    "test:host": "node test/host/run.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.100.0",
+    "@vscode/test-electron": "^3.1.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.6.0",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.1.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "In an untrusted workspace the language server, the views and the graph still read the source; the commands that build or execute it (build, run, test, observe) wait for trust, and workspace-level hale.path and hale.env are ignored.",
+      "restrictedConfigurations": [
+        "hale.path",
+        "hale.env"
+      ]
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "The compiler reads files on disk."
+    }
+  }
+}

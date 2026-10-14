@@ -1,0 +1,54 @@
+sealability: 44 of 48 loci can be `@sealed` today
+
+  free to seal (nothing outside touches their params):
+    App
+    Shop
+    Tokens
+    __ApiHubCodec_1_0
+    __HubRows_1
+    __RpcSurface_1
+    __RpcSurface_2
+    __StdApiExposure
+    __StdApiHttpConns
+    __StdApiHttpCorsTable
+    __StdApiHttpPeer
+    __StdApiHttpRpc
+    __StdApiHub
+    __StdApiHubConns
+    __StdApiHubFrames
+    __StdApiHubPends
+    __StdApiHubStream
+    __StdApiMcpPendings
+    __StdApiMcpRpc
+    __StdApiNoExpiry
+    __StdApiNoHubRows
+    __StdApiNoRevision
+    __StdApiNoRoles
+    __StdApiNoRpc
+    __StdApiNoSurface
+    __StdApiRevisedStaticRoles
+    __StdApiRpcEntries
+    __StdApiTestRecords
+    __StdApiTestRpc
+    __StdApiUdpEndpoint
+    __StdApiUdpKnowns
+    __StdApiUnixConns
+    __StdApiUnixListener
+    __StdApiUnixPeer
+    __StdApiUnixPendings
+    __StdApiUnixRpc
+    __StdApiWsConns
+    __StdApiWsListener
+    __StdApiWsPeer
+    __StdHttpResponder
+    __StdHttpServer
+    __StdIoTcpAcceptor
+    __StdIoTcpConnFlow
+    __StdIoTcpConnInline
+
+  would break callers:
+    __StdApiHttpListener — 1 external access(es): std::api::http::Listener.listener
+    __StdIoTcpConnections — 3 external access(es): std::io::tcp::Connections.armed, std::io::tcp::Connections.route, std::io::tcp::Connections.taken
+    __StdIoTcpFlows — 1 external access(es): __StdIoTcpFlows.active
+    __StdIoTcpRelay — 3 external access(es): __StdIoTcpRelay.armed, __StdIoTcpRelay.name, __StdIoTcpRelay.sent
+ok: 1 file(s) typechecked

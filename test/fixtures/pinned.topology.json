@@ -1,0 +1,119 @@
+{
+  "schema": "1.19",
+  "semantics": 2,
+  "shape_hash": "5985d50dc15f7ae5",
+  "sorts": {
+    "loci": ["PinnedJob", "PinnedJobApp"],
+    "fns": ["PinnedJob::birth", "PinnedJob::dissolve", "PinnedJob::drain", "PinnedJob::run", "PinnedJobApp::run", "main"],
+    "topics": []
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ]
+  },
+  "groups": {
+  },
+  "labels": {
+  },
+  "phases": {
+    "PinnedJob::birth": {"phase": "birth", "kind": "hook"},
+    "PinnedJob::dissolve": {"phase": "dissolve", "kind": "hook"},
+    "PinnedJob::drain": {"phase": "drain", "kind": "hook"},
+    "PinnedJob::run": {"phase": "run", "kind": "hook"},
+    "PinnedJobApp::run": {"phase": "run", "kind": "hook"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "PinnedJob::birth": ["syscall"],
+    "PinnedJob::dissolve": ["syscall"],
+    "PinnedJob::drain": ["syscall"],
+    "PinnedJob::run": ["syscall", "block", "time"],
+    "PinnedJobApp::run": ["syscall"],
+    "main": ["alloc"]
+  },
+  "supervision": [
+  ],
+  "unknowns": [
+  ],
+  "sources": [
+    {"id": 0, "path": "main.hl", "digest": "41fd10c056bd1f5c"}
+  ],
+  "provenance": {
+    "calls": [
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ],
+    "decls": {
+      "PinnedJob": {"source": 0, "span": [1311, 1320]},
+      "PinnedJobApp": {"source": 0, "span": [1769, 1781]},
+      "main": {"source": 0, "span": [1979, 1983]}
+    },
+    "supervision": [
+    ]
+  },
+  "topics": [
+  ],
+  "endpoints": [],
+  "declares_publish": [],
+  "contracts": [{"locus": "PinnedJob", "sealed": false, "params": [], "methods": ["PinnedJob::birth", "PinnedJob::dissolve", "PinnedJob::drain", "PinnedJob::run"], "publishes": [], "subscribes": [], "supervises": [], "instances": [{"path": "PinnedJobApp.job", "owner": "PinnedJobApp", "domain": "pinned:PinnedJobApp.job"}], "file": "main.hl", "span": [1311, 1320]}, {"locus": "PinnedJobApp", "sealed": false, "params": [{"name": "job", "type": "PinnedJob"}], "methods": ["PinnedJobApp::run"], "publishes": [], "subscribes": [], "supervises": [], "instances": [{"path": "PinnedJobApp", "owner": null, "domain": "main"}], "file": "main.hl", "span": [1769, 1781]}],
+  "bindings": [],
+  "claims": [
+  ],
+  "lowered": [
+  ],
+  "law": {
+    "law_digest": "12b423cce001087a",
+    "inputs_digest": "8b4f831070f63907",
+    "fn_universe": [{"name": "PinnedJob::birth", "display": "PinnedJob::birth", "analyzed": true, "summarized": true, "kind": "hook", "owner": "PinnedJob"}, {"name": "PinnedJob::dissolve", "display": "PinnedJob::dissolve", "analyzed": true, "summarized": true, "kind": "hook", "owner": "PinnedJob"}, {"name": "PinnedJob::drain", "display": "PinnedJob::drain", "analyzed": true, "summarized": true, "kind": "hook", "owner": "PinnedJob"}, {"name": "PinnedJob::run", "display": "PinnedJob::run", "analyzed": true, "summarized": true, "kind": "hook", "owner": "PinnedJob"}, {"name": "PinnedJobApp::run", "display": "PinnedJobApp::run", "analyzed": true, "summarized": true, "kind": "hook", "owner": "PinnedJobApp"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "PinnedJob", "display": "PinnedJob", "analyzable": true}, {"name": "PinnedJobApp", "display": "PinnedJobApp", "analyzable": true}],
+    "groups": [],
+    "topics": [],
+    "subjects": [],
+    "effect_classes": [],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+    ]
+  },
+  "capabilities": {
+    "exact_calls": true,
+    "exact_publishes": true,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": true,
+    "exact_placement": true,
+    "exact_routes": true,
+    "exact_effects": true,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "exact",
+    "boundary": "exact",
+    "endpoint": "exact",
+    "bound": "exact",
+    "certificate": "exact",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "ca65dbe8001ea570"
+}

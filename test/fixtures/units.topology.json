@@ -1,0 +1,136 @@
+{
+  "schema": "1.19",
+  "semantics": 2,
+  "shape_hash": "c44d33e5cd32e71b",
+  "sorts": {
+    "loci": ["Book", "Desk"],
+    "fns": ["Book::on_fill", "Desk::birth", "fee_of", "main"],
+    "topics": ["Fills"]
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+      {"from": "Desk::birth", "to": "fee_of"}
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+      {"fn": "Desk::birth", "subject": "Fills"}
+    ],
+    "subscribes": [
+      {"subject": "Fills", "locus": "Book", "handler": "on_fill"}
+    ]
+  },
+  "groups": {
+  },
+  "labels": {
+  },
+  "phases": {
+    "Book::on_fill": {"phase": "on_fill", "kind": "method"},
+    "Desk::birth": {"phase": "birth", "kind": "hook"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "Book::on_fill": ["syscall", "alloc"],
+    "Desk::birth": ["publish", "alloc"],
+    "main": ["syscall", "alloc"]
+  },
+  "supervision": [
+  ],
+  "unknowns": [
+  ],
+  "endpoint_identity": [
+    {"verb": "publish", "fn": "Desk::birth", "site": 0, "wire": "desk.fills", "topic": "Fills"},
+    {"verb": "publish", "fn": "Desk::birth", "site": 1, "wire": "desk.fills", "topic": "Fills"},
+    {"verb": "publish", "locus": "Desk", "wire": "desk.fills", "topic": "Fills"},
+    {"verb": "subscribe", "fn": "Book::on_fill", "site": 0, "wire": "desk.fills", "topic": "Fills"}
+  ],
+  "sources": [
+    {"id": 0, "path": "main.hl", "digest": "d98f90fd18a3cd52"}
+  ],
+  "provenance": {
+    "calls": [
+      {"from": "Desk::birth", "to": "fee_of", "source": 0, "span": [2135, 2161]},
+      {"from": "Desk::birth", "to": "fee_of", "source": 0, "span": [2237, 2263]}
+    ],
+    "publishes": [
+      {"fn": "Desk::birth", "subject": "Fills", "source": 0, "span": [2071, 2164]},
+      {"fn": "Desk::birth", "subject": "Fills", "source": 0, "span": [2173, 2266]}
+    ],
+    "subscribes": [
+      {"subject": "Fills", "locus": "Book", "handler": "on_fill", "source": 0, "span": [1638, 1665]}
+    ],
+    "decls": {
+      "Balance": {"source": 0, "span": [1215, 1222]},
+      "Book": {"source": 0, "span": [1529, 1533]},
+      "Desk": {"source": 0, "span": [1979, 1983]},
+      "Fill": {"source": 0, "span": [1244, 1248]},
+      "Fills": {"source": 0, "span": [1318, 1323]},
+      "Ledger": {"source": 0, "span": [1144, 1150]},
+      "Money": {"source": 0, "span": [1077, 1082]},
+      "OrderId": {"source": 0, "span": [1186, 1193]},
+      "Rate": {"source": 0, "span": [1112, 1116]},
+      "fee_of": {"source": 0, "span": [1378, 1384]},
+      "main": {"source": 0, "span": [2279, 2283]}
+    },
+    "supervision": [
+    ]
+  },
+  "topics": [
+    {"name": "Fills", "subject": "desk.fills", "shape": "order:i;notional:q(cent);fee:q(cent)", "payload_hash": "447a7a058f9efb83"}
+  ],
+  "endpoints": [{"verb": "publish", "subject": "desk.fills", "via": "declaration", "locus": "Desk", "topic": "Fills", "file": "main.hl", "span": [2004, 2018]}, {"verb": "publish", "subject": "desk.fills", "via": "site", "fn": "Desk::birth", "site": 0, "topic": "Fills", "file": "main.hl", "span": [2071, 2164]}, {"verb": "publish", "subject": "desk.fills", "via": "site", "fn": "Desk::birth", "site": 1, "topic": "Fills", "file": "main.hl", "span": [2173, 2266]}, {"verb": "subscribe", "subject": "desk.fills", "via": "declaration", "fn": "Book::on_fill", "site": 0, "topic": "Fills", "file": "main.hl", "span": [1638, 1665]}],
+  "declares_publish": [{"locus": "Desk", "subject": "desk.fills", "topic": "Fills", "file": "main.hl", "span": [2004, 2018]}],
+  "contracts": [{"locus": "Book", "sealed": false, "params": [{"name": "open", "type": "Balance"}, {"name": "paid", "type": "Money"}, {"name": "fills", "type": "Int"}], "methods": ["Book::on_fill"], "publishes": [], "subscribes": [{"topic": "Fills", "handler": "Book::on_fill", "capacity": null, "shed": "none"}], "supervises": [], "instances": [], "file": "main.hl", "span": [1529, 1533]}, {"locus": "Desk", "sealed": false, "params": [], "methods": ["Desk::birth"], "publishes": ["Fills"], "subscribes": [], "supervises": [], "instances": [], "file": "main.hl", "span": [1979, 1983]}],
+  "bindings": [],
+  "claims": [
+  ],
+  "lowered": [
+  ],
+  "law": {
+    "law_digest": "12b423cce001087a",
+    "inputs_digest": "8b4f831070f63907",
+    "fn_universe": [{"name": "Book::on_fill", "display": "Book::on_fill", "analyzed": true, "summarized": true, "kind": "method", "owner": "Book"}, {"name": "Desk::birth", "display": "Desk::birth", "analyzed": true, "summarized": true, "kind": "hook", "owner": "Desk"}, {"name": "fee_of", "display": "fee_of", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "Book", "display": "Book", "analyzable": true}, {"name": "Desk", "display": "Desk", "analyzable": true}],
+    "groups": [],
+    "topics": [{"name": "Fills", "display": "Fills", "subject": "desk.fills"}],
+    "subjects": ["desk.fills"],
+    "effect_classes": [],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+    ]
+  },
+  "capabilities": {
+    "exact_calls": true,
+    "exact_publishes": true,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": false,
+    "exact_placement": false,
+    "exact_routes": true,
+    "exact_effects": true,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "exact",
+    "boundary": "exact",
+    "endpoint": "exact",
+    "bound": "exact",
+    "certificate": "exact",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "244d244ecf241c5a"
+}

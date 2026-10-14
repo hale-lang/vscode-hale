@@ -1,0 +1,261 @@
+{
+  "inventory": 1,
+  "app": "App",
+  "surfaces": [
+    {
+      "name": "Counter",
+      "digest": "fnv1a64:01c0c908d101b3bf",
+      "members": [
+        {
+          "name": "Shop::on_order",
+          "request": {
+            "$ref": "#/schemas/OrderRequest"
+          },
+          "response": {
+            "$ref": "#/schemas/OrderResponse"
+          },
+          "error": null,
+          "requires": []
+        },
+        {
+          "name": "Shop::on_restock",
+          "request": {
+            "$ref": "#/schemas/RestockRequest"
+          },
+          "response": {
+            "$ref": "#/schemas/RestockResponse"
+          },
+          "error": null,
+          "requires": [
+            "manager"
+          ]
+        },
+        {
+          "name": "Shop::stock_now",
+          "request": {
+            "$ref": "#/schemas/StockRequest"
+          },
+          "response": {
+            "$ref": "#/schemas/Stock"
+          },
+          "error": null,
+          "requires": [
+            "clerk"
+          ]
+        }
+      ]
+    }
+  ],
+  "exposures": [
+    {
+      "exposure": "Counter@fnv1a64:01c0c908d101b3bf/counter",
+      "name": "counter",
+      "surface": "Counter",
+      "digest": "fnv1a64:01c0c908d101b3bf",
+      "listener": {
+        "transport": "unix",
+        "address": "/tmp/shop.sock"
+      },
+      "codec": "json",
+      "principals": {
+        "source": "kernel"
+      },
+      "roles": {
+        "source": "self.staff",
+        "type": "std::api::StaticRoles"
+      },
+      "receivers": [
+        {
+          "type": "Shop",
+          "instance": "self.shop",
+          "binding": "explicit",
+          "pool": "work"
+        }
+      ]
+    },
+    {
+      "exposure": "Counter@fnv1a64:01c0c908d101b3bf/web",
+      "name": "web",
+      "surface": "Counter",
+      "digest": "fnv1a64:01c0c908d101b3bf",
+      "listener": {
+        "transport": "http",
+        "address": "127.0.0.1:8794"
+      },
+      "codec": "json",
+      "principals": {
+        "source": "self.tokens",
+        "type": "Tokens"
+      },
+      "roles": {
+        "source": "self.staff",
+        "type": "std::api::StaticRoles"
+      },
+      "receivers": [
+        {
+          "type": "Shop",
+          "instance": "self.shop",
+          "binding": "explicit",
+          "pool": "work"
+        }
+      ]
+    }
+  ],
+  "hubs": [
+    {
+      "exposure": "hub@fnv1a64:a6724756437acdb6/shipments",
+      "name": "shipments",
+      "digest": "fnv1a64:a6724756437acdb6",
+      "instance": "self.hub",
+      "listener": {
+        "transport": "ws",
+        "address": "127.0.0.1:8796"
+      },
+      "codec": "json",
+      "principals": {
+        "source": "self.tokens",
+        "type": "Tokens"
+      },
+      "roles": {
+        "source": "self.staff",
+        "type": "std::api::StaticRoles"
+      },
+      "streams": [
+        {
+          "topic": "Shipments",
+          "subject": "shop.shipment",
+          "direction": "out",
+          "payload": {
+            "$ref": "#/schemas/Shipment"
+          },
+          "codec": "json",
+          "bound": 64,
+          "on_full": "drop_old",
+          "loss": "at most once per admitted subscriber, in publish order; drop_old sheds the oldest undelivered frame, and seq counts every event offered to the subscription, so a gap in seq is the frames shed; a subscription invalidated by expiry or revocation loses what it had buffered",
+          "replay": false,
+          "requires": [
+            "clerk"
+          ]
+        }
+      ]
+    }
+  ],
+  "schemas": {
+    "OrderRequest": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "type": "string"
+        },
+        "qty": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "item",
+        "qty"
+      ]
+    },
+    "OrderResponse": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "integer"
+        },
+        "on_hand": {
+          "type": "integer"
+        },
+        "by": {
+          "type": "string"
+        },
+        "via": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "order_id",
+        "on_hand",
+        "by",
+        "via"
+      ]
+    },
+    "RestockRequest": {
+      "type": "object",
+      "properties": {
+        "qty": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "qty"
+      ]
+    },
+    "RestockResponse": {
+      "type": "object",
+      "properties": {
+        "on_hand": {
+          "type": "integer"
+        },
+        "by": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "on_hand",
+        "by",
+        "role"
+      ]
+    },
+    "Shipment": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "integer"
+        },
+        "item": {
+          "type": "string"
+        },
+        "qty": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "order_id",
+        "item",
+        "qty"
+      ]
+    },
+    "Stock": {
+      "type": "object",
+      "properties": {
+        "on_hand": {
+          "type": "integer"
+        },
+        "orders": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "on_hand",
+        "orders"
+      ]
+    },
+    "StockRequest": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "notes": {
+    "inventory": "every exposure with its listener, its sources and its receivers: a deployment inventory, never an authorization statement for any caller",
+    "authorization": "requires is checked against this exposure's role source at the serve site, before a request is queued: a boundary check, never a proof over the program's internal call paths",
+    "lifecycle": "a request accepted runs to completion: a timeout or a lost connection does not mean it did not run, and ending the wait never rolls it back"
+  }
+}

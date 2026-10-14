@@ -1,0 +1,115 @@
+{
+  "schema": "1.19",
+  "semantics": 2,
+  "shape_hash": "dd3ecbb2ca0c7040",
+  "sorts": {
+    "loci": ["Coordinator", "Worker"],
+    "fns": ["Coordinator::run", "Worker::birth", "main"],
+    "topics": []
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ]
+  },
+  "groups": {
+  },
+  "labels": {
+  },
+  "phases": {
+    "Coordinator::run": {"phase": "run", "kind": "hook"},
+    "Worker::birth": {"phase": "birth", "kind": "hook"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "Coordinator::run": ["syscall", "alloc"],
+    "Worker::birth": ["syscall"],
+    "main": ["alloc"]
+  },
+  "supervision": [
+    {"locus": "Coordinator", "child": "Worker", "err": "ClosureViolation", "ops": ["restart"]}
+  ],
+  "unknowns": [
+  ],
+  "sources": [
+    {"id": 0, "path": "main.hl", "digest": "de71181eb326f8c0"}
+  ],
+  "provenance": {
+    "calls": [
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ],
+    "decls": {
+      "Coordinator": {"source": 0, "span": [2067, 2078]},
+      "Worker": {"source": 0, "span": [1249, 1255]},
+      "main": {"source": 0, "span": [3245, 3249]}
+    },
+    "supervision": [
+      {"locus": "Coordinator", "child": "Worker", "source": 0, "span": [2085, 2271]}
+    ]
+  },
+  "topics": [
+  ],
+  "endpoints": [],
+  "declares_publish": [],
+  "contracts": [{"locus": "Coordinator", "sealed": false, "params": [], "methods": ["Coordinator::on_failure(Worker,ClosureViolation)", "Coordinator::run"], "publishes": [], "subscribes": [], "supervises": [{"child": "Worker", "error": "ClosureViolation", "ops": ["restart"], "retry": null}], "instances": [], "file": "main.hl", "span": [2067, 2078]}, {"locus": "Worker", "sealed": false, "params": [{"name": "attempts", "type": "Int"}, {"name": "target", "type": "Int"}], "methods": ["Worker::birth"], "publishes": [], "subscribes": [], "supervises": [], "instances": [], "file": "main.hl", "span": [1249, 1255]}],
+  "bindings": [],
+  "claims": [
+  ],
+  "lowered": [
+  ],
+  "law": {
+    "law_digest": "12b423cce001087a",
+    "inputs_digest": "8b4f831070f63907",
+    "fn_universe": [{"name": "Coordinator::on_failure(Worker,ClosureViolation)", "display": "Coordinator::on_failure(Worker,ClosureViolation)", "analyzed": false, "summarized": false, "kind": "failure", "owner": "Coordinator"}, {"name": "Coordinator::run", "display": "Coordinator::run", "analyzed": true, "summarized": true, "kind": "hook", "owner": "Coordinator"}, {"name": "Worker::birth", "display": "Worker::birth", "analyzed": true, "summarized": true, "kind": "hook", "owner": "Worker"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "Coordinator", "display": "Coordinator", "analyzable": true}, {"name": "Worker", "display": "Worker", "analyzable": true}],
+    "groups": [],
+    "topics": [],
+    "subjects": [],
+    "effect_classes": [],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+    ]
+  },
+  "capabilities": {
+    "exact_calls": false,
+    "exact_publishes": false,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": false,
+    "exact_placement": false,
+    "exact_routes": true,
+    "exact_effects": false,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "degraded",
+    "boundary": "degraded",
+    "endpoint": "degraded",
+    "bound": "degraded",
+    "certificate": "degraded",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "813a7c4c3e90ae4d"
+}

@@ -1,0 +1,125 @@
+{
+  "schema": "1.19",
+  "semantics": 2,
+  "shape_hash": "22535977bc0fa6c3",
+  "sorts": {
+    "loci": ["App", "Gateway", "RouterV1"],
+    "fns": ["App::run", "Gateway::handle", "Gateway::run", "RouterV1::health", "RouterV1::route", "main"],
+    "topics": []
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+      {"from": "Gateway::handle", "to": "RouterV1::route"},
+      {"from": "Gateway::run", "to": "Gateway::handle"},
+      {"from": "Gateway::run", "to": "RouterV1::health"},
+      {"from": "Gateway::run", "to": "RouterV1::route"}
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ]
+  },
+  "groups": {
+  },
+  "labels": {
+  },
+  "phases": {
+    "App::run": {"phase": "run", "kind": "hook"},
+    "Gateway::handle": {"phase": "handle", "kind": "method"},
+    "Gateway::run": {"phase": "run", "kind": "hook"},
+    "RouterV1::health": {"phase": "health", "kind": "method"},
+    "RouterV1::route": {"phase": "route", "kind": "method"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "App::run": ["syscall"],
+    "Gateway::run": ["syscall"],
+    "main": ["alloc"]
+  },
+  "supervision": [
+  ],
+  "unknowns": [
+  ],
+  "sources": [
+    {"id": 0, "path": "main.hl", "digest": "9c7b601ca1b9cf34"}
+  ],
+  "provenance": {
+    "calls": [
+      {"from": "Gateway::handle", "to": "RouterV1::route", "source": 0, "span": [1624, 1647]},
+      {"from": "Gateway::run", "to": "Gateway::handle", "source": 0, "span": [1783, 1797]},
+      {"from": "Gateway::run", "to": "RouterV1::health", "source": 0, "span": [1823, 1843]},
+      {"from": "Gateway::run", "to": "RouterV1::route", "source": 0, "span": [1736, 1757]}
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ],
+    "decls": {
+      "App": {"source": 0, "span": [1871, 1874]},
+      "Gateway": {"source": 0, "span": [1494, 1501]},
+      "RouterV1": {"source": 0, "span": [1218, 1226]},
+      "main": {"source": 0, "span": [2022, 2026]}
+    },
+    "supervision": [
+    ]
+  },
+  "topics": [
+  ],
+  "endpoints": [],
+  "declares_publish": [],
+  "contracts": [{"locus": "App", "sealed": false, "params": [{"name": "gw", "type": "Gateway"}], "methods": ["App::run"], "publishes": [], "subscribes": [], "supervises": [], "instances": [{"path": "App", "owner": null, "domain": "main"}], "file": "main.hl", "span": [1871, 1874]}, {"locus": "Gateway", "sealed": false, "params": [{"name": "router", "type": "perspective(Router)"}], "methods": ["Gateway::handle", "Gateway::run"], "publishes": [], "subscribes": [], "supervises": [], "instances": [{"path": "App.gw", "owner": "App", "domain": "main"}], "file": "main.hl", "span": [1494, 1501]}, {"locus": "RouterV1", "sealed": false, "params": [], "methods": ["RouterV1::health", "RouterV1::route"], "publishes": [], "subscribes": [], "supervises": [], "instances": [{"path": "App.gw.router", "owner": "App.gw", "domain": "main"}], "file": "main.hl", "span": [1218, 1226]}],
+  "bindings": [],
+  "claims": [
+  ],
+  "lowered": [
+  ],
+  "law": {
+    "law_digest": "12b423cce001087a",
+    "inputs_digest": "8b4f831070f63907",
+    "fn_universe": [{"name": "App::run", "display": "App::run", "analyzed": true, "summarized": true, "kind": "hook", "owner": "App"}, {"name": "Gateway::handle", "display": "Gateway::handle", "analyzed": true, "summarized": true, "kind": "method", "owner": "Gateway"}, {"name": "Gateway::run", "display": "Gateway::run", "analyzed": true, "summarized": true, "kind": "hook", "owner": "Gateway"}, {"name": "RouterV1::health", "display": "RouterV1::health", "analyzed": true, "summarized": true, "kind": "method", "owner": "RouterV1"}, {"name": "RouterV1::route", "display": "RouterV1::route", "analyzed": true, "summarized": true, "kind": "method", "owner": "RouterV1"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "App", "display": "App", "analyzable": true}, {"name": "Gateway", "display": "Gateway", "analyzable": true}, {"name": "RouterV1", "display": "RouterV1", "analyzable": true}],
+    "groups": [],
+    "topics": [],
+    "subjects": [],
+    "effect_classes": [],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+    ]
+  },
+  "capabilities": {
+    "exact_calls": true,
+    "exact_publishes": true,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": true,
+    "exact_placement": true,
+    "exact_routes": true,
+    "exact_effects": true,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "exact",
+    "boundary": "exact",
+    "endpoint": "exact",
+    "bound": "exact",
+    "certificate": "exact",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "7270db62c292d0c0"
+}

@@ -1,0 +1,30 @@
+# resource budget (GH #18 item 5, count slice)
+#
+# OS threads are the placement table's: one per pinned anchor (a root field
+# placed `pinned`, one per replica) for each live occurrence of the construction
+# that builds it, and one per adapter in the root's `bindings { }`, built once.
+# A cooperative pool is one worker however many instances run on it; the main
+# thread is the program's own, never a pool. Not counted: a transport
+# binding's reader thread, and the serve thread a stdlib transport's birth spawns.
+
+OS threads (placement):   1
+    pinned anchors:        0
+    adapters:              1
+main thread:               1 (the program's own; not a pool)
+cooperative pools:         4  [__api_http, __api_unix, __api_ws, work]
+bus subjects:              13
+    - Shipments
+    - __ApiHttpOutT
+    - __ApiHubEventT
+    - __ApiHubOutT
+    - __ApiHubUpT
+    - __ApiRpcCallT
+    - __ApiRpcEventT
+    - __ApiRpcHelloT
+    - __ApiRpcIngressT
+    - __ApiRpcLostT
+    - __ApiUnixOutT
+    - __TcpAcceptedT
+    - __api.roles.revision
+fd acquisition sites:      0
+not counted:               the reader threads of 0 transport binding(s), and any serve thread a stdlib transport's birth spawns

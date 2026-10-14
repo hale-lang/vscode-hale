@@ -1,0 +1,3155 @@
+{
+  "a": {
+    "artifact_digest": "f4e16390696d08a4",
+    "path": "/tmp/vh-probe/a.json",
+    "schema": "1.19",
+    "shape_hash": "8c8ef70930342748"
+  },
+  "b": {
+    "artifact_digest": "28db4aee6c31ae35",
+    "path": "/tmp/vh-probe/c.json",
+    "schema": "1.19",
+    "shape_hash": "33c175c724125296"
+  },
+  "classification": "model-shape",
+  "contracts": [],
+  "declarations": [
+    {
+      "a": {
+        "span": [
+          2560,
+          2563
+        ],
+        "unit": "main.hl"
+      },
+      "b": {
+        "span": [
+          2560,
+          2563
+        ],
+        "unit": "main.hl"
+      },
+      "change": "persisted",
+      "kind": "locus",
+      "name": "App"
+    },
+    {
+      "a": {
+        "span": [
+          776,
+          780
+        ],
+        "unit": "main.hl"
+      },
+      "b": {
+        "span": [
+          776,
+          780
+        ],
+        "unit": "main.hl"
+      },
+      "change": "persisted",
+      "kind": "locus",
+      "name": "Shop"
+    },
+    {
+      "a": {
+        "span": [
+          2228,
+          2234
+        ],
+        "unit": "main.hl"
+      },
+      "b": {
+        "span": [
+          2228,
+          2234
+        ],
+        "unit": "main.hl"
+      },
+      "change": "persisted",
+      "kind": "locus",
+      "name": "Tokens"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__ApiHubCodec_1_0"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__HubRows_1"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__RpcSurface_1"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__RpcSurface_2"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiExposure"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHttpConns"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHttpCorsTable"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHttpListener"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHttpPeer"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHttpRpc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHub"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHubConns"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHubFrames"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHubPends"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiHubStream"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiMcpPendings"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiMcpRpc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiNoExpiry"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiNoHubRows"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiNoRevision"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiNoRoles"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiNoRpc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiNoSurface"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiRevisedStaticRoles"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiRpcEntries"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiTestRecords"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiTestRpc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiUdpEndpoint"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiUdpKnowns"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiUnixConns"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiUnixListener"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiUnixPeer"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiUnixPendings"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiUnixRpc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiWsConns"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiWsListener"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdApiWsPeer"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdHttpResponder"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdHttpServer"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdIoTcpAcceptor"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdIoTcpConnFlow"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdIoTcpConnInline"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdIoTcpConnections"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdIoTcpFlows"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "locus",
+      "name": "__StdIoTcpRelay"
+    },
+    {
+      "a": {
+        "span": [
+          668,
+          677
+        ],
+        "unit": "main.hl"
+      },
+      "b": {
+        "span": [
+          668,
+          677
+        ],
+        "unit": "main.hl"
+      },
+      "change": "persisted",
+      "kind": "topic",
+      "name": "Shipments"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiHttpOutT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiHubEventT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiHubOutT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiHubUpT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiRpcCallT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiRpcEventT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiRpcHelloT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiRpcIngressT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiRpcLostT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__ApiUnixOutT"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "topic",
+      "name": "__TcpAcceptedT"
+    },
+    {
+      "b": {
+        "span": [
+          3638,
+          3643
+        ],
+        "unit": "main.hl"
+      },
+      "change": "added",
+      "kind": "topic",
+      "name": "Probe"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "App::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::__rpc_call_1"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::__rpc_call_2"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::__rpc_ev"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::__rpc_hello_1"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::__rpc_hello_2"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::on_order"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::on_restock"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Shop::stock_now"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Tokens::principal"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "Tokens::refused"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__ApiHubCodec_1_0::decode"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__ApiHubCodec_1_0::encode"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::bound"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::find"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::grants"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::head"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::notes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::on_full"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::outcomes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::required"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::requires"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::stream_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::topic"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::type_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::type_mask"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__HubRows_1::types"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::check"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::grants"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::member"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::member_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::name_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::receiver"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::refs"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::requires"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::roles"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::schema_count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::schema_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::schema_name"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_1::slots"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::check"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::grants"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::member"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::member_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::name_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::receiver"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::refs"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::requires"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::roles"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::schema_count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::schema_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::schema_name"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__RpcSurface_2::slots"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::abandon_executing"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::admit"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::describe_full"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::drain"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::executing"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::finish"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::gone"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::gone_dispatch"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::hello"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::holds_role"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::index_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::key_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::missing_role"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::on_event"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::on_ingress"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::on_lost"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::pending"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::principal_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::principal_json"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::probe_failed"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::pump"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::refuse"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::settle_slot"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::shutdown"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::stop"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::table_len"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::tool_row"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::unavailable"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiExposure::wait"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpConns::accept"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpConns::release"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpConns::serve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpListener::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpListener::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpListener::on_ctl"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpListener::release_socket"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpListener::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpPeer::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpPeer::hangup"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpPeer::on_group"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpPeer::on_out"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpPeer::release_fd"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpPeer::respond"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpPeer::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::attach"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::close_connection"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::frame"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::note"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::on_ask"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::reply"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::stop_listening"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHttpRpc::take"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::admit"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::announce"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::answer"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::attach"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::call"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::close_connection"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::connect"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::connections"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::describe"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::drain"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::events"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::expired"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::frame"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::gone"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::holds_role"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::index_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::missing_role"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::on_ask"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::on_event"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::on_up"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::pend"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::put"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::recheck"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::refuse"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::reply"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::route"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::stop"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::stop_listening"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::subscribers"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHub::take_id"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiHubStream::send"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::attach"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::close_connection"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::frame"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::note"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::on_ask"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::reply"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::stop_listening"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiMcpRpc::take"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoExpiry::expiry"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::bound"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::find"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::grants"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::head"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::notes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::on_full"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::outcomes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::required"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::requires"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::stream_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::topic"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::type_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::type_mask"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoHubRows::types"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoRevision::grants"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoRoles::holds"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoRpc::attach"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoRpc::close_connection"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoRpc::frame"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoRpc::reply"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoRpc::stop_listening"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::check"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::grants"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::member"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::member_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::name_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::receiver"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::refs"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::requires"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::roles"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::schema_count"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::schema_doc"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::schema_name"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiNoSurface::slots"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiRevisedStaticRoles::grants"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiRevisedStaticRoles::holds"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::attach"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::await_outcome"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::call"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::call_as_peer"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::call_digest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::close_connection"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::describe"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::frame"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::line"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::lose"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::outcome"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::outcomes_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::record_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::reply"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::request_id"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::send"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiTestRpc::stop_listening"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::accept"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::conn_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::on_ctl"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::on_up"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::release"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::release_socket"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::remember"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::route_datagram"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUdpEndpoint::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixConns::accept"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixConns::release"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixConns::serve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixListener::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixListener::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixListener::on_ctl"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixListener::release_socket"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixListener::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::add"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::drain_lines"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::handle_line"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::hangup"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::index_of"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::lose_all"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::on_group"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::on_out"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::release_fd"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixPeer::write_line"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixRpc::attach"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixRpc::close_connection"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixRpc::frame"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixRpc::on_ask"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixRpc::reply"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiUnixRpc::stop_listening"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsConns::accept"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsConns::release"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsConns::serve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsListener::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsListener::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsListener::on_ctl"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsListener::release_socket"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsListener::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::check_expiry"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::check_expiry_quiet"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::control"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::credential"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::datagram"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::describe"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::drained"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::expired_events"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::flush"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::hangup"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::http"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::oldest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::on_event"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::on_group"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::on_out"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::on_revision"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::on_text"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::parse_frames"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::parse_one"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::purge"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::put"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::revoke"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::revoke_queued"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::say"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::serve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::shed_oldest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::stale"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::subscriber"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::upgrade"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::with_id"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdApiWsPeer::write_frame"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdHttpResponder::serve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdHttpServer::accept_direct"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdHttpServer::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdHttpServer::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdHttpServer::hand_over"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdHttpServer::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdHttpServer::shutdown"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpAcceptor::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpAcceptor::dissolve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpAcceptor::release_socket"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpAcceptor::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpConnFlow::run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpConnInline::birth"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpConnections::active"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpConnections::on_conn"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpConnections::take"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpFlows::accept"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpFlows::release"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpFlows::serve"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpRelay::accept_all"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpRelay::accept_next"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpRelay::on_unclaimed"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__StdIoTcpRelay::relay"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_bind_colon"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_bind_host"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_bind_port"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_caller_json"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_cors_allows"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_cors_headers"
+    },
+    {
+      "a": {
+        "span": [
+          3,
+          28
+        ],
+        "unit": "main.hl"
+      },
+      "b": {
+        "span": [
+          3,
+          28
+        ],
+        "unit": "main.hl"
+      },
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_decode_OrderRequest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_decode_OrderResponse"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_decode_RestockRequest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_decode_RestockResponse"
+    },
+    {
+      "a": {
+        "span": [
+          51,
+          72
+        ],
+        "unit": "main.hl"
+      },
+      "b": {
+        "span": [
+          51,
+          72
+        ],
+        "unit": "main.hl"
+      },
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_decode_Shipment"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_decode_Stock"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_decode_StockRequest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_encode_OrderRequest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_encode_OrderResponse"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_encode_RestockRequest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_encode_RestockResponse"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_encode_Shipment"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_encode_Stock"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_encode_StockRequest"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_field"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_grpc_outcomes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_http_outcomes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_http_refusal_status"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_hub_csv_json"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_hub_quote"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_hub_refusal"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_json_digit"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_json_is_bool"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_json_is_float"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_json_is_int"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_json_is_string"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_json_run"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_json_whole"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_code"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_error"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_ident"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_outcomes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_ref"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_tool"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_tools"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_mcp_type_name"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_notes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_outcome_answer"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_outcome_kind"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_refusal_object"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_rpc_entry"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_rpc_entry_caller"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_rpc_entry_gen"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_rpc_entry_lost"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_rpc_entry_state"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_rpc_first"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_rpc_has"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_test_field"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__api_unix_outcomes"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__http_handle_one_conn"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__std_api_run_until_stopped"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__tcp_listener_name"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__tcp_rebind"
+    },
+    {
+      "a": null,
+      "b": null,
+      "change": "persisted",
+      "kind": "fn",
+      "name": "__tcp_route"
+    },
+    {
+      "a": {
+        "span": [
+          3607,
+          3611
+        ],
+        "unit": "main.hl"
+      },
+      "b": {
+        "span": [
+          3607,
+          3611
+        ],
+        "unit": "main.hl"
+      },
+      "change": "persisted",
+      "kind": "fn",
+      "name": "main"
+    }
+  ],
+  "effects": {
+    "certificates": [],
+    "classes": []
+  },
+  "law": {
+    "adequacy": [],
+    "claims": [],
+    "verdict": null
+  },
+  "matching": {
+    "contracts": "per paired locus, facet by facet, as set differences",
+    "declarations": "by (kind, name); moved = a different source unit (paths relative to each artifact's common source root)",
+    "order": "loci, then topics, fns, groups, claims; an accepted locus or group rename is read through wherever the name recurs (fn owners, group members, param types, supervised children, claim forms)",
+    "renames": "a removed and an added declaration of one kind whose shape signatures match each other uniquely; more than one candidate is reported as ambiguous",
+    "splits_joins": "loci only: an exact partition of the local method set across two or more added (split) or removed (joined) loci"
+  },
+  "renames": {},
+  "schema": "1.0",
+  "summary": {
+    "added": 1,
+    "ambiguous": 0,
+    "certificate_deltas": 0,
+    "contract_deltas": 0,
+    "effect_deltas": 0,
+    "joined": 0,
+    "law_deltas": 0,
+    "moved": 0,
+    "removed": 0,
+    "renamed": 0,
+    "split": 0
+  }
+}

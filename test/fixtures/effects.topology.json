@@ -1,0 +1,169 @@
+{
+  "schema": "1.19",
+  "semantics": 2,
+  "shape_hash": "48dfa96aea975339",
+  "sorts": {
+    "loci": ["App", "Ledger"],
+    "fns": ["App::birth", "Ledger::on_settled", "charge", "double", "label", "main", "no_io", "quote", "safe", "scale"],
+    "topics": ["Settled"]
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+      {"from": "App::birth", "to": "charge"},
+      {"from": "App::birth", "to": "label"},
+      {"from": "App::birth", "to": "no_io"},
+      {"from": "App::birth", "to": "quote"},
+      {"from": "App::birth", "to": "safe"},
+      {"from": "App::birth", "to": "scale"},
+      {"from": "quote", "to": "double"}
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+      {"fn": "App::birth", "subject": "Settled"}
+    ],
+    "subscribes": [
+      {"subject": "Settled", "locus": "Ledger", "handler": "on_settled"}
+    ]
+  },
+  "groups": {
+  },
+  "labels": {
+    "charge": ["money"]
+  },
+  "phases": {
+    "App::birth": {"phase": "birth", "kind": "hook"},
+    "Ledger::on_settled": {"phase": "on_settled", "kind": "method"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "App::birth": ["syscall", "publish", "alloc", "money"],
+    "charge": ["money"],
+    "label": ["alloc"],
+    "main": ["alloc"]
+  },
+  "supervision": [
+  ],
+  "unknowns": [
+  ],
+  "endpoint_identity": [
+    {"verb": "publish", "fn": "App::birth", "site": 0, "wire": "settled", "topic": "Settled"},
+    {"verb": "publish", "locus": "App", "wire": "settled", "topic": "Settled"},
+    {"verb": "subscribe", "fn": "Ledger::on_settled", "site": 0, "wire": "settled", "topic": "Settled"}
+  ],
+  "sources": [
+    {"id": 0, "path": "main.hl", "digest": "506b9a7c19aa7970"}
+  ],
+  "provenance": {
+    "calls": [
+      {"from": "App::birth", "to": "charge", "source": 0, "span": [2546, 2557]},
+      {"from": "App::birth", "to": "label", "source": 0, "span": [2497, 2505]},
+      {"from": "App::birth", "to": "no_io", "source": 0, "span": [2524, 2532]},
+      {"from": "App::birth", "to": "quote", "source": 0, "span": [2416, 2425]},
+      {"from": "App::birth", "to": "safe", "source": 0, "span": [2471, 2478]},
+      {"from": "App::birth", "to": "scale", "source": 0, "span": [2444, 2452]},
+      {"from": "quote", "to": "double", "source": 0, "span": [1381, 1394]}
+    ],
+    "publishes": [
+      {"fn": "App::birth", "subject": "Settled", "source": 0, "span": [2572, 2606]}
+    ],
+    "subscribes": [
+      {"subject": "Settled", "locus": "Ledger", "handler": "on_settled", "source": 0, "span": [2146, 2178]}
+    ],
+    "decls": {
+      "App": {"source": 0, "span": [2281, 2284]},
+      "Ledger": {"source": 0, "span": [2075, 2081]},
+      "Payment": {"source": 0, "span": [898, 905]},
+      "Settled": {"source": 0, "span": [933, 940]},
+      "charge": {"source": 0, "span": [1071, 1077]},
+      "double": {"source": 0, "span": [1196, 1202]},
+      "label": {"source": 0, "span": [1611, 1616]},
+      "main": {"source": 0, "span": [2629, 2633]},
+      "no_io": {"source": 0, "span": [1720, 1725]},
+      "quote": {"source": 0, "span": [1343, 1348]},
+      "safe": {"source": 0, "span": [1997, 2001]},
+      "scale": {"source": 0, "span": [1940, 1945]}
+    },
+    "supervision": [
+    ]
+  },
+  "topics": [
+    {"name": "Settled", "subject": "settled", "shape": "cents:i", "payload_hash": "355d053ebd7dca4a"}
+  ],
+  "endpoints": [{"verb": "publish", "subject": "settled", "via": "declaration", "locus": "App", "topic": "Settled", "file": "main.hl", "span": [2362, 2378]}, {"verb": "publish", "subject": "settled", "via": "site", "fn": "App::birth", "site": 0, "topic": "Settled", "file": "main.hl", "span": [2572, 2606]}, {"verb": "subscribe", "subject": "settled", "via": "declaration", "fn": "Ledger::on_settled", "site": 0, "topic": "Settled", "file": "main.hl", "span": [2146, 2178]}],
+  "declares_publish": [{"locus": "App", "subject": "settled", "topic": "Settled", "file": "main.hl", "span": [2362, 2378]}],
+  "contracts": [{"locus": "App", "sealed": false, "params": [{"name": "ledger", "type": "Ledger"}], "methods": ["App::birth"], "publishes": ["Settled"], "subscribes": [], "supervises": [], "instances": [{"path": "App", "owner": null, "domain": "main"}], "file": "main.hl", "span": [2281, 2284]}, {"locus": "Ledger", "sealed": false, "params": [{"name": "total", "type": "Int"}], "methods": ["Ledger::on_settled"], "publishes": [], "subscribes": [{"topic": "Settled", "handler": "Ledger::on_settled", "capacity": null, "shed": "none"}], "supervises": [], "instances": [{"path": "App.ledger", "owner": "App", "domain": "main"}], "file": "main.hl", "span": [2075, 2081]}],
+  "bindings": [],
+  "claims": [
+  ],
+  "lowered": [
+    {"subject": "Ledger", "form": "only effects {alloc} on {Ledger} during birth", "result": "holds", "ordinal": 8, "cert": 0},
+    {"subject": "double", "form": "forbid reaches({double}, effects(syscall))", "result": "holds", "ordinal": 0, "cert": 0},
+    {"subject": "double", "form": "forbid reaches({double}, effects(block))", "result": "holds", "ordinal": 1, "cert": 0},
+    {"subject": "quote", "form": "forbid reaches({quote}, effects(syscall))", "result": "holds", "ordinal": 2, "cert": 0},
+    {"subject": "quote", "form": "forbid reaches({quote}, effects(money))", "result": "holds", "ordinal": 2, "cert": 1},
+    {"subject": "label", "form": "only effects {alloc} on {label}", "result": "holds", "ordinal": 3, "cert": 0},
+    {"subject": "no_io", "form": "forbid reaches({no_io}, effects(io))", "result": "holds", "ordinal": 4, "cert": 0},
+    {"subject": "scale", "form": "forbid reaches({scale}, effects(time))", "result": "holds", "ordinal": 5, "cert": 0},
+    {"subject": "scale", "form": "forbid reaches({scale}, effects(entropy))", "result": "holds", "ordinal": 5, "cert": 1},
+    {"subject": "scale", "form": "forbid reaches({scale}, effects(env))", "result": "holds", "ordinal": 5, "cert": 2},
+    {"subject": "scale", "form": "bound alloc <= 0 on paths from {scale}", "result": "holds", "ordinal": 6, "cert": 0},
+    {"subject": "safe", "form": "forbid reaches({safe}, panic)", "result": "holds", "ordinal": 7, "cert": 0}
+  ],
+  "law": {
+    "law_digest": "221cee5cc1822f7b",
+    "inputs_digest": "8b4f831070f63907",
+    "fn_universe": [{"name": "App::birth", "display": "App::birth", "analyzed": true, "summarized": true, "kind": "hook", "owner": "App"}, {"name": "Ledger::on_settled", "display": "Ledger::on_settled", "analyzed": true, "summarized": true, "kind": "method", "owner": "Ledger"}, {"name": "charge", "display": "charge", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "double", "display": "double", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "label", "display": "label", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "no_io", "display": "no_io", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "quote", "display": "quote", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "safe", "display": "safe", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "scale", "display": "scale", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "App", "display": "App", "analyzable": true}, {"name": "Ledger", "display": "Ledger", "analyzable": true}],
+    "groups": [],
+    "topics": [{"name": "Settled", "display": "Settled", "subject": "settled"}],
+    "subjects": ["settled"],
+    "effect_classes": [{"name": "io", "declared": true, "cyclic": false}, {"name": "money", "declared": true, "cyclic": false}],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+      {"ordinal": 0, "name": "double", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "effect_forbid", "at": {"name": "double", "display": "double", "resolved": true}, "classes": [{"class": "syscall", "builtin": true, "resolved": true, "file": "main.hl", "span": [1196, 1202]}]}, "certs": [{"ordinal": 0, "form": "forbid reaches({double}, effects(syscall))", "result": "holds"}], "file": "main.hl", "span": [1196, 1202]},
+      {"ordinal": 1, "name": "double", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "effect_forbid", "at": {"name": "double", "display": "double", "resolved": true}, "classes": [{"class": "block", "builtin": true, "resolved": true, "file": "main.hl", "span": [1196, 1202]}]}, "certs": [{"ordinal": 0, "form": "forbid reaches({double}, effects(block))", "result": "holds"}], "file": "main.hl", "span": [1196, 1202]},
+      {"ordinal": 2, "name": "quote", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "effect_forbid", "at": {"name": "quote", "display": "quote", "resolved": true}, "classes": [{"class": "syscall", "builtin": true, "resolved": true, "file": "main.hl", "span": [1343, 1348]}, {"class": "money", "builtin": false, "resolved": true, "file": "main.hl", "span": [1343, 1348]}]}, "certs": [{"ordinal": 0, "form": "forbid reaches({quote}, effects(syscall))", "result": "holds"}, {"ordinal": 1, "form": "forbid reaches({quote}, effects(money))", "result": "holds"}], "file": "main.hl", "span": [1343, 1348]},
+      {"ordinal": 3, "name": "label", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "effect_only", "at": {"name": "label", "display": "label", "resolved": true}, "classes": [{"class": "alloc", "builtin": true, "resolved": true, "file": "main.hl", "span": [1611, 1616]}]}, "certs": [{"ordinal": 0, "form": "only effects {alloc} on {label}", "result": "holds"}], "file": "main.hl", "span": [1611, 1616]},
+      {"ordinal": 4, "name": "no_io", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "effect_forbid", "at": {"name": "no_io", "display": "no_io", "resolved": true}, "classes": [{"class": "io", "builtin": false, "resolved": true, "file": "main.hl", "span": [1720, 1725]}]}, "certs": [{"ordinal": 0, "form": "forbid reaches({no_io}, effects(io))", "result": "holds"}], "file": "main.hl", "span": [1720, 1725]},
+      {"ordinal": 5, "name": "scale", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "effect_forbid", "at": {"name": "scale", "display": "scale", "resolved": true}, "classes": [{"class": "time", "builtin": true, "resolved": true, "file": "main.hl", "span": [1940, 1945]}, {"class": "entropy", "builtin": true, "resolved": true, "file": "main.hl", "span": [1940, 1945]}, {"class": "env", "builtin": true, "resolved": true, "file": "main.hl", "span": [1940, 1945]}]}, "certs": [{"ordinal": 0, "form": "forbid reaches({scale}, effects(time))", "result": "holds"}, {"ordinal": 1, "form": "forbid reaches({scale}, effects(entropy))", "result": "holds"}, {"ordinal": 2, "form": "forbid reaches({scale}, effects(env))", "result": "holds"}], "file": "main.hl", "span": [1940, 1945]},
+      {"ordinal": 6, "name": "scale", "origin": "annotation", "family": "budget", "verdict": "holds", "law": {"kind": "alloc_budget", "at": {"name": "scale", "display": "scale", "resolved": true}, "per_call": 0}, "certs": [{"ordinal": 0, "form": "bound alloc <= 0 on paths from {scale}", "result": "holds"}], "file": "main.hl", "span": [1940, 1945]},
+      {"ordinal": 7, "name": "safe", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "no_panic", "at": {"name": "safe", "display": "safe", "resolved": true}}, "certs": [{"ordinal": 0, "form": "forbid reaches({safe}, panic)", "result": "holds"}], "file": "main.hl", "span": [1997, 2001]},
+      {"ordinal": 8, "name": "Ledger", "origin": "annotation", "family": "certificate", "verdict": "holds", "law": {"kind": "phase_effects", "locus": {"name": "Ledger", "display": "Ledger", "resolved": true}, "phases": [{"phase": "birth", "allowed": [{"class": "alloc", "builtin": true, "resolved": true, "file": "main.hl", "span": [2036, 2068]}]}]}, "certs": [{"ordinal": 0, "form": "only effects {alloc} on {Ledger} during birth", "result": "holds"}], "file": "main.hl", "span": [2036, 2068]}
+    ]
+  },
+  "capabilities": {
+    "exact_calls": true,
+    "exact_publishes": true,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": true,
+    "exact_placement": true,
+    "exact_routes": true,
+    "exact_effects": true,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "exact",
+    "boundary": "exact",
+    "endpoint": "exact",
+    "bound": "exact",
+    "certificate": "exact",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "7bd9de3b1c8d8c5f"
+}

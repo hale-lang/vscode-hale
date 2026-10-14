@@ -1,0 +1,45 @@
+x86_64-unknown-linux-gnu
+  arch: x86-64   os: Linux   env: Gnu
+  object: .o   executable: (none)   static: .a   dynamic: .so
+  cross from this host: builds and links with zig and a target sysroot (scripts/target-sysroot.sh; GH #970)
+
+aarch64-unknown-linux-gnu
+  arch: aarch64   os: Linux   env: Gnu
+  object: .o   executable: (none)   static: .a   dynamic: .so
+  cross from this host: builds and links with zig and a target sysroot (scripts/target-sysroot.sh; GH #970)
+
+x86_64-unknown-linux-musl
+  arch: x86-64   os: Linux   env: Musl
+  object: .o   executable: (none)   static: .a   dynamic: .so
+  cross from this host: builds and links with zig and a target sysroot (scripts/target-sysroot.sh; GH #970)
+
+aarch64-unknown-linux-musl
+  arch: aarch64   os: Linux   env: Musl
+  object: .o   executable: (none)   static: .a   dynamic: .so
+  cross from this host: builds and links with zig and a target sysroot (scripts/target-sysroot.sh; GH #970)
+
+x86_64-apple-darwin
+  arch: x86-64   os: MacOs   env: None
+  object: .o   executable: (none)   static: .a   dynamic: .dylib
+  cross, object-only from this host: emits a relocatable object, no link (GH #970)
+
+aarch64-apple-darwin
+  arch: aarch64   os: MacOs   env: None
+  object: .o   executable: (none)   static: .a   dynamic: .dylib
+  supported: builds and links  (host)
+
+x86_64-pc-windows-msvc
+  arch: x86-64   os: Windows   env: Msvc
+  object: .obj   executable: .exe   static: .lib   dynamic: .dll
+  planned: named and described, no codegen yet (GH #445)
+
+aarch64-pc-windows-msvc
+  arch: aarch64   os: Windows   env: Msvc
+  object: .obj   executable: .exe   static: .lib   dynamic: .dll
+  planned: named and described, no codegen yet (GH #445)
+
+wasm32-unknown-unknown
+  arch: wasm32   os: None   env: None
+  object: .wasm   executable: .wasm   static: .a   dynamic: .wasm
+  object-only: emits a relocatable object, no link
+

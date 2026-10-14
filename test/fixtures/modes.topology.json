@@ -1,0 +1,121 @@
+{
+  "schema": "1.19",
+  "semantics": 2,
+  "shape_hash": "5d53ff470e273319",
+  "sorts": {
+    "loci": ["AggregatorL", "LeafL"],
+    "fns": ["AggregatorL::accept", "AggregatorL::bulk", "AggregatorL::harmonic", "AggregatorL::resolution", "AggregatorL::run", "main"],
+    "topics": []
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+      {"from": "AggregatorL::run", "to": "AggregatorL::bulk"},
+      {"from": "AggregatorL::run", "to": "AggregatorL::harmonic"},
+      {"from": "AggregatorL::run", "to": "AggregatorL::resolution"}
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ]
+  },
+  "groups": {
+  },
+  "labels": {
+  },
+  "phases": {
+    "AggregatorL::accept": {"phase": "accept", "kind": "hook"},
+    "AggregatorL::bulk": {"phase": "bulk", "kind": "hook"},
+    "AggregatorL::harmonic": {"phase": "harmonic", "kind": "hook"},
+    "AggregatorL::resolution": {"phase": "resolution", "kind": "hook"},
+    "AggregatorL::run": {"phase": "run", "kind": "hook"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "AggregatorL::run": ["syscall", "alloc"],
+    "main": ["alloc"]
+  },
+  "supervision": [
+  ],
+  "unknowns": [
+  ],
+  "sources": [
+    {"id": 0, "path": "main.hl", "digest": "746ab4797289869c"}
+  ],
+  "provenance": {
+    "calls": [
+      {"from": "AggregatorL::run", "to": "AggregatorL::bulk", "source": 0, "span": [2028, 2039]},
+      {"from": "AggregatorL::run", "to": "AggregatorL::harmonic", "source": 0, "span": [2080, 2095]},
+      {"from": "AggregatorL::run", "to": "AggregatorL::resolution", "source": 0, "span": [2136, 2153]}
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ],
+    "decls": {
+      "AggregatorL": {"source": 0, "span": [749, 760]},
+      "LeafL": {"source": 0, "span": [641, 646]},
+      "main": {"source": 0, "span": [2168, 2172]}
+    },
+    "supervision": [
+    ]
+  },
+  "topics": [
+  ],
+  "endpoints": [],
+  "declares_publish": [],
+  "contracts": [{"locus": "AggregatorL", "sealed": false, "params": [{"name": "B", "type": "Int"}, {"name": "c", "type": "Int"}, {"name": "sigma", "type": "Int"}, {"name": "phi", "type": "Float"}], "methods": ["AggregatorL::accept", "AggregatorL::bulk", "AggregatorL::harmonic", "AggregatorL::resolution", "AggregatorL::run"], "publishes": [], "subscribes": [], "supervises": [], "instances": [], "file": "main.hl", "span": [749, 760]}, {"locus": "LeafL", "sealed": false, "params": [{"name": "value", "type": "Int"}], "methods": [], "publishes": [], "subscribes": [], "supervises": [], "instances": [], "file": "main.hl", "span": [641, 646]}],
+  "bindings": [],
+  "claims": [
+  ],
+  "lowered": [
+  ],
+  "law": {
+    "law_digest": "12b423cce001087a",
+    "inputs_digest": "8b4f831070f63907",
+    "fn_universe": [{"name": "AggregatorL::accept", "display": "AggregatorL::accept", "analyzed": true, "summarized": true, "kind": "hook", "owner": "AggregatorL"}, {"name": "AggregatorL::bulk", "display": "AggregatorL::bulk", "analyzed": true, "summarized": true, "kind": "mode", "owner": "AggregatorL"}, {"name": "AggregatorL::harmonic", "display": "AggregatorL::harmonic", "analyzed": true, "summarized": true, "kind": "mode", "owner": "AggregatorL"}, {"name": "AggregatorL::resolution", "display": "AggregatorL::resolution", "analyzed": true, "summarized": true, "kind": "mode", "owner": "AggregatorL"}, {"name": "AggregatorL::run", "display": "AggregatorL::run", "analyzed": true, "summarized": true, "kind": "hook", "owner": "AggregatorL"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "AggregatorL", "display": "AggregatorL", "analyzable": true}, {"name": "LeafL", "display": "LeafL", "analyzable": true}],
+    "groups": [],
+    "topics": [],
+    "subjects": [],
+    "effect_classes": [],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+    ]
+  },
+  "capabilities": {
+    "exact_calls": true,
+    "exact_publishes": true,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": false,
+    "exact_placement": false,
+    "exact_routes": true,
+    "exact_effects": true,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "exact",
+    "boundary": "exact",
+    "endpoint": "exact",
+    "bound": "exact",
+    "certificate": "exact",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "a91b925508bde0fb"
+}
