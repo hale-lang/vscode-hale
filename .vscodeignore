@@ -9,3 +9,7 @@ tsconfig.json
 **/*.map
 .vscode-test-user/**
 .vscode-test/**
+dist/families.js
+dist/language.js
+dist/reports.js
+dist/contexts.js

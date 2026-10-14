@@ -17,13 +17,14 @@ what the block you are in is for and what you can write there.
    The extension runs `hale` for everything: it must be on your `PATH`,
    or set `hale.path` in VS Code settings to the binary.
 
-2. **Install the extension**: from the Marketplace, search "Hale".
-   Or take `vscode-hale-<version>.vsix` from the
+2. **Install the extension**: take `vscode-hale-<version>.vsix` from the
    [releases page](https://github.com/hale-lang/vscode-hale/releases) and run
 
    ```sh
    code --install-extension vscode-hale-<version>.vsix
    ```
+
+   (A Marketplace listing is coming; until then the vsix is the way.)
 
 3. **Open a `.hl` file.** Errors appear as you type. Click the Hale
    icon in the activity bar for the views. Save, and every view
