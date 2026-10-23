@@ -284,7 +284,7 @@
       },
       {
         "command": "hale.serveSurface",
-        "title": "Hale: Serve a surface from the main locus"
+        "title": "Hale: Set up API transports"
       },
       {
         "command": "hale.examplesFor",
@@ -391,6 +391,14 @@
       {
         "command": "hale.insertHere",
         "title": "Hale: Insert here"
+      },
+      {
+        "command": "hale.generateRepoMethods",
+        "title": "Hale: Generate repository methods"
+      },
+      {
+        "command": "hale.createApi",
+        "title": "Hale: Create API from methods"
       }
     ],
     "menus": {
@@ -493,6 +501,21 @@
           "command": "hale.languageOf",
           "when": "resourceLangId == hale",
           "group": "navigation@1"
+        },
+        {
+          "command": "hale.generateRepoMethods",
+          "when": "resourceLangId == hale",
+          "group": "haleScaffolding"
+        },
+        {
+          "command": "hale.createApi",
+          "when": "resourceLangId == hale",
+          "group": "haleScaffolding"
+        },
+        {
+          "command": "hale.serveSurface",
+          "when": "resourceLangId == hale",
+          "group": "haleScaffolding"
         }
       ]
     },
@@ -510,7 +533,7 @@
     "typecheck": "tsc --noEmit -p .",
     "bundle": "node esbuild.mjs",
     "compile": "npm run grammar && npm run typecheck && npm run bundle",
-    "test": "node test/artifact.test.mjs && node test/grammar.test.mjs && node test/language.test.mjs && node test/reports.test.mjs && node test/contexts.test.mjs",
+    "test": "node test/artifact.test.mjs && node test/grammar.test.mjs && node test/language.test.mjs && node test/reports.test.mjs && node test/contexts.test.mjs && node test/scaffold.test.mjs",
     "package": "npm run compile && node scripts/pack.mjs",
     "test:host": "node test/host/run.mjs"
   },

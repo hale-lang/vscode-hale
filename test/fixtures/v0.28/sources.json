@@ -265,6 +265,18 @@
           "occurrence": 0
         }
       ]
+    },
+    "build-an-api.hl": {
+      "source": "crates/hale-codegen/tests/fixtures/examples/92-build-an-api/main.hl",
+      "sha256": "b91860574e3817e7816906716dca5858fdee10e707006f5b9b7b749a0570c9d7",
+      "assertions": [
+        {
+          "line": "        sock: api::Exposure = api::serve(",
+          "token": "api",
+          "scope": "entity.name.namespace.hale",
+          "occurrence": 0
+        }
+      ]
     }
   }
 }

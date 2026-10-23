@@ -28,6 +28,17 @@ Existing scope names are retained; contextual rules and scopes are added.
   exact source positions. Fleet vocabulary is included in the language
   catalog; `@secret` is now marked as present in the upstream corpus.
 
+- Repository method generation from `@repo(T)`, available as a CodeLens,
+  quick fix and command. Reads the actual key field, preserves existing
+  methods, and emits typed, explicitly failing storage stubs.
+- Guided creation of API surfaces from handler methods, plus setup for
+  multiple surfaces and Unix/HTTP RPC/REST/MCP/gRPC transports. Generates
+  receivers, exposure params, REST routes and environment-backed bearer
+  authentication; supports unsaved sibling files and a single undo step.
+- Correct the existing serve snippets and next-step edits to use
+  `api::Exposure` params instead of the retired `let … = api::serve(…)`
+  form inside `run()`.
+
 ## 0.1.0 — 2026-10-14
 
 First public version.

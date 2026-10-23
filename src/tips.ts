@@ -64,7 +64,7 @@ export class Ctx {
   /** Every `api::serve(...)` line: its surface, transport and the struct body. */
   get serves(): { surface: string; transport: string; body: string; start: number; end: number; varName: string; asName: string }[] {
     const out = [];
-    const re = /let\s+([A-Za-z_]\w*)\s*=\s*api::serve\(\s*([A-Za-z_]\w*)\s*,\s*(?:([a-z]+)::Rpc\s*\{([^}]*)\}|self\.([a-z_]\w*))\s*,\s*as:\s*"([^"]*)"[^;]*;/g;
+    const re = /([A-Za-z_]\w*)\s*:\s*api::Exposure\s*=\s*api::serve\(\s*([A-Za-z_]\w*)\s*,\s*(?:([a-z]+)::Rpc\s*\{([^}]*)\}|self\.([a-z_]\w*))\s*,\s*as:\s*"([^"]*)"[^;]*;/g;
     let m: RegExpExecArray | null;
     while ((m = re.exec(this.text))) out.push({ varName: m[1], surface: m[2], transport: m[3] ?? `hub ${m[5]}`, body: m[4] ?? "", start: m.index, end: m.index + m[0].length, asName: m[6] });
     return out;
@@ -184,8 +184,8 @@ function ensureRoleDecl(edit: vscode.WorkspaceEdit, c: Ctx, role: string): void 
 /** A second serve line after an existing one, with its stop before the run's close. */
 function addServe(edit: vscode.WorkspaceEdit, c: Ctx, after: { end: number; surface: string }, varName: string, transport: string, asName: string): void {
   const recv = receiversOf(c, after.surface);
-  edit.insert(c.doc.uri, c.at(after.end), `\n${ind(8)}let ${varName} = api::serve(${after.surface}, ${transport}, as: "${asName}", receivers: { ${recv} }, bound: 64, on_full: refuse);`);
-  const r = c.run; if (r) edit.insert(c.doc.uri, c.at(r.close), `${ind(4)}${varName}.stop();\n${ind(4)}`);
+  edit.insert(c.doc.uri, c.at(after.end), `\n${ind(8)}${varName}: api::Exposure = api::serve(${after.surface}, ${transport}, as: "${asName}", receivers: { ${recv} }, bound: 64, on_full: refuse);`);
+  const r = c.run; if (r) edit.insert(c.doc.uri, c.at(r.close), `${ind(4)}self.${varName}.stop();\n${ind(4)}`);
 }
 function receiversOf(c: Ctx, surface: string): string {
   const s = c.model.inventory?.surfaces.find((x) => x.name === surface);
