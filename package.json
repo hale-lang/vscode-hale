@@ -2,7 +2,7 @@
   "name": "vscode-hale",
   "displayName": "Hale",
   "description": "Hale language support: the whole language visible beside the source. Diagnostics and navigation from hale lsp; every view reads what the compiler derives.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "hale-lang",
   "license": "MIT",
   "icon": "media/hale.png",

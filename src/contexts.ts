@@ -272,6 +272,8 @@ export const GUIDES: Record<string, Guide> = {
     ],
     offers: (c) => [
       offer("main locus", "the entry: its params are the tower, born in order", "main locus ${1:App} {\n    params {\n        ${2:child}: ${3:Locus} = ${3:Locus} { };\n    }\n    run() {\n        while !self.draining {\n            std::time::sleep(100ms);\n        }\n    }\n}\n\nfn main() {\n    ${1:App} { };\n}", /\bmain\s+locus\b/.test(c.src)),
+      // Shape from docs/src/services/multi-binary.md's fleet example.
+      offer("fleet locus", "deploy other seeds' mains on hosts or as replicas", "fleet locus ${1:Prod} {\n    params { ${2:orders}: ${3:desk::Orders}; }\n    placement { ${2:orders}: host(\"${4:box-a}\"); }\n}"),
       offer("locus", "a unit of state with a lifecycle, a region and a bus", "locus ${1:Name} {\n    params {\n        ${2:field}: ${3:Int} = ${4:0};\n    }\n    run() {\n        $0\n    }\n}"),
       offer("topic", "a typed channel with a wire subject", "topic ${1:Name} { payload: ${2:Type}; subject: \"${3:a.b}\"; }"),
       offer("type", "a record: named fields with defaults", "type ${1:Name} {\n    ${2:field}: ${3:Int} = ${4:0};\n}"),

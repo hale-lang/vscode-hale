@@ -152,6 +152,8 @@ export const CONSTRUCTS: Construct[] = [
   row("shm_ring", "bus", "a shared-memory ring binding across processes", r("\\bshm_ring\\s*\\("), "docs/src/systems/zero-copy-bus.md", "hale.placement"),
   row("on_overflow", "bus", "a ring's policy when a slot is not free: fail, drop or block", r("\\bon_overflow\\s*:"), "docs/src/systems/zero-copy-bus.md", "hale.placement"),
   // ---- placement ---------------------------------------------------------
+  row("fleet locus", "placement", "a deployment of other seeds' main loci", r("\\bfleet\\s+locus\\b"), "docs/src/services/multi-binary.md", "hale.placement"),
+  row("host", "placement", "the host of a fleet instance", r("\\bhost\\s*\\("), "docs/src/services/multi-binary.md", "hale.placement"),
   row("placement", "placement", "where each child of main runs", r("\\bplacement\\s*\\{"), "docs/src/services/concurrency.md#placement-lives-on-main", "hale.placement", "placement {\n    ${1:field}: pinned(core = ${2:1});\n}"),
   row("pinned", "placement", "a thread of its own, optionally on a core", r("\\bpinned\\s*\\("), "docs/src/services/concurrency.md", "hale.placement"),
   row("cooperative", "placement", "a slot on a cooperative pool", r("\\bcooperative\\s*\\("), "docs/src/services/concurrency.md", "hale.placement"),
@@ -191,7 +193,7 @@ export const CONSTRUCTS: Construct[] = [
   row("ClosureViolation", "failure", "the structural error a handler receives", r("\\bClosureViolation\\b"), "docs/src/services/failure.md"),
   // ---- memory ----------------------------------------------------------------
   row("@sealed", "memory", "no reads of this locus's params from outside", r("@sealed\\b"), "docs/src/systems/memory.md", "hale.advice"),
-  spec(row("@secret", "memory", "a parameter whose value must not leak: `fn write(@secret b: Bytes)`", r("@secret\\b"), "docs/src/verification.md", "hale.advice")),
+  row("@secret", "memory", "a parameter whose value must not leak: `fn write(@secret b: Bytes)`", r("@secret\\b"), "docs/src/verification.md", "hale.advice"),
   row("std::secret", "memory", "sealed handling of secrets", r("\\bstd::secret::"), "docs/src/everyday/crypto.md"),
   row("@unbounded", "memory", "own a growth the compiler flagged", r("@unbounded\\b"), "docs/src/systems/memory.md", "hale.advice"),
   row("@bounded_by", "memory", "name what bounds a growth", r("@bounded_by\\s*\\("), "docs/src/systems/memory.md", "hale.advice"),
@@ -328,6 +330,7 @@ export const KEYWORD_COVERAGE: Record<string, string> = {
   topic: "topic", ring_layout: "ring_layout", as: "subscribe", main: "main locus",
   mode: "mode", bindings: "bindings", birth_check: "birth_check", placement: "placement",
   cooperative: "cooperative", pinned: "pinned", pool: "pool", core: "pinned", cores: "cores", heap: "heap",
+  fleet: "fleet locus", host: "host",
   topology: "topology", node: "node / l3", l3: "node / l3", reserve: "reserve", replicas: "replicas",
   schedule: "(reserved)", fixed_cell: "recognition sub-mode", shared_slab: "recognition sub-mode", spillover: "recognition sub-mode", summary_only: "recognition sub-mode", cap: "recognition sub-mode",
   payload: "payload:", subject: "subject:",

@@ -1,0 +1,270 @@
+{
+  "repository": "hale-lang/hale",
+  "revision": "0ac18421932b27cbebb61b6760ed71a54bd1afac",
+  "files": {
+    "set_type_test.hl": {
+      "source": "tests/hale/set_type_test.hl",
+      "sha256": "7453535a6fcfe3152de8e320079d1499175e4d7019cf41d1d4e2c232efcd81d5",
+      "assertions": [
+        {
+          "line": "type Inbound = Book | Trade | Unknown;",
+          "token": "|",
+          "scope": "keyword.operator.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "seam_decoder_handler_test.hl": {
+      "source": "tests/hale/seam_decoder_handler_test.hl",
+      "sha256": "6b03d649160a122718a7702b469d297e05025fb3b8a4c66e87f182d81d2f06c2",
+      "assertions": [
+        {
+          "line": "    seam {",
+          "token": "seam",
+          "scope": "keyword.other.block.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        or end;",
+          "token": "end",
+          "scope": "keyword.other.policy.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    seam answer(frame: String) -> String {",
+          "token": "answer",
+          "scope": "entity.name.function.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        self.feed.next() -> self.wire.decode -> self.desk -> self.wire.encode -> self.log.write;",
+          "token": "->",
+          "scope": "keyword.operator.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        self.feed.next() -> self.wire.decode -> self.desk -> self.wire.encode -> self.log.write;",
+          "token": "self",
+          "scope": "variable.language.hale",
+          "occurrence": 2
+        }
+      ]
+    },
+    "repo_memory_test.hl": {
+      "source": "tests/hale/repo_memory_test.hl",
+      "sha256": "071f0826f6e374a231536362ea96b3c42bafe884c7de6b9babf2aa0acdde3cb1",
+      "assertions": [
+        {
+          "line": "@repo(Order)",
+          "token": "@repo",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    @effects(is: { reads(Order) })",
+          "token": "@effects",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    @effects(is: { creates(Order) }) @idempotent",
+          "token": "@idempotent",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type OrderError = enum { @not_found Missing, @conflict Exists };",
+          "token": "@not_found",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type OrderError = enum { @not_found Missing, @conflict Exists };",
+          "token": "@conflict",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    @effects(is: { reads(Order) })",
+          "token": "reads",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    @effects(is: { writes(Order) }) @idempotent",
+          "token": "writes",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    @effects(is: { creates(Order) }) @idempotent",
+          "token": "creates",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    @effects(is: { deletes(Order) }) @idempotent",
+          "token": "deletes",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "api_patch_field_test.hl": {
+      "source": "tests/hale/api_patch_field_test.hl",
+      "sha256": "d42b82ff40205a15505e91b91dc36e81bf5408adf11aae7a6eb93ee5dc0c3fb8",
+      "assertions": [
+        {
+          "line": "    note: String = \"\";",
+          "token": "note",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    has_note: Bool = false;",
+          "token": "has_note",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    clear_note: Bool = false;",
+          "token": "clear_note",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "api_map_field_test.hl": {
+      "source": "tests/hale/api_map_field_test.hl",
+      "sha256": "a8e3742f9c0bd9799d2c85a08d220893097c078d803b8c79e36b3c8b4f8f7725",
+      "assertions": [
+        {
+          "line": "type Health { checks: bounded[Check; 3] indexed_by name; ok: Bool = true; }",
+          "token": "bounded",
+          "scope": "support.type.collection.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Health { checks: bounded[Check; 3] indexed_by name; ok: Bool = true; }",
+          "token": "indexed_by",
+          "scope": "keyword.operator.word.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "api_value_map_test.hl": {
+      "source": "tests/hale/api_value_map_test.hl",
+      "sha256": "e28370190eb986a8ae089d606069d4b5231ccc3f893c88a104b0c3d4c0546685",
+      "assertions": [
+        {
+          "line": "    checks: bounded[Check; 3] indexed_by name -> status;",
+          "token": "bounded",
+          "scope": "support.type.collection.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    checks: bounded[Check; 3] indexed_by name -> status;",
+          "token": "indexed_by",
+          "scope": "keyword.operator.word.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    checks: bounded[Check; 3] indexed_by name -> status;",
+          "token": "->",
+          "scope": "keyword.operator.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "block_string_test.hl": {
+      "source": "tests/hale/block_string_test.hl",
+      "sha256": "03deeea6ca66d2360763d63a17b7cbc04725031c3e687891ba9fd1b29ba40ad3",
+      "assertions": [
+        {
+          "line": "    fn main() {",
+          "token": "fn",
+          "scope": "string.quoted.double.block.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        println(\"a\\n{b}\");",
+          "token": "\\n",
+          "scope": "string.quoted.double.block.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        println(\"a\\n{b}\");",
+          "token": "{b}",
+          "scope": "string.quoted.double.block.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "            \"\"\";",
+          "token": "\"\"\"",
+          "scope": "string.quoted.double.block.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "            x",
+          "token": "x",
+          "scope": "string.quoted.double.block.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn quoted(s: String) -> String {",
+          "token": "fn",
+          "scope": "storage.type.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert_eq_int(len(\"\"\"",
+          "token": "std::test::assert_eq_int",
+          "scope": "support.function.std.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "rest_fallback_test.hl": {
+      "source": "tests/hale/rest_fallback_test.hl",
+      "sha256": "4d66d34d440075f8d7b0374318abfc6fa77ec8ce4008d49b177e4fbede0bfd46",
+      "assertions": [
+        {
+          "line": "    rpc Items::get at \"GET /v1/items/{id}\";",
+          "token": "at",
+          "scope": "keyword.other.clause.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    rpc Items::get at \"GET /v1/items/{id}\";",
+          "token": "{id}",
+          "scope": "string.quoted.double.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "            http::Rest {",
+          "token": "http",
+          "scope": "entity.name.namespace.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "            http::Rest {",
+          "token": "Rest",
+          "scope": "entity.name.type.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "                fallback: self.front,",
+          "token": "fallback",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Health { status: String; }",
+          "token": "status",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        }
+      ]
+    }
+  }
+}

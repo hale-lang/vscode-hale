@@ -28,11 +28,30 @@ const table = (name) => { const at = kwText.search(new RegExp(`${name}\\s*:`)); 
 const skip = new Set(["in", "as", "or", "of", "on", "with", "where", "via", "self", "let", "mut", "if", "else", "return", "break", "continue", "while", "for", "match", "fn", "type", "const", "import", "export", "main", "trait", "impl", "async", "await", "macro", "cap", "core", "cores", "node", "l3", "pool", "role", "sum", "prod", "tier", "block", "drop", "wait", "fail", "raise", "discard", "default", "floor", "ceil", "trunc", "half_even", "half_up", "clamp", "wrap", "inline", "explicit", "approx", "within", "during", "avoiding", "edges", "seed", "domain", "cover", "count", "bound", "require", "forbid", "reaches", "may_be_empty", "payload", "subject", "listen", "connect", "slot_count", "unix", "shm_ring", "http", "serves", "includes", "requires", "roles", "principals", "captures", "epoch", "duration", "tick", "reserve", "replicas", "schedule", "fixed_cell", "shared_slab", "spillover", "summary_only", "rich", "chunked", "recognition", "projection", "stable_when", "serialize_as", "as_parent_for", "indexed_by", "ordered_by", "persists_through", "resets_on", "resets_per_epoch", "intra_process", "intra_machine", "cross_machine", "zero_copy", "reperspective", "ring_layout", "mode", "birth_check", "topology", "inferred", "consume", "expose", "extends", "adopt", "constitution", "group", "api", "rpc", "unit", "quantity", "point", "distinct", "range", "round", "origin", "yield", "terminate", "bubble", "until", "refuse", "on_full", "on_overflow", "heap"]);
 const heads = [...new Set([...table("HARD_KEYWORDS"), ...table("CONTEXTUAL_KEYWORDS")])].filter((k) => !skip.has(k));
 const phrases = {
+  "set type": /\btype\s+\w+\s*=\s*[\w:]+\s*\|/,
+  "seam": /\bseam\s*(?:\{|\w+\s*\()/,
+  "or end": /\bor\s+end\s*;/,
+  "fleet locus": /\bfleet\s+locus\b/,
+  "host": /\bhost\s*\(/,
+  "REST route": /\brpc\s+[\w:]+\s+at\s*"/,
+  "consumed api": /\bapi\s+\w+\s+from\s+(?:openapi|mcp)\s*"/,
+  "wire": /\bwire\s*:\s*"/,
+  "three-way field": /\bclear_\w+\s*:\s*Bool\b/,
+  "wire map": /\bbounded\[[^\]]+\]\s+indexed_by\b/,
+  "block string": /"{3,}\s*$/,
+  "avoiding": /\bavoiding\s+[\w:]+/,
+  "require separate_domains": /\brequire\s+separate_domains\s*\(/,
+  "require no_silent_loss": /\brequire\s+no_silent_loss\s*\(/,
+  "cover keys": /\bcover\s+keys\s*\(\s*topic\b/,
+  "api::client": /\bapi::client\s*\(/,
+  "reads(T)": /\breads\s*\(/, "writes(T)": /\bwrites\s*\(/,
+  "creates(T)": /\bcreates\s*\(/, "deletes(T)": /\bdeletes\s*\(/,
+  "mutates(T)": /\bmutates\s*\(/,
   "main locus": /\bmain\s+locus\b/, "or raise": /\bor\s+raise\b/, "or discard": /\bor\s+discard\b/, "or self.": /\bor\s+self\.\w+\(err\)/,
   "fallible": /\bfallible\s*\(/, "keyed_by": /\bkeyed_by\b/, "where key": /\bwhere\s+key\s*==/, "subscribe": /\bsubscribe\b/, "publish": /\bpublish\b/, "topic": /\btopic\s+\w+\s*\{/, "api": /\bapi\s+\w+\s*\{/, "rpc": /\brpc\s+\w+::\w+/, "role": /\brole\s+\w+/, "requires": /\brequires:\s*\[/,
   "group": /\bgroup\s+\w+\s*=/, "claims": /\bclaims\s*\{/, "constitution": /\bconstitution\s+\w+/, "adopt": /\badopt\s+\w+;/, "forbid reaches": /\bforbid\s+reaches\b/, "require subscribes": /\brequire\s+subscribes\b/, "require publishes": /\brequire\s+publishes\b/, "count publishers": /\bcount\s+publishers\b/, "bound": /^\s*\w+:\s*bound\s+\w+\s*<=/m,
   "unit": /^\s*unit\s+\w+/m, "quantity": /\bquantity\s+\w+\s+in\b/, "point": /=\s*point\s+\w+/, "distinct": /=\s*distinct\s+\w+/, "range": /\brange:\s*[\d_]+\.\./, "round": /\bround:\s*\w+/,
-  "placement": /\bplacement\s*\{/, "pinned": /\bpinned\s*\(/, "cooperative": /\bcooperative\s*\(/, "replicas": /\breplicas\s*=/, "where async_io": /\bwhere\s+async_io\b/, "bindings": /\bbindings\s*\{/,
+  "placement": /\bplacement\s*\{/, "pinned": /\bpinned\s*\(/, "cooperative": /\bcooperative\s*\(/, "replicas": /\breplicas\s*(?:=|\()/, "where async_io": /\bwhere\s+async_io\b/, "bindings": /\bbindings\s*\{/,
   "closure": /\bclosure\s+\w+\s*\{/, "violate": /\bviolate\s+\w+/, "epoch inline": /\bepoch\s+inline\b/, "captures": /\bcaptures:/, "on_failure": /\bon_failure\s*\(/, "restart": /\brestart\s*\(/, "restart_in_place": /\brestart_in_place\s*\(/, "quarantine": /\bquarantine\s*\(/, "bubble": /\bbubble\s*[;(]/, "terminate": /\bterminate;/, "self.draining": /\bself\.draining\b/,
   "accept": /\baccept\s*\(\s*\w+:\s*\w+\s*\)/, "release": /\brelease\s*\(\s*\w+:\s*\w+\s*\)/, "birth": /\bbirth\s*\(\s*\)/, "run": /\brun\s*\(\s*\)/, "drain": /\bdrain\s*\(\s*\)/, "dissolve": /\bdissolve\s*\(\s*\)/, "tick": /\btick\s*\(/,
   "capacity": /\bcapacity\s*\{/, "pool": /\bpool\s+\w+\s+of\b/, "heap": /\bheap\s+\w+\s+of\b/, "indexed_by": /\bindexed_by\s+\w+/, "ordered_by": /\bordered_by\b/, "bounded[T; N]": /\bbounded\[/,
@@ -67,7 +86,7 @@ for (const src of sources) {
         }
       });
       // annotations and stdlib namespaces, by what the text spells
-      for (const m of b.text.matchAll(/@(form|effects|budget|sealed|hot|supervised|unbounded|bounded_by|phase_effects|rpc|locality|no_syscall|no_block|no_ffi|no_publish|no_spawn|no_recursion|deterministic|no_panic|secret|gated)\b(\(([a-z_]+)[^)]*\))?/g)) {
+      for (const m of b.text.matchAll(/@(form|effects|budget|sealed|hot|supervised|unbounded|bounded_by|phase_effects|rpc|locality|no_syscall|no_block|no_ffi|no_publish|no_spawn|no_recursion|deterministic|no_panic|secret|gated|repo|idempotent|not_idempotent|not_found|conflict|invalid|forbidden|unavailable)\b(\(([a-z_]+)[^)]*\))?/g)) {
         const key = m[1] === "form" && m[3] ? `@form(${m[3]})` : `@${m[1]}`;
         if (seen.has(key)) continue; seen.add(key);
         const i = b.text.slice(0, m.index).split("\n").length - 1; const lo = Math.max(0, i - 2);
@@ -79,7 +98,7 @@ for (const src of sources) {
         const i = b.text.slice(0, m.index).split("\n").length - 1; const lo = Math.max(0, i - 3);
         add(key, rel, b.offset + i, lines.slice(lo, lo + WINDOW).join("\n"), src.weight, titleOf(rel, b.text));
       }
-      for (const m of b.text.matchAll(/\b(unix|http|mcp|grpc|ws|test)::(Rpc|Hub)\s*\{/g)) {
+      for (const m of b.text.matchAll(/\b(unix|http|mcp|grpc|ws|test)::(Rpc|Hub|Rest|Client)\s*\{/g)) {
         const key = `${m[1]}::${m[2]}`; if (seen.has(key)) continue; seen.add(key);
         const i = b.text.slice(0, m.index).split("\n").length - 1; const lo = Math.max(0, i - 2);
         add(key, rel, b.offset + i, lines.slice(lo, lo + WINDOW).join("\n"), src.weight, titleOf(rel, b.text));

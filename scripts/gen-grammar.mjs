@@ -39,11 +39,11 @@ const bare = {
 const blockHeads = ["params", "contract", "bus", "capacity", "placement", "bindings", "claims", "mode", "topology", "schedule", "birth_check", "projection", "roles", "principals", "captures", "epoch", "payload", "subject", "domain", "edges", "seed", "origin", "round"];
 const statementHeads = ["subscribe", "publish", "expose", "consume", "forbid", "require", "count", "bound", "cover", "serve", "listen", "connect", "restart", "restart_in_place", "quarantine", "reorganize", "reserve", "tick", "duration"];
 const hooks = ["birth", "accept", "release", "run", "drain", "dissolve", "on_failure", "bulk", "harmonic", "resolution", "on_full", "on_overflow"];
-const placementFns = ["cooperative", "pinned", "pool", "core", "cores", "replicas", "node", "l3", "heap", "slot_count", "unix", "shm_ring", "http", "role", "intra_process", "intra_machine", "cross_machine", "zero_copy", "reperspective"];
+const placementFns = ["cooperative", "pinned", "pool", "core", "cores", "replicas", "host", "node", "l3", "heap", "slot_count", "unix", "shm_ring", "http", "role", "intra_process", "intra_machine", "cross_machine", "zero_copy", "reperspective"];
 const policies = ["floor", "ceil", "trunc", "half_even", "half_up", "clamp", "wrap", "raise", "discard", "block", "drop", "refuse", "default", "wait", "sum", "prod"];
 const projectionClasses = ["rich", "chunked", "recognition", "tier", "fixed_cell", "shared_slab", "spillover", "summary_only", "cap", "inferred", "may_be_empty", "of", "on", "reaches", "effects"];
 
-const classified = new Set([...Object.values(bare).flat(), ...blockHeads, ...statementHeads, ...hooks, ...placementFns, ...policies, ...projectionClasses]);
+const classified = new Set(["fleet", ...Object.values(bare).flat(), ...blockHeads, ...statementHeads, ...hooks, ...placementFns, ...policies, ...projectionClasses]);
 const unclassified = all.filter((k) => !classified.has(k));
 const stale = [...classified].filter((k) => !all.includes(k) && !["default", "effects", "keyed_by", "sealed"].includes(k));
 
@@ -53,11 +53,26 @@ const patterns = [
   { include: "#strings" },
   { include: "#attributes" },
   { include: "#numbers" },
+  // Contextual syntax absent from keywords.rs is specified by grammar.ebnf
+  // (seams, set types, routes) and spec/api.md (consumed surfaces).
+  { name: "storage.modifier.hale", match: "\\bfleet(?=\\s+locus\\b)" },
+  { match: "\\b(seam)\\s+([a-z_][A-Za-z0-9_]*)(?=\\s*\\()", captures: { 1: { name: "keyword.other.block.hale" }, 2: { name: "entity.name.function.hale" } } },
+  { name: "keyword.other.block.hale", match: "\\bseam(?=\\s*\\{)" },
+  { name: "keyword.other.policy.hale", match: "(?<=\\bor\\s)end\\b" },
+  { match: "\\b(api)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s+(from)\\s+(openapi|mcp)(?=\\s*\")", captures: { 1: { name: "storage.type.hale" }, 2: { name: "entity.name.type.hale" }, 3: { name: "keyword.control.import.hale" }, 4: { name: "keyword.control.import.hale" } } },
+  { include: "#rpc-row" },
   { name: "entity.name.function.lifecycle.hale", match: `\\b(${alt(hooks)})(?=\\s*\\()` },
   { match: `(?:^|(?<=[{;]))\\s*(${alt(blockHeads)})(?=\\s*(\\{|\\(|:|$))`, captures: { 1: { name: "keyword.other.block.hale" } } },
-  { match: `(?:^|(?<=[{;]))\\s*(${alt(statementHeads)})\\b`, captures: { 1: { name: "keyword.other.statement.hale" } } },
+  { match: `(?:^|(?<=[{;:]))\\s*(${alt(statementHeads)})\\b`, captures: { 1: { name: "keyword.other.statement.hale" } } },
   { name: "support.function.placement.hale", match: `\\b(${alt(placementFns)})(?=\\s*(\\(|=|,|\\)))` },
   { name: "keyword.other.policy.hale", match: `(?<=\\bor\\s)(${alt(policies)})\\b` },
+  // These are ordinary qualified values, not api/placement declarations.
+  { name: "entity.name.namespace.hale", match: "\\b(?:api|http)(?=::)" },
+  { name: "support.type.collection.hale", match: "\\bbounded(?=\\s*\\[)" },
+  { name: "storage.type.hale", match: "(?<==)\\s*\\Kenum\\b" },
+  // Presence triples are ordinary fields, not a new clear_* keyword.
+  { name: "variable.other.property.hale", match: "\\b[a-z_][A-Za-z0-9_]*(?=\\s*:(?!:))" },
+  { name: "constant.language.hale", match: "\\b(?:true|false|nil)\\b" },
   ...Object.entries(bare).map(([name, ws]) => ({ name, match: `\\b(${alt(ws)})\\b` })),
   { name: "support.type.primitive.hale", match: "\\b(Int|Uint|Float|Decimal|String|Bool|Time|Duration|Bytes|StringView|BytesView|Never|Unit)\\b" },
   { name: "support.function.std.hale", match: "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b" },
@@ -65,7 +80,7 @@ const patterns = [
   { match: "\\b([A-Z][A-Za-z0-9_]*)\\s*(<-)", captures: { 1: { name: "entity.name.type.topic.hale" }, 2: { name: "keyword.operator.send.hale" } } },
   { name: "entity.name.type.hale", match: "\\b[A-Z][A-Za-z0-9_]*\\b" },
   { name: "entity.name.function.call.hale", match: "\\b[a-z_][A-Za-z0-9_]*(?=\\s*\\()" },
-  { name: "keyword.operator.hale", match: "<-|->|==|!=|<=|>=|&&|\\|\\||[-+*/%=<>!]" },
+  { name: "keyword.operator.hale", match: "<-|->|==|!=|<=|>=|&&|\\|\\||[-+*/%=<>!|]" },
   { name: "punctuation.accessor.hale", match: "::|\\." },
 ];
 const grammar = {
@@ -75,12 +90,24 @@ const grammar = {
   fileTypes: ["hl"],
   patterns,
   repository: {
+    "rpc-row": {
+      begin: "\\b(rpc)\\s+(?=[A-Za-z_])", end: ";|(?=\\})",
+      beginCaptures: { 1: { name: "storage.type.hale" } },
+      patterns: [
+        { include: "#comments" }, { include: "#strings" },
+        { name: "keyword.other.clause.hale", match: "\\bat(?=\\s*\")|\\b(?:status|wire)(?=\\s*:)" },
+        { include: "$self" },
+      ],
+    },
     comments: { patterns: [
       { name: "comment.line.documentation.hale", match: "///.*$" },
       { name: "comment.line.double-slash.hale", match: "//.*$" },
       { name: "comment.block.hale", begin: "/\\*", end: "\\*/" },
     ] },
     strings: { patterns: [
+      // tokens.md: any fence of 3+ quotes; only a line-leading fence
+      // of the same length closes it. Raw body: no escapes/interpolation.
+      { name: "string.quoted.double.block.hale", begin: '("{3,})[ \\t]*$', end: '^[ \\t]*\\1(?!")' },
       { name: "string.quoted.double.interpolated.hale", begin: "f\"", end: "\"", patterns: [
         { name: "constant.character.escape.hale", match: "\\\\." },
         { name: "meta.embedded.interpolation.hale", begin: "\\{", end: "\\}", patterns: [{ include: "$self" }] },
