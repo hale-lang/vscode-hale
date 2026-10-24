@@ -19,6 +19,49 @@
       "include": "#numbers"
     },
     {
+      "name": "storage.modifier.hale",
+      "match": "\\bfleet(?=\\s+locus\\b)"
+    },
+    {
+      "match": "\\b(seam)\\s+([a-z_][A-Za-z0-9_]*)(?=\\s*\\()",
+      "captures": {
+        "1": {
+          "name": "keyword.other.block.hale"
+        },
+        "2": {
+          "name": "entity.name.function.hale"
+        }
+      }
+    },
+    {
+      "name": "keyword.other.block.hale",
+      "match": "\\bseam(?=\\s*\\{)"
+    },
+    {
+      "name": "keyword.other.policy.hale",
+      "match": "(?<=\\bor\\s)end\\b"
+    },
+    {
+      "match": "\\b(api)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s+(from)\\s+(openapi|mcp)(?=\\s*\")",
+      "captures": {
+        "1": {
+          "name": "storage.type.hale"
+        },
+        "2": {
+          "name": "entity.name.type.hale"
+        },
+        "3": {
+          "name": "keyword.control.import.hale"
+        },
+        "4": {
+          "name": "keyword.control.import.hale"
+        }
+      }
+    },
+    {
+      "include": "#rpc-row"
+    },
+    {
       "name": "entity.name.function.lifecycle.hale",
       "match": "\\b(birth|accept|release|run|drain|dissolve|on_failure|bulk|harmonic|resolution|on_full|on_overflow)(?=\\s*\\()"
     },
@@ -31,7 +74,7 @@
       }
     },
     {
-      "match": "(?:^|(?<=[{;]))\\s*(subscribe|publish|expose|consume|forbid|require|count|bound|cover|serve|listen|connect|restart|restart_in_place|quarantine|reorganize|reserve|tick|duration)\\b",
+      "match": "(?:^|(?<=[{;:]))\\s*(subscribe|publish|expose|consume|forbid|require|count|bound|cover|serve|listen|connect|restart|restart_in_place|quarantine|reorganize|reserve|tick|duration)\\b",
       "captures": {
         "1": {
           "name": "keyword.other.statement.hale"
@@ -40,11 +83,31 @@
     },
     {
       "name": "support.function.placement.hale",
-      "match": "\\b(cooperative|pinned|pool|core|cores|replicas|node|l3|heap|slot_count|unix|shm_ring|http|role|intra_process|intra_machine|cross_machine|zero_copy|reperspective)(?=\\s*(\\(|=|,|\\)))"
+      "match": "\\b(cooperative|pinned|pool|core|cores|replicas|host|node|l3|heap|slot_count|unix|shm_ring|http|role|intra_process|intra_machine|cross_machine|zero_copy|reperspective)(?=\\s*(\\(|=|,|\\)))"
     },
     {
       "name": "keyword.other.policy.hale",
       "match": "(?<=\\bor\\s)(floor|ceil|trunc|half_even|half_up|clamp|wrap|raise|discard|block|drop|refuse|default|wait|sum|prod)\\b"
+    },
+    {
+      "name": "entity.name.namespace.hale",
+      "match": "\\b(?:api|http)(?=::)"
+    },
+    {
+      "name": "support.type.collection.hale",
+      "match": "\\bbounded(?=\\s*\\[)"
+    },
+    {
+      "name": "storage.type.hale",
+      "match": "(?<==)\\s*\\Kenum\\b"
+    },
+    {
+      "name": "variable.other.property.hale",
+      "match": "\\b[a-z_][A-Za-z0-9_]*(?=\\s*:(?!:))"
+    },
+    {
+      "name": "constant.language.hale",
+      "match": "\\b(?:true|false|nil)\\b"
     },
     {
       "name": "keyword.control.hale",
@@ -110,7 +173,7 @@
     },
     {
       "name": "keyword.operator.hale",
-      "match": "<-|->|==|!=|<=|>=|&&|\\|\\||[-+*/%=<>!]"
+      "match": "<-|->|==|!=|<=|>=|&&|\\|\\||[-+*/%=<>!|]"
     },
     {
       "name": "punctuation.accessor.hale",
@@ -118,6 +181,30 @@
     }
   ],
   "repository": {
+    "rpc-row": {
+      "begin": "\\b(rpc)\\s+(?=[A-Za-z_])",
+      "end": ";|(?=\\})",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.hale"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "name": "keyword.other.clause.hale",
+          "match": "\\bat(?=\\s*\")|\\b(?:status|wire)(?=\\s*:)"
+        },
+        {
+          "include": "$self"
+        }
+      ]
+    },
     "comments": {
       "patterns": [
         {
@@ -137,6 +224,11 @@
     },
     "strings": {
       "patterns": [
+        {
+          "name": "string.quoted.double.block.hale",
+          "begin": "(\"{3,})[ \\t]*$",
+          "end": "^[ \\t]*\\1(?!\")"
+        },
         {
           "name": "string.quoted.double.interpolated.hale",
           "begin": "f\"",
@@ -208,6 +300,6 @@
     }
   },
   "x-generated-from": "keywords.rs",
-  "x-keyword-count": 172,
+  "x-keyword-count": 174,
   "x-unclassified": []
 }

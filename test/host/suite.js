@@ -82,16 +82,10 @@ const body = async () => {
   if (unserved.length) {
     const full = new vscode.Range(new vscode.Position(0, 0), doc.positionAt(doc.getText().length));
     const actions = await vscode.commands.executeCommand("vscode.executeCodeActionProvider", doc.uri, full);
-    const serve = (actions || []).find((a) => /^Hale: serve /.test(a.title));
-    assert.ok(serve, `a serve action is offered for ${unserved[0].name}: ${(actions || []).map((a) => a.title).join(" | ")}`);
-    await vscode.workspace.applyEdit(serve.edit);
-    const after = doc.getText();
-    if (process.env.HALE_HOST_DUMP) require("node:fs").writeFileSync(process.env.HALE_HOST_DUMP, after);
-    assert.ok(new RegExp(`api::serve\\(${unserved[0].name},`).test(after), "the edit writes the serve line");
-    assert.ok(/main locus \w+ \{/.test(after), "a main locus exists after the edit");
-    assert.ok(/receivers: \{ [A-Za-z_]+: self\.[a-z_]+ \}/.test(after), "the receivers map names a main param");
-    await vscode.commands.executeCommand("undo");
-    console.log(`host suite: serve action applied for ${unserved[0].name}`);
+    const serve = (actions || []).find((a) => a.command?.command === "hale.serveSurface");
+    assert.ok(serve, `a transport setup action is offered for ${unserved[0].name}`);
+    assert.ok(!serve.edit, "interactive setup defers edits until all choices are complete");
+    console.log(`host suite: transport setup action offered for ${unserved[0].name}`);
   }
   // Diagnostics from the language server: introduce an error and wait for a squiggle.
   const edit = new vscode.WorkspaceEdit();

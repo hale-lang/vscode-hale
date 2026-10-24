@@ -1,0 +1,121 @@
+// Build an API (docs/src/services/build-an-api.md): one program grown a
+// step at a time. A shop takes orders and answers each with a reply,
+// streams its shipments, answers a stock query, knows who is calling,
+// gates what only staff may do, and answers over HTTP as well as on its
+// socket.
+
+type OrderRequest { item: String; qty: Int; }
+type OrderResponse { order_id: Int; on_hand: Int; by: String; via: String; }
+type Shipment { order_id: Int; item: String; qty: Int; }
+type Stock { on_hand: Int; orders: Int; }
+type StockRequest { item: String = ""; }
+type RestockRequest { qty: Int; }
+type RestockResponse { on_hand: Int; by: String; role: String; }
+
+topic Shipments { payload: Shipment; subject: "shop.shipment"; }
+
+role clerk;
+role manager includes clerk;
+
+locus Shop {
+    params { stock: Stock = Stock { on_hand: 10, orders: 0 }; }
+    bus { publish Shipments; }
+
+    fn on_order(req: OrderRequest, ctx: std::api::Context) -> OrderResponse {
+        if req.qty <= 0 || req.qty > self.stock.on_hand {
+            return OrderResponse {
+                order_id: 0,
+                on_hand: self.stock.on_hand,
+                by: ctx.caller.name,
+                via: ctx.via,
+            };
+        }
+        self.stock.on_hand = self.stock.on_hand - req.qty;
+        self.stock.orders = self.stock.orders + 1;
+        println(
+            "order " + to_string(self.stock.orders) + ": " + to_string(req.qty) + " " + req.item
+                + " for " + ctx.caller.name + " via " + ctx.via,
+        );
+        Shipments <- Shipment { order_id: self.stock.orders, item: req.item, qty: req.qty };
+        return OrderResponse {
+            order_id: self.stock.orders,
+            on_hand: self.stock.on_hand,
+            by: ctx.caller.name,
+            via: ctx.via,
+        };
+    }
+
+    fn on_restock(req: RestockRequest, ctx: std::api::Context) -> RestockResponse {
+        self.stock.on_hand = self.stock.on_hand + req.qty;
+        return RestockResponse { on_hand: self.stock.on_hand, by: ctx.caller.name, role: ctx.role };
+    }
+
+    fn stock_now(req: StockRequest) -> Stock { return self.stock; }
+}
+
+// The shop's operations: who may call each is the row's `requires`.
+api Counter {
+    rpc Shop::on_order;
+    rpc Shop::stock_now requires: [clerk];
+    rpc Shop::on_restock requires: [manager];
+}
+
+// Who a bearer token on the HTTP transport is (a std::api::BearerSource).
+locus Tokens {
+    fn principal(token: String) -> std::api::Principal {
+        if token == "t-front-desk" {
+            return std::api::Principal { mode: "bearer", name: "front-desk" };
+        }
+        return std::api::Principal { mode: "bearer", name: "" };
+    }
+    fn refused() -> String { return "no such token"; }
+}
+
+main locus App {
+    params {
+        shop: Shop = Shop { };
+        tokens: Tokens = Tokens { };
+        // The role table: LOTUS_API_ROLES at run time, `role=member,member;…`.
+        staff: std::api::StaticRoles = std::api::StaticRoles { known: "clerk manager" };
+        hub: ws::Hub = ws::Hub {
+            bind: "127.0.0.1:8796",
+            principals: self.tokens,
+            roles: self.staff,
+            as: "shipments",
+        };
+        sock: api::Exposure = api::serve(
+            Counter,
+            unix::Rpc { path: "/tmp/shop.sock", roles: self.staff },
+            as: "counter",
+            receivers: { Shop: self.shop },
+            bound: 64,
+            on_full: refuse
+        );
+        web: api::Exposure = api::serve(
+            Counter,
+            http::Rpc {
+                bind: "127.0.0.1:8794",
+                codec: json,
+                principals: self.tokens,
+                roles: self.staff,
+            },
+            as: "web",
+            receivers: { Shop: self.shop },
+            bound: 64,
+            on_full: refuse
+        );
+    }
+    placement { shop: cooperative(pool = work) where async_io; }
+    bindings {
+        Shipments: self.hub requires: [clerk], bound: 64, on_full: drop_old;
+    }
+    run() {
+        while !self.draining { std::time::sleep(100ms); }
+        self.sock.stop();
+        self.web.stop();
+    }
+}
+
+fn main() {
+    App { };
+}

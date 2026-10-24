@@ -1,27 +1,21 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
-import { Model, ownerOf } from "./artifact";
+import { Model } from "./artifact";
 import { Ctx, TIPS, tipActions } from "./tips";
 import { exampleActions } from "./examples";
 import { runHale } from "./commands";
 import { findHale } from "./hale";
 
-/**
- * Graph completion: what the rows say is declared but not wired, offered
- * as edits that write ordinary Hale text. A surface no serve site serves
- * gets a code action that adds the serve line (and the receiver params
- * and a main locus when they are missing); inside a `bus { }`, a
- * `placement { }` or a main's `run()`, completion offers the topics,
- * the params and the surfaces of this seed as snippets.
- */
+/** Contextual code actions and the book's next-step edits.
+ * Repository and API setup live in scaffolding.ts and work without a model. */
 export function registerAssembly(ctx: vscode.ExtensionContext, current: () => Model | undefined): void {
   const selector: vscode.DocumentSelector = { scheme: "file", language: "hale" };
   ctx.subscriptions.push(
     vscode.languages.registerCodeActionsProvider(selector, {
       provideCodeActions: (doc, range, context) => {
         const m = current();
-        const out: vscode.CodeAction[] = [...serveActions(doc, m), ...boundActions(doc, context.diagnostics), ...exampleActions(doc, range)];
+        const out: vscode.CodeAction[] = [...boundActions(doc, context.diagnostics), ...exampleActions(doc, range)];
         if (m) out.push(...tipActions(new Ctx(doc, m), range));
         return out;
       },
@@ -80,15 +74,7 @@ export function registerAssembly(ctx: vscode.ExtensionContext, current: () => Mo
       if (verb === "subscribe") e.insert(ed.document.uri, ed.document.positionAt(b.close), `    fn ${handler}(x: ${c.payloadOf(topic) ?? "Payload"}) {\n        // handle x\n    }\n`);
       await vscode.workspace.applyEdit(e);
     }),
-    vscode.commands.registerCommand("hale.serveSurface", async (surface?: string) => {
-      const ed = vscode.window.activeTextEditor;
-      const m = current();
-      if (!ed || !m) return;
-      const name = surface ?? (await vscode.window.showQuickPick(unserved(m).map((s) => s.name), { placeHolder: "Surface to serve" }));
-      if (!name) return;
-      const action = serveEdit(ed.document, m, name);
-      if (action?.edit) await vscode.workspace.applyEdit(action.edit);
-    }),
+
   );
 }
 
@@ -116,126 +102,4 @@ function boundActions(doc: vscode.TextDocument, diagnostics: readonly vscode.Dia
   return out;
 }
 
-export function unserved(m: Model) {
-  const inv = m.inventory;
-  if (!inv) return [];
-  return inv.surfaces.filter((s) => !inv.exposures.some((e) => e.surface === s.name));
-}
-
-function serveActions(doc: vscode.TextDocument, m: Model | undefined): vscode.CodeAction[] {
-  if (!m?.inventory) return [];
-  const text = doc.getText();
-  const out: vscode.CodeAction[] = [];
-  for (const s of unserved(m)) {
-    if (!new RegExp(`\\bapi\\s+${s.name}\\b`).test(text)) continue;
-    const a = serveEdit(doc, m, s.name);
-    if (a) out.push(a);
-  }
-  return out;
-}
-
-const indent = (n: number) => " ".repeat(n);
 const lower = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, "$1_$2").toLowerCase();
-
-/** The index of the `}` that closes the `{` at `open`, or -1. Strings and comments are skipped. */
-function closeOf(text: string, open: number): number {
-  let depth = 0;
-  for (let i = open; i < text.length; i++) {
-    const c = text[i];
-    if (c === '"') { i++; while (i < text.length && text[i] !== '"') { if (text[i] === "\\") i++; i++; } continue; }
-    if (c === "/" && text[i + 1] === "/") { while (i < text.length && text[i] !== "\n") i++; continue; }
-    if (c === "{") depth++;
-    else if (c === "}") { depth--; if (depth === 0) return i; }
-  }
-  return -1;
-}
-
-/** The edit that serves `surface` from this document's main locus, creating what is missing. */
-export function serveEdit(doc: vscode.TextDocument, m: Model, surface: string): vscode.CodeAction | undefined {
-  const inv = m.inventory;
-  const s = inv?.surfaces.find((x) => x.name === surface);
-  if (!inv || !s) return undefined;
-  const text = doc.getText();
-  const owners = [...new Set(s.members.map((mm) => ownerOf(mm.name)))];
-  const asName = lower(surface);
-  const sockVar = `${asName}_sock`;
-  const edit = new vscode.WorkspaceEdit();
-  const uri = doc.uri;
-  const at = (off: number) => doc.positionAt(off);
-
-  const mainRe = /\bmain\s+locus\s+([A-Za-z_][A-Za-z0-9_]*)\s*\{/;
-  const mainMatch = mainRe.exec(text);
-
-  // Receivers: a main param of the owner's type, or a new one.
-  const mainContract = m.artifact.contracts.find((c) => c.instances.some((i) => i.owner === null));
-  const receivers: string[] = [];
-  const newParams: string[] = [];
-  for (const o of owners) {
-    const p = mainContract?.params.find((pp) => pp.type === o);
-    if (p) receivers.push(`${o}: self.${p.name}`);
-    else { receivers.push(`${o}: self.${lower(o)}`); newParams.push(`${lower(o)}: ${o} = ${o} { };`); }
-  }
-  const serveLine = `let ${sockVar} = api::serve(${surface}, unix::Rpc { path: "/tmp/${asName}.sock" }, as: "${asName}", receivers: { ${receivers.join(", ")} }, bound: 64, on_full: refuse);`;
-  const runBody = (ind: number) => [
-    `${indent(ind)}${serveLine}`,
-    `${indent(ind)}while !self.draining {`,
-    `${indent(ind + 4)}std::time::sleep(100ms);`,
-    `${indent(ind)}}`,
-    `${indent(ind)}${sockVar}.stop();`,
-  ].join("\n");
-
-  if (mainMatch) {
-    const open = mainMatch.index + mainMatch[0].length - 1;
-    const close = closeOf(text, open);
-    if (close < 0) return undefined;
-    const body = text.slice(open + 1, close);
-    // params
-    if (newParams.length) {
-      const pm = /\bparams\s*\{/.exec(body);
-      if (pm) {
-        const pOpen = open + 1 + pm.index + pm[0].length - 1;
-        edit.insert(uri, at(pOpen + 1), "\n" + newParams.map((p) => `${indent(8)}${p}`).join("\n"));
-      } else {
-        edit.insert(uri, at(open + 1), `\n${indent(4)}params {\n${newParams.map((p) => `${indent(8)}${p}`).join("\n")}\n${indent(4)}}`);
-      }
-    }
-    // run()
-    const rm = /\brun\s*\(\s*\)\s*\{/.exec(body);
-    if (rm) {
-      const rOpen = open + 1 + rm.index + rm[0].length - 1;
-      const rClose = closeOf(text, rOpen);
-      edit.insert(uri, at(rOpen + 1), `\n${indent(8)}${serveLine}`);
-      if (rClose > 0) edit.insert(uri, at(rClose), `${indent(4)}${sockVar}.stop();\n${indent(4)}`);
-    } else {
-      edit.insert(uri, at(close), `${indent(4)}run() {\n${runBody(8)}\n${indent(4)}}\n`);
-    }
-  } else {
-    // No main locus: write one, and instantiate it from fn main.
-    const app = /\bApp\b/.test(text) ? "Main" : "App";
-    const block = [
-      ``,
-      `main locus ${app} {`,
-      `${indent(4)}params {`,
-      ...newParams.map((p) => `${indent(8)}${p}`),
-      `${indent(4)}}`,
-      `${indent(4)}run() {`,
-      runBody(8),
-      `${indent(4)}}`,
-      `}`,
-      ``,
-    ].join("\n");
-    const fnMain = /\bfn\s+main\s*\(\s*\)\s*\{/.exec(text);
-    if (fnMain) {
-      edit.insert(uri, at(fnMain.index), block.trimStart() + "\n");
-      const fOpen = fnMain.index + fnMain[0].length - 1;
-      const fClose = closeOf(text, fOpen);
-      if (fClose > 0 && !new RegExp(`\\b${app}\\s*\\{`).test(text.slice(fOpen, fClose))) edit.insert(uri, at(fClose), `${indent(4)}${app} { };\n`);
-    } else {
-      edit.insert(uri, at(text.length), `${block}\nfn main() {\n${indent(4)}${app} { };\n}\n`);
-    }
-  }
-  const action = new vscode.CodeAction(`Hale: serve ${surface} over a unix socket from the main locus`, vscode.CodeActionKind.QuickFix);
-  action.edit = edit;
-  action.isPreferred = true;
-  return action;
-}

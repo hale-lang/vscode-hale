@@ -9,6 +9,7 @@ import { FamilyView, NodeView, reveal, revealAt } from "./views";
 import { GraphPanel } from "./graph";
 import { ApiDocsPanel } from "./apidocs";
 import { registerAssembly } from "./assemble";
+import { registerScaffolding } from "./scaffolding";
 import { registerExamples } from "./examples";
 import { Ctx, allTips } from "./tips";
 import { registerCommands } from "./commands";
@@ -102,6 +103,7 @@ export async function activate(ctx: vscode.ExtensionContext): Promise<HaleApi> {
   registerCommands(ctx);
   setupTests(ctx);
   registerAssembly(ctx, () => current);
+  registerScaffolding(ctx);
   registerExamples(ctx);
   registerLanguage(ctx, language, () => current);
   registerHere(ctx, here);

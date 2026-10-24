@@ -8,7 +8,7 @@ what the block you are in is for and what you can write there.
 
 ## Install
 
-1. **Install hale** (0.23 or newer), if you have not:
+1. **Install hale** (0.28 or newer), if you have not:
 
    ```sh
    curl -fsSL https://hale-lang.org/install.sh | sh
@@ -76,8 +76,7 @@ That is all. The rest of this page is what you get and how it works.
 | `hale.codeLens` | the rows above declarations (default on) |
 | `hale.observePort` | the port the Observe command opens iris on (default 8787) |
 
-Nothing is derived in the extension that the compiler does not already
-state: every row is a line of `hale check --dump-topology`, `hale check
+The graph views read compiler output: every row is a line of `hale check --dump-topology`, `hale check
 --api`, a report flag, or `hale model diff`. A compiler older than the
 extension expects gets a warning on activation; diagnostics still work.
 
@@ -214,15 +213,40 @@ generated from a hale checkout by `scripts/gen-examples-index.mjs`.
 
 ## Graph completion and docs
 
-- **Serve a surface.** An `api` block nothing serves is flagged in the
-  Program view, above its declaration, and as a code action whose edit
-  writes the `api::serve` line into the main locus's `run()`, adds a
-  receiver param for each handler locus it lacks, and writes the main
-  locus and its instantiation in `fn main` when there is none.
+- **Generate repository methods.** Add `@repo(Order)` above a locus, then
+  click **Generate get, create, put, remove** above it, use the lightbulb,
+  or run **Hale: Generate repository methods**. The record must declare
+  exactly one key, for example ``id: OrderId `db:"id,key"`;``. The action
+  reads that key's type,
+  adds only missing CRUD methods, and writes their state-effect annotations.
+  New write methods use `@not_idempotent` until you review retry safety.
+  The bodies are TODO stubs that fail explicitly: implement your storage
+  driver before calling them. For a new repository it adds an
+  `@unavailable NotImplemented` error; a partial repository keeps its shared
+  error type and asks which existing nullary variant the stubs should return.
+- **Create an API.** Right-click in a Hale file or run **Hale: Create API
+  from methods**. Select handlers and name the surface, then choose one or
+  more transports: Unix, HTTP RPC, REST, MCP or gRPC. The action generates
+  the surface, receiver params and `api::Exposure` params, and creates a
+  main locus and entry function when needed. REST gets editable POST routes;
+  existing routes and role requirements are preserved.
+- **Serve several APIs.** **Hale: Set up API transports** lets you select
+  multiple existing surfaces in one pass. The same action is above each
+  API declaration. Each listener has its own editable address. Network
+  listeners get a bearer provider backed by `HALE_API_TOKEN`, rejecting
+  callers when it is unset. The authenticated principal is `api-client`;
+  configure `LOTUS_API_ROLES` when rows require roles. Existing main receiver
+  params are reused and existing lifecycle hooks are preserved. If main
+  already has a `run()`, keep it alive for as long as you want to serve.
+- These actions read unsaved files in the current seed, including sibling
+  declarations, and work before the whole program typechecks. Cancellation
+  changes nothing; generated code is one undo step. Save and run **Hale:
+  Check seed** to validate your program. Imported receiver loci and consumed
+  surfaces need manual wiring; the setup supports local RPC surfaces.
 - **Snippets from the rows.** Inside `bus { }` the seed's topics are
   offered as `subscribe` / `publish` lines; inside `placement { }` the
-  main's params as `pinned` / `cooperative` entries; inside a main's
-  `run()` each surface as an `api::serve` over unix or HTTP.
+  main's params as `pinned` / `cooperative` entries; inside main's
+  `params`, each surface as an `api::Exposure` param.
 - **API docs.** "Hale: Show API docs" renders a surface's OpenAPI form
   as the compiler prints it, with the MCP tools and the JSON Schema a
   tab away. "Hale: Show this seed's reference" renders `hale doc`, the
