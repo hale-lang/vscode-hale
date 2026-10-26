@@ -176,7 +176,16 @@ export function generateApi(target: Source, sources: Source[], setup: ApiSetup):
     const name = fresh(`${snake(setup.surface)}_${transport.kind}`);
     const kind = transport.kind === "rest" ? "http::Rest" : `${transport.kind}::Rpc`;
     const config = transport.kind === "unix" ? `path: ${JSON.stringify(transport.endpoint)}` : `bind: ${JSON.stringify(transport.endpoint)}${transport.kind === "mcp" ? "" : ", codec: json"}, principals: self.${principals}`;
-    lines.push(`${name}: api::Exposure = api::serve(${setup.surface}, ${kind} { ${config}${roles ? `, roles: self.${roles}` : ""} }, as: "${name}", receivers: { ${receiver} }, bound: 64, on_full: refuse);`);
+    lines.push([
+      `${name}: api::Exposure = api::serve(`,
+      `    ${setup.surface},`,
+      `    ${kind} { ${config}${roles ? `, roles: self.${roles}` : ""} },`,
+      `    as: "${name}",`,
+      `    receivers: { ${receiver} },`,
+      `    bound: 64,`,
+      `    on_full: refuse`,
+      `);`,
+    ].join("\n        "));
     stops.push(`        self.${name}.stop();`);
   }
   const run = `    run() {\n        while !self.draining { std::time::sleep(100ms); }\n${stops.join("\n")}\n    }\n`;

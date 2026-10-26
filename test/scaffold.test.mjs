@@ -64,6 +64,7 @@ console.log('repo generation: key alias, shared errors, partial/idempotent edits
   const transports = ['unix', 'http', 'rest', 'mcp', 'grpc'].map((kind, i) => ({ kind, endpoint: kind === 'unix' ? '/tmp/hale-scaffold.sock' : `127.0.0.1:${18980 + i}` }));
   const served = apply(bare, generateApi(bare, [bare], { surface: 'Counter', transports }));
   assert.equal((served.text.match(/: api::Exposure = api::serve/g) || []).length, 5);
+  assert.match(served.text, /: api::Exposure = api::serve\(\n\s+Counter,\n/);
   assert.match(served.text, /rpc Shop::stock_now at "POST \/counter\/Shop\/stock_now" requires: \[clerk\]/);
   assert(!/let \w+ = api::serve/.test(served.text));
   checks.push(['transports', served]);

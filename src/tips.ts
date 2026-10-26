@@ -64,7 +64,7 @@ export class Ctx {
   /** Every `api::serve(...)` line: its surface, transport and the struct body. */
   get serves(): { surface: string; transport: string; body: string; start: number; end: number; varName: string; asName: string }[] {
     const out = [];
-    const re = /([A-Za-z_]\w*)\s*:\s*api::Exposure\s*=\s*api::serve\(\s*([A-Za-z_]\w*)\s*,\s*(?:([a-z]+)::Rpc\s*\{([^}]*)\}|self\.([a-z_]\w*))\s*,\s*as:\s*"([^"]*)"[^;]*;/g;
+    const re = /([A-Za-z_]\w*)\s*:\s*api::Exposure\s*=\s*api::serve\(\s*([A-Za-z_]\w*)\s*,\s*(?:([a-z]+)::(?:Rpc|Rest)\s*\{([^}]*)\}|self\.([a-z_]\w*))\s*,\s*as:\s*"([^"]*)"[^;]*;/g;
     let m: RegExpExecArray | null;
     while ((m = re.exec(this.text))) out.push({ varName: m[1], surface: m[2], transport: m[3] ?? `hub ${m[5]}`, body: m[4] ?? "", start: m.index, end: m.index + m[0].length, asName: m[6] });
     return out;

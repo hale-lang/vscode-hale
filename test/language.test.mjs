@@ -11,7 +11,7 @@ const { CONSTRUCTS, PARTS, KEYWORD_COVERAGE, byKey, stripComments, usesIn, const
 
 let failures = 0;
 const check = (what, ok, detail = "") => { console.log(`${ok ? "ok  " : "FAIL"} ${what}${detail ? " · " + detail : ""}`); if (!ok) failures++; };
-const root = [process.env.HALE_ROOT, "../hale-main", "../hale"].filter(Boolean).map((p) => path.resolve(p)).find((p) => fs.existsSync(path.join(p, "crates")));
+const root = [process.env.HALE_ROOT, "../hale", "../hale-main"].filter(Boolean).map((p) => path.resolve(p)).find((p) => fs.existsSync(path.join(p, "crates")));
 
 // self-consistency
 check("every construct belongs to a part", CONSTRUCTS.every((c) => PARTS.some((p) => p.id === c.part)), CONSTRUCTS.filter((c) => !PARTS.some((p) => p.id === c.part)).map((c) => c.key).join(","));

@@ -5,7 +5,7 @@ import { Model } from "./artifact";
 import { Ctx, TIPS, tipActions } from "./tips";
 import { exampleActions } from "./examples";
 import { runHale } from "./commands";
-import { findHale } from "./hale";
+import { findHale, formatDocument } from "./hale";
 
 /** Contextual code actions and the book's next-step edits.
  * Repository and API setup live in scaffolding.ts and work without a model. */
@@ -25,7 +25,7 @@ export function registerAssembly(ctx: vscode.ExtensionContext, current: () => Mo
       const ed = vscode.window.activeTextEditor; const m = current(); if (!ed || !m) return;
       const c = new Ctx(ed.document, m); const tip = TIPS.find((t) => t.id === id); if (!tip) return;
       const site = tip.sites(c)[siteIndex ?? 0]; if (!site) { void vscode.window.showInformationMessage("Hale: that tip no longer applies here."); return; }
-      if (tip.kind === "edit") { const e = tip.edit?.(c, site); if (e) await vscode.workspace.applyEdit(e); }
+      if (tip.kind === "edit") { const e = tip.edit?.(c, site); if (e) { await vscode.workspace.applyEdit(e); await formatDocument(ed.document); } }
       else if (tip.kind === "command") { const cmd = tip.command!(c, site); await vscode.commands.executeCommand(cmd.command, ...(cmd.arguments ?? [])); }
       else await vscode.commands.executeCommand("hale.showTip", id);
     }),
@@ -73,6 +73,7 @@ export function registerAssembly(ctx: vscode.ExtensionContext, current: () => Mo
       else e.insert(ed.document.uri, ed.document.positionAt(b.open + 1), `\n    bus { ${line} }`);
       if (verb === "subscribe") e.insert(ed.document.uri, ed.document.positionAt(b.close), `    fn ${handler}(x: ${c.payloadOf(topic) ?? "Payload"}) {\n        // handle x\n    }\n`);
       await vscode.workspace.applyEdit(e);
+      await formatDocument(ed.document);
     }),
 
   );

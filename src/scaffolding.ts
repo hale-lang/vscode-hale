@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as fs from "fs/promises";
 import * as path from "path";
+import { formatSource } from "./hale";
 import { Source, Insertion, Transport, blocks, missingMethods, repoErrors, generateRepo, apiMethods, generateApi, applyInsertions, snake } from "./scaffold";
 
 const selector: vscode.DocumentSelector = { scheme: "file", language: "hale" };
@@ -18,17 +19,19 @@ async function snapshot(doc: vscode.TextDocument) {
   const docs = await seed(doc);
   return { docs, sources: docs.map(sourceOf), versions: docs.map(d => d.version) };
 }
-async function apply(snap: Awaited<ReturnType<typeof snapshot>>, edits: Insertion[]) {
+async function applySources(snap: Awaited<ReturnType<typeof snapshot>>, sources: Source[]) {
+  if (snap.docs.some((d, i) => d.version !== snap.versions[i])) throw new Error("The seed changed during setup. Run the action again so it uses your latest edits.");
+  const formatted = await Promise.all(sources.map((s, i) => s.text !== snap.sources[i].text ? formatSource(s.text) : Promise.resolve(s.text)));
   if (snap.docs.some((d, i) => d.version !== snap.versions[i])) throw new Error("The seed changed during setup. Run the action again so it uses your latest edits.");
   const edit = new vscode.WorkspaceEdit();
-  for (const source of snap.sources) {
-    // Insertions, rather than whole-document replacements, preserve cursors and diagnostics.
-    const grouped = new Map<number, string>();
-    for (const e of edits.filter(e => e.source === source.id)) grouped.set(e.at, (grouped.get(e.at) ?? "") + e.text);
-    const doc = snap.docs.find(d => d.uri.toString() === source.id)!;
-    for (const [at, text] of grouped) edit.insert(doc.uri, doc.positionAt(at), doc.eol === vscode.EndOfLine.CRLF ? text.replace(/\n/g, "\r\n") : text);
+  for (const [i, text] of formatted.entries()) {
+    const doc = snap.docs[i];
+    if (text !== snap.sources[i].text) edit.replace(doc.uri, new vscode.Range(doc.positionAt(0), doc.positionAt(doc.getText().length)), doc.eol === vscode.EndOfLine.CRLF ? text.replace(/\r?\n/g, "\r\n") : text);
   }
   if (!(await vscode.workspace.applyEdit(edit))) throw new Error("VS Code could not apply the generated edits.");
+}
+async function apply(snap: Awaited<ReturnType<typeof snapshot>>, edits: Insertion[]) {
+  await applySources(snap, snap.sources.map(s => ({ ...s, text: applyInsertions(s, edits) })));
 }
 async function editor(uri?: vscode.Uri): Promise<vscode.TextEditor | undefined> {
   if (uri) return vscode.window.showTextDocument(await vscode.workspace.openTextDocument(uri));
@@ -104,20 +107,14 @@ async function api(create: boolean, name?: string, uri?: vscode.Uri) {
     }
     plans.push({ name, transports });
   }
-  // Compose multi-surface setup against intermediate text, then apply as one undo step.
+  // Compose multi-surface setup against intermediate text, format with hale fmt, then apply as one undo step.
   let sources = snap.sources;
   for (const plan of plans) {
     const currentTarget = sources.find(s => s.id === target.id)!;
     const edits = generateApi(currentTarget, sources, { surface: plan.name, members, transports: plan.transports });
     sources = sources.map(s => ({ ...s, text: applyInsertions(s, edits) }));
   }
-  if (snap.docs.some((d, i) => d.version !== snap.versions[i])) throw new Error("The seed changed during setup. Run the action again.");
-  const edit = new vscode.WorkspaceEdit();
-  for (const [i, source] of sources.entries()) {
-    const doc = snap.docs[i];
-    if (source.text !== snap.sources[i].text) edit.replace(doc.uri, new vscode.Range(doc.positionAt(0), doc.positionAt(doc.getText().length)), doc.eol === vscode.EndOfLine.CRLF ? source.text.replace(/\r?\n/g, "\r\n") : source.text);
-  }
-  if (!(await vscode.workspace.applyEdit(edit))) throw new Error("VS Code could not apply the generated edits.");
+  await applySources(snap, sources);
   void vscode.window.showInformationMessage(`Hale: wired ${names.join(", ")}. Save and run Hale: Check seed.${kinds.some(k => k.transport !== "unix") ? " Set HALE_API_TOKEN before running; configure LOTUS_API_ROLES if rows require roles." : ""}`);
 }
 export function scaffoldActions(doc: vscode.TextDocument, range: vscode.Range): vscode.CodeAction[] {

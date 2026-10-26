@@ -59,6 +59,29 @@ export function run(args: string[], cwd?: string): Promise<Run> {
   });
 }
 
+/** Format Hale source text via `hale fmt --stdin`, falling back to `text` if unavailable or unlexable. */
+export function formatSource(text: string): Promise<string> {
+  const bin = findHale();
+  if (!bin) return Promise.resolve(text);
+  return new Promise((resolve) => {
+    const child = cp.execFile(bin, ["fmt", "--stdin"], { env: haleEnv(), maxBuffer: 64 * 1024 * 1024 }, (err, stdout) => {
+      resolve(!err && stdout ? String(stdout) : text);
+    });
+    child.stdin?.end(text);
+  });
+}
+
+/** Format an open TextDocument in place via `hale fmt --stdin` when its text changes. */
+export async function formatDocument(doc: vscode.TextDocument): Promise<void> {
+  const current = doc.getText();
+  const formatted = await formatSource(current);
+  const normalized = doc.eol === vscode.EndOfLine.CRLF ? formatted.replace(/\r?\n/g, "\r\n") : formatted;
+  if (normalized === current) return;
+  const edit = new vscode.WorkspaceEdit();
+  edit.replace(doc.uri, new vscode.Range(doc.positionAt(0), doc.positionAt(current.length)), normalized);
+  await vscode.workspace.applyEdit(edit);
+}
+
 /** The seed a file belongs to: its directory, or the file itself for a test or bench program. */
 export function seedOf(file: string): string {
   const base = path.basename(file);

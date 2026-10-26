@@ -7,7 +7,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const src = process.argv[2] || ["../hale-main", "../hale"].map((d) => path.resolve(d, "crates/hale-syntax/src/keywords.rs")).find((p) => fs.existsSync(p));
+const src = process.argv[2] || ["../hale", "../hale-main"].map((d) => path.resolve(d, "crates/hale-syntax/src/keywords.rs")).find((p) => fs.existsSync(p));
 const text = fs.readFileSync(src, "utf8");
 function table(name) {
   // Strip comments first: the tables carry `// GH #N` notes that may
