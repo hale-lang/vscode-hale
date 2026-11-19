@@ -63,7 +63,7 @@ check(`locus derived (${locusName}): instances, hooks, bus, effects, supervisor`
 check("top derived without a model says so", guideOf("top").derived(hereAt(text, 0)).length === 1);
 
 // the whole language: every construct's own pattern (from the language table) is spelled by some guide's offer
-const literalOnly = new Set(["list literal", "tuple", "Decimal", "Time", "Bytes", "nil", "string concat", "qualified path", "_test.hl", "bench_", "ClosureViolation", "self", "default param", "tier", "recognition sub-mode", "inferred", "reorganize", "only effects", "narrowing policy", "range", "type alias"]);
+const literalOnly = new Set(["list literal", "tuple", "Decimal", "Time", "Bytes", "nil", "string concat", "qualified path", "_test.hl", "bench_", "ClosureViolation", "self", "default param", "tier", "recognition sub-mode", "inferred", "reorganize", "only effects", "narrowing policy", "range", "type alias", "byte literal", "{x:?}", "raw string", "E::name / E::parse", "open-ended slice"]);
 const seedAll = { artifact, inventory: JSON.parse(fs.readFileSync("test/fixtures/quotes.inventory.json", "utf8")), seedDir: seed.seedDir };
 const allText = sample + text;
 const plain = (sn) => sn.replace(/\$\{\d+:([^}]*)\}/g, "$1").replace(/\$\{\d+\|([^,|]*)[^}]*\}/g, "$1").replace(/\$\d/g, "");
