@@ -30,20 +30,26 @@ const all = [...new Set([...hard, ...ctx])];
 // since many are ordinary identifiers elsewhere (`core`, `count`, `node`).
 const bare = {
   "keyword.control.hale": ["if", "else", "match", "for", "in", "while", "return", "break", "continue", "yield", "terminate", "violate", "fail", "bubble", "until", "wait"],
-  "storage.type.hale": ["locus", "perspective", "type", "const", "fn", "module", "interface", "trait", "impl", "macro", "topic", "group", "constitution", "closure", "ring_layout", "api", "rpc", "unit", "quantity", "point", "distinct", "range"],
-  "keyword.control.import.hale": ["import", "export", "as"],
-  "storage.modifier.hale": ["let", "mut", "async", "await", "fallible", "main", "inline", "explicit", "approx", "extends", "adopt"],
+  // F.47: `trait`, `impl`, `async`, `await`, `macro` and `export` are
+  // plain identifiers (`@export` is an annotation, coloured as one).
+  // F.55 / F.57: so are `perspective` and `module`.
+  "storage.type.hale": ["locus", "type", "const", "fn", "interface", "topic", "group", "constitution", "closure", "ring_layout", "api", "rpc", "unit", "quantity", "point", "distinct", "range"],
+  "keyword.control.import.hale": ["import", "as"],
+  "storage.modifier.hale": ["let", "mut", "fallible", "main", "inline", "explicit", "approx", "extends", "adopt", "clearable"],
   "variable.language.hale": ["self"],
-  "keyword.operator.word.hale": ["or", "where", "with", "via", "during", "avoiding", "within", "serves", "requires", "includes", "ordered_by", "keyed_by", "persists_through", "resets_on", "resets_per_epoch", "stable_when", "serialize_as", "as_parent_for", "indexed_by"],
+  "keyword.operator.word.hale": ["or", "where", "with", "via", "during", "avoiding", "within", "requires", "includes", "ordered_by", "keyed_by", "persists_through", "resets_on", "resets_per_epoch", "as_parent_for", "indexed_by"],
 };
-const blockHeads = ["params", "contract", "bus", "capacity", "placement", "bindings", "claims", "mode", "topology", "schedule", "birth_check", "projection", "roles", "principals", "captures", "epoch", "payload", "subject", "domain", "edges", "seed", "origin", "round"];
-const statementHeads = ["subscribe", "publish", "expose", "consume", "forbid", "require", "count", "bound", "cover", "serve", "listen", "connect", "restart", "restart_in_place", "quarantine", "reorganize", "reserve", "tick", "duration"];
+const blockHeads = ["params", "contract", "bus", "capacity", "placement", "bindings", "claims", "mode", "topology", "birth_check", "projection", "captures", "epoch", "payload", "subject", "domain", "edges", "seed", "origin", "round"];
+const statementHeads = ["subscribe", "publish", "expose", "consume", "forbid", "require", "count", "bound", "cover", "listen", "connect", "reserve", "tick", "duration"];
+// F.43: a recovery primitive is a keyword at statement head only when
+// its `(` follows (`restart(c) for 3;`); `restart = true;` is a local.
+const recoveryOps = ["restart", "restart_in_place", "quarantine", "reorganize"];
 const hooks = ["birth", "accept", "release", "run", "drain", "dissolve", "on_failure", "bulk", "harmonic", "resolution", "on_full", "on_overflow"];
-const placementFns = ["cooperative", "pinned", "pool", "core", "cores", "replicas", "host", "node", "l3", "heap", "slot_count", "unix", "shm_ring", "http", "role", "intra_process", "intra_machine", "cross_machine", "zero_copy", "reperspective"];
+const placementFns = ["cooperative", "pinned", "pool", "core", "cores", "replicas", "host", "node", "l3", "heap", "slot_count", "unix", "shm_ring", "role", "intra_process", "intra_machine", "cross_machine", "zero_copy"];
 const policies = ["floor", "ceil", "trunc", "half_even", "half_up", "clamp", "wrap", "raise", "discard", "block", "drop", "refuse", "default", "wait", "sum", "prod"];
 const projectionClasses = ["rich", "chunked", "recognition", "tier", "fixed_cell", "shared_slab", "spillover", "summary_only", "cap", "inferred", "may_be_empty", "of", "on", "reaches", "effects"];
 
-const classified = new Set(["fleet", ...Object.values(bare).flat(), ...blockHeads, ...statementHeads, ...hooks, ...placementFns, ...policies, ...projectionClasses]);
+const classified = new Set(["fleet", ...Object.values(bare).flat(), ...blockHeads, ...statementHeads, ...recoveryOps, ...hooks, ...placementFns, ...policies, ...projectionClasses]);
 const unclassified = all.filter((k) => !classified.has(k));
 const stale = [...classified].filter((k) => !all.includes(k) && !["default", "effects", "keyed_by", "sealed"].includes(k));
 
@@ -64,22 +70,29 @@ const patterns = [
   { name: "entity.name.function.lifecycle.hale", match: `\\b(${alt(hooks)})(?=\\s*\\()` },
   { match: `(?:^|(?<=[{;]))\\s*(${alt(blockHeads)})(?=\\s*(\\{|\\(|:|$))`, captures: { 1: { name: "keyword.other.block.hale" } } },
   { match: `(?:^|(?<=[{;:]))\\s*(${alt(statementHeads)})\\b`, captures: { 1: { name: "keyword.other.statement.hale" } } },
+  { match: `(?:^|(?<=[{;:]))\\s*(${alt(recoveryOps)})(?=\\s*\\()`, captures: { 1: { name: "keyword.other.statement.hale" } } },
   { name: "support.function.placement.hale", match: `\\b(${alt(placementFns)})(?=\\s*(\\(|=|,|\\)))` },
   { name: "keyword.other.policy.hale", match: `(?<=\\bor\\s)(${alt(policies)})\\b` },
   // These are ordinary qualified values, not api/placement declarations.
   { name: "entity.name.namespace.hale", match: "\\b(?:api|http)(?=::)" },
   { name: "support.type.collection.hale", match: "\\bbounded(?=\\s*\\[)" },
   { name: "storage.type.hale", match: "(?<==)\\s*\\Kenum\\b" },
-  // Presence triples are ordinary fields, not a new clear_* keyword.
+  // Presence triples are ordinary fields, not a new clear_* keyword. An
+  // optional field (`last?: T`, F.52) is one too, its `?` an operator.
+  { match: "\\b([a-z_][A-Za-z0-9_]*)(\\?)(?=\\s*:(?!:))", captures: { 1: { name: "variable.other.property.hale" }, 2: { name: "keyword.operator.optional.hale" } } },
   { name: "variable.other.property.hale", match: "\\b[a-z_][A-Za-z0-9_]*(?=\\s*:(?!:))" },
   { name: "constant.language.hale", match: "\\b(?:true|false|nil)\\b" },
-  ...Object.entries(bare).map(([name, ws]) => ({ name, match: `\\b(${alt(ws)})\\b` })),
-  { name: "support.type.primitive.hale", match: "\\b(Int|Uint|Float|Decimal|String|Bool|Time|Duration|Bytes|StringView|BytesView|Never|Unit)\\b" },
-  { name: "support.function.std.hale", match: "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b" },
+  // A fn's name, before the bare `fn` keyword takes the word alone and
+  // leaves the name to the call rule.
   { match: "\\b(fn)\\s+([a-z_][A-Za-z0-9_]*)", captures: { 1: { name: "storage.type.hale" }, 2: { name: "entity.name.function.hale" } } },
+  ...Object.entries(bare).map(([name, ws]) => ({ name, match: `\\b(${alt(ws)})\\b` })),
+  { name: "support.type.primitive.hale", match: "\\b(Int|Uint|Float|Decimal|U256|I256|String|Bool|Time|Duration|Bytes|StringView|BytesView|BytesMut|Never|Unit)\\b" },
+  { name: "support.function.std.hale", match: "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b" },
   { match: "\\b([A-Z][A-Za-z0-9_]*)\\s*(<-)", captures: { 1: { name: "entity.name.type.topic.hale" }, 2: { name: "keyword.operator.send.hale" } } },
   { name: "entity.name.type.hale", match: "\\b[A-Z][A-Za-z0-9_]*\\b" },
   { name: "entity.name.function.call.hale", match: "\\b[a-z_][A-Za-z0-9_]*(?=\\s*\\()" },
+  // `..` / `..=`: a range, and an open-ended slice's index (`s[a..]`).
+  { name: "keyword.operator.range.hale", match: "\\.\\.=?" },
   { name: "keyword.operator.hale", match: "<-|->|==|!=|<=|>=|&&|\\|\\||[-+*/%=<>!|]" },
   { name: "punctuation.accessor.hale", match: "::|\\." },
 ];
@@ -100,7 +113,8 @@ const grammar = {
       ],
     },
     comments: { patterns: [
-      { name: "comment.line.documentation.hale", match: "///.*$" },
+      // GH #1674: a `///` line is a doc comment; `////` is an ordinary one.
+      { name: "comment.line.documentation.hale", match: "///(?!/).*$" },
       { name: "comment.line.double-slash.hale", match: "//.*$" },
       { name: "comment.block.hale", begin: "/\\*", end: "\\*/" },
     ] },
@@ -108,6 +122,11 @@ const grammar = {
       // tokens.md: any fence of 3+ quotes; only a line-leading fence
       // of the same length closes it. Raw body: no escapes/interpolation.
       { name: "string.quoted.double.block.hale", begin: '("{3,})[ \\t]*$', end: '^[ \\t]*\\1(?!")' },
+      // GH #1948: a raw string, `r"…"` / `r#"…"#`; it closes at a `"`
+      // followed by as many `#` as opened it. No escapes.
+      { name: "string.quoted.double.raw.hale", begin: '\\br(#*)"', end: '"\\1' },
+      // GH #1995 S6: a byte literal, `b'/'`, is an Int written as a character.
+      { name: "constant.character.byte.hale", match: "\\bb'(?:\\\\(?:x[0-9A-Fa-f]{2}|[ntr0'\"\\\\])|[^'\\\\])'" },
       { name: "string.quoted.double.interpolated.hale", begin: "f\"", end: "\"", patterns: [
         { name: "constant.character.escape.hale", match: "\\\\." },
         { name: "meta.embedded.interpolation.hale", begin: "\\{", end: "\\}", patterns: [{ include: "$self" }] },
@@ -115,6 +134,8 @@ const grammar = {
       { name: "string.quoted.double.hale", begin: "\"", end: "\"", patterns: [{ name: "constant.character.escape.hale", match: "\\\\." }] },
       // GH #607: a Time literal is ISO-8601 between backticks.
       { name: "constant.other.time.hale", match: "`\\d{4}-\\d{2}-\\d{2}T[^`]*`" },
+      // A field's or an enum variant's metadata tag: ``Sell `json:"sell"` ``.
+      { name: "string.quoted.other.tag.hale", match: "`[A-Za-z_][A-Za-z0-9_]*:\"[^`]*`" },
     ] },
     attributes: { patterns: [
       { name: "entity.name.tag.attribute.hale", match: "@[A-Za-z_][A-Za-z0-9_]*" },

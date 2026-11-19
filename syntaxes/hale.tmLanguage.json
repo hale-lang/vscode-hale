@@ -66,7 +66,7 @@
       "match": "\\b(birth|accept|release|run|drain|dissolve|on_failure|bulk|harmonic|resolution|on_full|on_overflow)(?=\\s*\\()"
     },
     {
-      "match": "(?:^|(?<=[{;]))\\s*(params|contract|bus|capacity|placement|bindings|claims|mode|topology|schedule|birth_check|projection|roles|principals|captures|epoch|payload|subject|domain|edges|seed|origin|round)(?=\\s*(\\{|\\(|:|$))",
+      "match": "(?:^|(?<=[{;]))\\s*(params|contract|bus|capacity|placement|bindings|claims|mode|topology|birth_check|projection|captures|epoch|payload|subject|domain|edges|seed|origin|round)(?=\\s*(\\{|\\(|:|$))",
       "captures": {
         "1": {
           "name": "keyword.other.block.hale"
@@ -74,7 +74,15 @@
       }
     },
     {
-      "match": "(?:^|(?<=[{;:]))\\s*(subscribe|publish|expose|consume|forbid|require|count|bound|cover|serve|listen|connect|restart|restart_in_place|quarantine|reorganize|reserve|tick|duration)\\b",
+      "match": "(?:^|(?<=[{;:]))\\s*(subscribe|publish|expose|consume|forbid|require|count|bound|cover|listen|connect|reserve|tick|duration)\\b",
+      "captures": {
+        "1": {
+          "name": "keyword.other.statement.hale"
+        }
+      }
+    },
+    {
+      "match": "(?:^|(?<=[{;:]))\\s*(restart|restart_in_place|quarantine|reorganize)(?=\\s*\\()",
       "captures": {
         "1": {
           "name": "keyword.other.statement.hale"
@@ -83,7 +91,7 @@
     },
     {
       "name": "support.function.placement.hale",
-      "match": "\\b(cooperative|pinned|pool|core|cores|replicas|host|node|l3|heap|slot_count|unix|shm_ring|http|role|intra_process|intra_machine|cross_machine|zero_copy|reperspective)(?=\\s*(\\(|=|,|\\)))"
+      "match": "\\b(cooperative|pinned|pool|core|cores|replicas|host|node|l3|heap|slot_count|unix|shm_ring|role|intra_process|intra_machine|cross_machine|zero_copy)(?=\\s*(\\(|=|,|\\)))"
     },
     {
       "name": "keyword.other.policy.hale",
@@ -102,44 +110,23 @@
       "match": "(?<==)\\s*\\Kenum\\b"
     },
     {
+      "match": "\\b([a-z_][A-Za-z0-9_]*)(\\?)(?=\\s*:(?!:))",
+      "captures": {
+        "1": {
+          "name": "variable.other.property.hale"
+        },
+        "2": {
+          "name": "keyword.operator.optional.hale"
+        }
+      }
+    },
+    {
       "name": "variable.other.property.hale",
       "match": "\\b[a-z_][A-Za-z0-9_]*(?=\\s*:(?!:))"
     },
     {
       "name": "constant.language.hale",
       "match": "\\b(?:true|false|nil)\\b"
-    },
-    {
-      "name": "keyword.control.hale",
-      "match": "\\b(if|else|match|for|in|while|return|break|continue|yield|terminate|violate|fail|bubble|until|wait)\\b"
-    },
-    {
-      "name": "storage.type.hale",
-      "match": "\\b(locus|perspective|type|const|fn|module|interface|trait|impl|macro|topic|group|constitution|closure|ring_layout|api|rpc|unit|quantity|point|distinct|range)\\b"
-    },
-    {
-      "name": "keyword.control.import.hale",
-      "match": "\\b(import|export|as)\\b"
-    },
-    {
-      "name": "storage.modifier.hale",
-      "match": "\\b(let|mut|async|await|fallible|main|inline|explicit|approx|extends|adopt)\\b"
-    },
-    {
-      "name": "variable.language.hale",
-      "match": "\\b(self)\\b"
-    },
-    {
-      "name": "keyword.operator.word.hale",
-      "match": "\\b(or|where|with|via|during|avoiding|within|serves|requires|includes|ordered_by|keyed_by|persists_through|resets_on|resets_per_epoch|stable_when|serialize_as|as_parent_for|indexed_by)\\b"
-    },
-    {
-      "name": "support.type.primitive.hale",
-      "match": "\\b(Int|Uint|Float|Decimal|String|Bool|Time|Duration|Bytes|StringView|BytesView|Never|Unit)\\b"
-    },
-    {
-      "name": "support.function.std.hale",
-      "match": "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b"
     },
     {
       "match": "\\b(fn)\\s+([a-z_][A-Za-z0-9_]*)",
@@ -151,6 +138,38 @@
           "name": "entity.name.function.hale"
         }
       }
+    },
+    {
+      "name": "keyword.control.hale",
+      "match": "\\b(if|else|match|for|in|while|return|break|continue|yield|terminate|violate|fail|bubble|until|wait)\\b"
+    },
+    {
+      "name": "storage.type.hale",
+      "match": "\\b(locus|type|const|fn|interface|topic|group|constitution|closure|ring_layout|api|rpc|unit|quantity|point|distinct|range)\\b"
+    },
+    {
+      "name": "keyword.control.import.hale",
+      "match": "\\b(import|as)\\b"
+    },
+    {
+      "name": "storage.modifier.hale",
+      "match": "\\b(let|mut|fallible|main|inline|explicit|approx|extends|adopt|clearable)\\b"
+    },
+    {
+      "name": "variable.language.hale",
+      "match": "\\b(self)\\b"
+    },
+    {
+      "name": "keyword.operator.word.hale",
+      "match": "\\b(or|where|with|via|during|avoiding|within|requires|includes|ordered_by|keyed_by|persists_through|resets_on|resets_per_epoch|as_parent_for|indexed_by)\\b"
+    },
+    {
+      "name": "support.type.primitive.hale",
+      "match": "\\b(Int|Uint|Float|Decimal|U256|I256|String|Bool|Time|Duration|Bytes|StringView|BytesView|BytesMut|Never|Unit)\\b"
+    },
+    {
+      "name": "support.function.std.hale",
+      "match": "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b"
     },
     {
       "match": "\\b([A-Z][A-Za-z0-9_]*)\\s*(<-)",
@@ -170,6 +189,10 @@
     {
       "name": "entity.name.function.call.hale",
       "match": "\\b[a-z_][A-Za-z0-9_]*(?=\\s*\\()"
+    },
+    {
+      "name": "keyword.operator.range.hale",
+      "match": "\\.\\.=?"
     },
     {
       "name": "keyword.operator.hale",
@@ -209,7 +232,7 @@
       "patterns": [
         {
           "name": "comment.line.documentation.hale",
-          "match": "///.*$"
+          "match": "///(?!/).*$"
         },
         {
           "name": "comment.line.double-slash.hale",
@@ -228,6 +251,15 @@
           "name": "string.quoted.double.block.hale",
           "begin": "(\"{3,})[ \\t]*$",
           "end": "^[ \\t]*\\1(?!\")"
+        },
+        {
+          "name": "string.quoted.double.raw.hale",
+          "begin": "\\br(#*)\"",
+          "end": "\"\\1"
+        },
+        {
+          "name": "constant.character.byte.hale",
+          "match": "\\bb'(?:\\\\(?:x[0-9A-Fa-f]{2}|[ntr0'\"\\\\])|[^'\\\\])'"
         },
         {
           "name": "string.quoted.double.interpolated.hale",
@@ -264,6 +296,10 @@
         {
           "name": "constant.other.time.hale",
           "match": "`\\d{4}-\\d{2}-\\d{2}T[^`]*`"
+        },
+        {
+          "name": "string.quoted.other.tag.hale",
+          "match": "`[A-Za-z_][A-Za-z0-9_]*:\"[^`]*`"
         }
       ]
     },
@@ -300,6 +336,6 @@
     }
   },
   "x-generated-from": "keywords.rs",
-  "x-keyword-count": 174,
+  "x-keyword-count": 158,
   "x-unclassified": []
 }

@@ -59,7 +59,7 @@ console.log("grammar test passed");
 
 // A scope must cover the requested position in the actual source line:
 // matching a word in a comment or an unrelated occurrence cannot pass.
-const fixtureRoot = "test/fixtures/v0.28";
+for (const fixtureRoot of ["test/fixtures/v0.28", "test/fixtures/v0.36"]) {
 const sources = JSON.parse(fs.readFileSync(`${fixtureRoot}/sources.json`, "utf8"));
 for (const [file, fixture] of Object.entries(sources.files)) {
   const raw = fs.readFileSync(`${fixtureRoot}/${file}`);
@@ -84,6 +84,7 @@ for (const [file, fixture] of Object.entries(sources.files)) {
     }
   }
   console.log(`ok   ${file}: ${fixture.assertions.length} position-specific scope assertions`);
+}
 }
 assert.deepEqual(JSON.parse(fs.readFileSync("syntaxes/hale.tmLanguage.json", "utf8"))["x-unclassified"], []);
 console.log("upstream fixture grammar tests passed");

@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.3.0 — 2026-11-18
+
+Syntax highlighting, the Language catalog and the completion offers
+follow Hale's surface as v0.36.0 ships it.
+
+Added:
+
+- Byte literals (`b'/'`, `b'\x7f'`), raw strings (`r"…"`, `r#"…"#`),
+  `json:` tags on enum variants, the `?` of an optional field
+  (`last?: T`, `clearable`), `U256` / `I256` / `BytesMut`, and `..` /
+  `..=` (including the open-ended slices `s[a..]`, `s[..b]`, `s[..]`).
+- `///` is a doc comment and `////` an ordinary one; Enter on a `///`
+  line continues the doc comment.
+- A fn declaration's name is coloured as a declaration, not a call.
+- A recovery word (`restart`, `quarantine`, …) is a keyword only before
+  its `(`, so `restart = true;` reads as a local.
+- Language rows, with corpus examples, for `if let`, `let … else`,
+  or-patterns, string arms, open-ended slices, byte literals, raw
+  strings, `@display`, `{x:?}`, `@wire_case`, variant `json:` tags,
+  `E::name` / `E::parse` / `E::variants` / `E::index`, optional fields
+  and import lists. Completion offers `if let`, `let … else`, an
+  or-pattern arm, a string arm, a variant with a wire name, an optional
+  field, an import list, `@display` and `@wire_case` types.
+- Match-arm snippets write `->`, as Hale does (they wrote `=>`).
+
+Removed, as the language removed them:
+
+- Perspectives (F.55): `perspective`, `serves`, `reperspective`,
+  `serialize_as`, `stable_when` are no longer coloured, catalogued or
+  offered; the params guide offers an interface-typed param instead.
+- `module { }` and the `module` keyword (F.57).
+- `schedule`, `http`, `principals`, `roles` and `serve` as keywords
+  (F.56); `api::` and `http::` paths keep their namespace colour.
+- `trait`, `impl`, `async`, `await`, `macro` and `export` are plain
+  identifiers (F.47); `@export` keeps the annotation colour.
+
 ## 0.2.0 — 2026-10-23
 
 Refresh syntax highlighting and the examples index against Hale v0.28.0.

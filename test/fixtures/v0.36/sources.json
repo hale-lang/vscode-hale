@@ -1,0 +1,206 @@
+{
+  "repository": "hale-lang/hale",
+  "revision": "fd063cba6495148abaafa41b1343d0e90ed8db49",
+  "files": {
+    "if_let_test.hl": {
+      "source": "tests/hale/if_let_test.hl",
+      "sha256": "2f1d5b8de354184a1bc423719954045508b52dd76bb215f665107c43077faf6d",
+      "assertions": [
+        {
+          "line": "    if let Side::Other(raw) = side {",
+          "token": "let",
+          "scope": "storage.modifier.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    if let Side::Other(raw) = side {",
+          "token": "if",
+          "scope": "keyword.control.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "byte_literals_test.hl": {
+      "source": "tests/hale/byte_literals_test.hl",
+      "sha256": "7445ae61986b7520adafc4185ef7941b92a12d9b85ed428d47c6fe861d4d0426",
+      "assertions": [
+        {
+          "line": "const SLASH: Int = b'/';",
+          "token": "b'/'",
+          "scope": "constant.character.byte.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        b' ' | b'\\t' | b'\\n' | b'\\r' -> \"space\",",
+          "token": "b'\\t'",
+          "scope": "constant.character.byte.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        b' ' | b'\\t' | b'\\n' | b'\\r' -> \"space\",",
+          "token": "|",
+          "scope": "keyword.operator.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "or_patterns_test.hl": {
+      "source": "tests/hale/or_patterns_test.hl",
+      "sha256": "35891c6f2342f4e8774bc8881f3dee5be0b0a17fddeb3cdcb2d01e713fb5e3f8",
+      "assertions": [
+        {
+          "line": "        Color::Red | Color::Green -> true,",
+          "token": "|",
+          "scope": "keyword.operator.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        \"assign\" | \"unassign\" -> verb + \" <name> reviews <kind>:<node>\",",
+          "token": "|",
+          "scope": "keyword.operator.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "open_slices_test.hl": {
+      "source": "tests/hale/open_slices_test.hl",
+      "sha256": "e8da3831eb0af74833edcab75f4f524f6f38358ff3e726ec23aa5aec2791502f",
+      "assertions": [
+        {
+          "line": "        let v = self.next()[4..];",
+          "token": "..",
+          "scope": "keyword.operator.range.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        let all = self.next()[..];",
+          "token": "..",
+          "scope": "keyword.operator.range.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "display_test.hl": {
+      "source": "tests/hale/display_test.hl",
+      "sha256": "f7d63431fc035717c6b4000c14737d73635e755bc28a20d1b2f25a934be6741d",
+      "assertions": [
+        {
+          "line": "@display(\"${dollars}.{cents:0>2} {currency}\")",
+          "token": "@display",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    @display(\"buy\") Buy,",
+          "token": "@display",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "enum_names_test.hl": {
+      "source": "tests/hale/enum_names_test.hl",
+      "sha256": "bf2e532006d55627dbda6d250db7e29c29285282c42463ad5f376a30ebc21f9d",
+      "assertions": [
+        {
+          "line": "type Side = enum { Buy `json:\"buy\"`, Sell `json:\"sell\"` };",
+          "token": "`json:\"buy\"`",
+          "scope": "string.quoted.other.tag.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "@wire_case(snake) type Phase = enum { InProgress, HTTPError, Done `json:\"finished\"` };",
+          "token": "@wire_case",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "raw_string_test.hl": {
+      "source": "tests/hale/raw_string_test.hl",
+      "sha256": "0fb98fe00ed894a0768c8fcb3e79fb8ef3f410fcdd6ed020cae33d4295927d06",
+      "assertions": [
+        {
+          "line": "    std::test::assert_eq_str(r#\"say \"hi\"\"#, \"say \\\"hi\\\"\", \"`r#` carries a quote\");",
+          "token": "r#\"say \"hi\"\"#",
+          "scope": "string.quoted.double.raw.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert_eq_str(r##\"a \"# b\"##, \"a \\\"# b\", \"`r##` carries `\\\"#`\");",
+          "token": "r##\"a \"# b\"##",
+          "scope": "string.quoted.double.raw.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "optional_field_test.hl": {
+      "source": "tests/hale/optional_field_test.hl",
+      "sha256": "5f4b436b525d63b5dcd97dbaa3f5abec61ee789a046cecc3c828a248be8f2d55",
+      "assertions": [
+        {
+          "line": "    last?: Decimal<8>;",
+          "token": "last",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    last?: Decimal<8>;",
+          "token": "?",
+          "scope": "keyword.operator.optional.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    expires_at?: Time clearable;",
+          "token": "clearable",
+          "scope": "storage.modifier.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "module_is_a_name_test.hl": {
+      "source": "tests/hale/module_is_a_name_test.hl",
+      "sha256": "9013167dd600cd4e59bad030b862f93af323f794de165bedbdfaa7cb9be53264",
+      "assertions": [
+        {
+          "line": "fn module(n: Int) -> Int { return n * 10; }",
+          "token": "module",
+          "scope": "entity.name.function.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Package { module: String; version: Int = 1; }",
+          "token": "module",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        }
+      ],
+      "revision": "e19e6e29fc288ae4f8d95fd22121e34eb068c5ad",
+      "note": "from hale-lang/hale#2085 (F.57), not yet on main at the revision above"
+    },
+    "crypto_rsa_pss_test.hl": {
+      "source": "tests/hale/crypto_rsa_pss_test.hl",
+      "sha256": "6c7230bd056d0ee9b2509d10dc30a838ccc277b4703533e47526e72d976fdb3d",
+      "assertions": [
+        {
+          "line": "/// Signing with `key` refuses, with the CryptoError's kind and a detail",
+          "token": "/// Signing with `key` refuses, with the CryptoError's kind and a detail",
+          "scope": "comment.line.documentation.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "contextual_keywords_test.hl": {
+      "source": "tests/hale/contextual_keywords_test.hl",
+      "sha256": "f055adf9bcaaefcac8a961998ce01c0633295df490eea4cd4cbf1d71eb41d61e",
+      "assertions": [
+        {
+          "line": "    on_failure(c: Worker, err: ClosureViolation) { restart(c) for 3; }",
+          "token": "restart",
+          "scope": "keyword.other.statement.hale",
+          "occurrence": 0
+        }
+      ]
+    }
+  }
+}
