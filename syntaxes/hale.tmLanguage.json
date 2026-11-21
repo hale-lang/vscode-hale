@@ -172,6 +172,17 @@
       "match": "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b"
     },
     {
+      "match": "(?<![A-Za-z0-9_)\\]{}\"'`.?])(\\.)([A-Z][A-Za-z0-9_]*)\\b",
+      "captures": {
+        "1": {
+          "name": "punctuation.accessor.variant.hale"
+        },
+        "2": {
+          "name": "entity.name.type.variant.hale"
+        }
+      }
+    },
+    {
       "match": "\\b([A-Z][A-Za-z0-9_]*)\\s*(<-)",
       "captures": {
         "1": {
