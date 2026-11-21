@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.4.0 — 2026-11-21
+
+Syntax highlighting, the Language catalog and the completion offers
+follow Hale's surface as v0.37.0 ships it.
+
+Added:
+
+- `.Variant` patterns (F.58): in `.Buy ->`, `.Refused(_) | .Pending`,
+  `if let .Result(n) = o` and `let .M(n) = m;`, the dot is
+  `punctuation.accessor.variant.hale` and the name
+  `entity.name.type.variant.hale`, so it takes the colour that
+  `Side::Buy` already had. A dot after a name, a closing bracket or a
+  quote is still a field access or a call.
+- Receiver calls on text (F.59): `raw.trim().lower()` and
+  `"ab".repeat(3)` are coloured as method calls, as they already were.
+  A Language row covers them now.
+- Language rows, with corpus examples, for `.Variant` and receiver calls
+  on text. The `let … else` and or-pattern rows also recognise the
+  dotted form. The match guide offers a `.Variant` arm.
+- Grammar tests run on hale's own `dot_variant_patterns_test.hl` and
+  `text_receiver_calls_test.hl` (`test/fixtures/v0.37/`), with
+  position-specific scope assertions.
+
 ## 0.3.0 — 2026-11-18
 
 Syntax highlighting, the Language catalog and the completion offers

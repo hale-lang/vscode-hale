@@ -88,6 +88,13 @@ const patterns = [
   ...Object.entries(bare).map(([name, ws]) => ({ name, match: `\\b(${alt(ws)})\\b` })),
   { name: "support.type.primitive.hale", match: "\\b(Int|Uint|Float|Decimal|U256|I256|String|Bool|Time|Duration|Bytes|StringView|BytesView|BytesMut|Never|Unit)\\b" },
   { name: "support.function.std.hale", match: "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b" },
+  // F.58: `.Variant` in a pattern names a variant of the matched value's
+  // enum (`.Buy ->`, `.Refused(_) | .Pending`, `if let .Result(n) =`).
+  // A pattern's dot follows no value: a field access or a receiver call
+  // (`raw.trim()`, `"ab".repeat(3)`) has a name, a closing bracket or a
+  // quote before its dot, `0..Max` is a range, and `{{.Name}}` is template
+  // text.
+  { match: "(?<![A-Za-z0-9_)\\]{}\"'`.?])(\\.)([A-Z][A-Za-z0-9_]*)\\b", captures: { 1: { name: "punctuation.accessor.variant.hale" }, 2: { name: "entity.name.type.variant.hale" } } },
   { match: "\\b([A-Z][A-Za-z0-9_]*)\\s*(<-)", captures: { 1: { name: "entity.name.type.topic.hale" }, 2: { name: "keyword.operator.send.hale" } } },
   { name: "entity.name.type.hale", match: "\\b[A-Z][A-Za-z0-9_]*\\b" },
   { name: "entity.name.function.call.hale", match: "\\b[a-z_][A-Za-z0-9_]*(?=\\s*\\()" },

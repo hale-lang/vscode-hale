@@ -1,0 +1,156 @@
+{
+  "repository": "hale-lang/hale",
+  "revision": "613e55fbdf9144989ffdb6cbe891d5ab647f083b",
+  "files": {
+    "dot_variant_patterns_test.hl": {
+      "source": "tests/hale/dot_variant_patterns_test.hl",
+      "sha256": "9e5ebc446368d0954c49538d97704dccf36667b52b8eec775b00c3bafa8ab54f",
+      "assertions": [
+        {
+          "line": "        .Buy -> \"buy\",",
+          "token": ".",
+          "scope": "punctuation.accessor.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        .Buy -> \"buy\",",
+          "token": "Buy",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        .Other(raw) -> \"other:\" + raw,",
+          "token": "Other",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        .Invalid(p) | .NotFound(p) | CtlError::Conflict(p) -> p,",
+          "token": "Invalid",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        .Invalid(p) | .NotFound(p) | CtlError::Conflict(p) -> p,",
+          "token": "NotFound",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        .Invalid(p) | .NotFound(p) | CtlError::Conflict(p) -> p,",
+          "token": "Conflict",
+          "scope": "entity.name.type.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        .Invalid(p) | .NotFound(p) | CtlError::Conflict(p) -> p,",
+          "token": "|",
+          "scope": "keyword.operator.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "        .Result(n) if n > 10 -> 10,",
+          "token": "Result",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    if let .Refused(why) = o {",
+          "token": "Refused",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    if let .Refused(why) = o {",
+          "token": "let",
+          "scope": "storage.modifier.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    } else if let .Refused(_) | .Pending = o {",
+          "token": "Pending",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let .Result(index) = o else {",
+          "token": "Result",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let .M(n) = m;",
+          "token": "M",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let .Invalid(p) | .NotFound(p) = e else {",
+          "token": "NotFound",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "            .Sell | .Other(_) -> f\"sell {n}\",",
+          "token": "Sell",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "            .Sell | .Other(_) -> f\"sell {n}\",",
+          "token": "Other",
+          "scope": "entity.name.type.variant.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    return match o.side {",
+          "token": ".",
+          "scope": "punctuation.accessor.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    return match o.side {",
+          "token": "side",
+          "scope": "source.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "text_receiver_calls_test.hl": {
+      "source": "tests/hale/text_receiver_calls_test.hl",
+      "sha256": "559e7477d6debabd120edda075e8865d735ac9c5edcadf28415869c4ea18a2e2",
+      "assertions": [
+        {
+          "line": "    std::test::assert_eq_str(raw.trim().lower(), \"hello world\", \"trim then lower\");",
+          "token": "trim",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert_eq_str(raw.trim().lower(), \"hello world\", \"trim then lower\");",
+          "token": "lower",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert_eq_str(raw.trim().lower(), \"hello world\", \"trim then lower\");",
+          "token": ".",
+          "scope": "punctuation.accessor.hale",
+          "occurrence": 1
+        },
+        {
+          "line": "    std::test::assert_eq_str(\"ab\".repeat(3), \"ababab\", \"a literal receiver\");",
+          "token": ".",
+          "scope": "punctuation.accessor.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert_eq_str(\"ab\".repeat(3), \"ababab\", \"a literal receiver\");",
+          "token": "repeat",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        }
+      ]
+    }
+  }
+}
