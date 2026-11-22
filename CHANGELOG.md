@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.5.0 — 2026-11-22
+
+Syntax highlighting, the Language catalog and the completion offers
+follow Hale's surface as v0.38.0 ships it.
+
+Added:
+
+- `U64` (F.60) and the fixed-width integers `I32`, `U32`, `I16`,
+  `U16`, `I8` and `U8` (F.64) are coloured as builtin types
+  (`support.type.primitive.hale`), like `Int` and `U256`, in a type and
+  in `U64::max()` or `U8::wrapping_add(…)`. A literal past `Int`'s max
+  (`18446744073709551615`) is one number.
+- `@vectorize` and `@vectorize(min_width: N)` (F.63): a Language row,
+  linked to *Loops That Must Vectorize*, and two completion offers
+  among the fn annotations.
+- Language rows, with corpus examples, for `U64`, the fixed-width
+  integers, and a scalar over another integer base (F.62: `quantity
+  U64 in wei`, `distinct U16`, `U8 { range: … }`). The top level offers
+  a quantity over `U64` or a fixed-width integer.
+- Grammar tests run on hale's own `fixed_int_arith_test.hl`,
+  `u64_arith_test.hl`, `units_fixed_int_test.hl` and
+  `mode_is_a_name_test.hl`, and on the book's `@vectorize` example
+  (`test/fixtures/v0.38/`), with position-specific scope assertions.
+
+Removed, as the language removed them:
+
+- Locus modes (F.61). `mode`, `bulk`, `harmonic` and `resolution` are
+  ordinary names: `params { mode: … }` is a field, not a block head, and
+  `self.bulk()` or `harmonic(3)` is a call, not a lifecycle hook. The
+  `mode` and `bulk / harmonic / resolution` Language rows, the `mode`
+  completion offer and guide, and the Lifecycle view's modes row are
+  gone. The "Modes & projections" part of the Language view is now
+  "Projections & tiers".
+- `Uint` is no longer coloured as a builtin type; F.60 replaced it with
+  `U64`.
+
 ## 0.4.0 — 2026-11-21
 
 Syntax highlighting, the Language catalog and the completion offers

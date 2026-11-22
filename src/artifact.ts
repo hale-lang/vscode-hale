@@ -163,20 +163,19 @@ export interface Model {
 
 /** The lifecycle hooks, in the order the runtime calls them. */
 export const HOOKS = ["birth", "accept", "release", "run", "drain", "dissolve", "on_failure"] as const;
-export const MODES = ["bulk", "harmonic", "resolution"] as const;
 
-/** The hooks, modes and methods a locus declares, from the phase table. */
-export function phasesOf(a: Artifact, locus: string): { hooks: string[]; modes: string[]; methods: string[] } {
-  const hooks: string[] = []; const modes: string[] = []; const methods: string[] = [];
+/** The hooks and methods a locus declares, from the phase table. */
+export function phasesOf(a: Artifact, locus: string): { hooks: string[]; methods: string[] } {
+  const hooks: string[] = []; const methods: string[] = [];
   for (const [fn, p] of Object.entries(a.phases ?? {})) {
     if (ownerOf(fn) !== locus || fn === locus) continue;
     const name = fn.slice(locus.length + 2);
     if (isGenerated(name)) continue;
-    if (p.kind === "hook") ((MODES as readonly string[]).includes(p.phase) ? modes : hooks).push(p.phase);
+    if (p.kind === "hook") hooks.push(p.phase);
     else methods.push(name);
   }
   hooks.sort((x, y) => HOOKS.indexOf(x as typeof HOOKS[number]) - HOOKS.indexOf(y as typeof HOOKS[number]));
-  return { hooks, modes, methods };
+  return { hooks, methods };
 }
 
 /** A name the compiler made rather than the author: `__StdApiExposure`, `App.__rpc_u_1`, `Book::__rpc_ev`. */

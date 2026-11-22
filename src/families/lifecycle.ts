@@ -13,7 +13,7 @@ const HOOK_GLOSS: Record<string, string> = {
 /**
  * Each locus as a lifecycle: which of the seven hooks it declares, in
  * the order the runtime calls them, with the missing ones named; its
- * modes, its methods, what it supervises and how, what it subscribes
+ * methods, what it supervises and how, what it subscribes
  * to and with what capacity, and the instances it has in the tower.
  */
 export const lifecycle: Family = {
@@ -33,7 +33,7 @@ export const lifecycle: Family = {
       icon: "symbol-event",
     });
     for (const c of contracts) {
-      const { hooks, modes, methods } = phasesOf(a, c.locus);
+      const { hooks, methods } = phasesOf(a, c.locus);
       const loc = { file: c.file, span: c.span };
       const supOf = sup.filter((s) => s.locus === c.locus);
       const supBy = sup.filter((s) => s.child === c.locus);
@@ -55,7 +55,6 @@ export const lifecycle: Family = {
           return { label: h, description: has ? "declared" : "not declared", tooltip: HOOK_GLOSS[h], icon: has ? "pass" : "circle-outline", tone: has ? "ok" : undefined, location: has ? loc : undefined };
         }),
       });
-      if (modes.length) children.push({ label: "modes", description: modes.join(", "), tooltip: "Three named projections of one kernel: self.bulk(), self.harmonic(), self.resolution().", icon: "symbol-enum", children: modes.map((m) => ({ label: m, icon: "symbol-enum-member", location: loc })) });
       if (methods.length) children.push({ label: "methods", description: `${methods.length}`, icon: "symbol-method", children: methods.map((m) => ({ label: m, icon: "symbol-method", location: declLoc(a, `${c.locus}::${m}`) ?? loc })) });
       if (c.subscribes?.length) children.push({
         label: "subscribes", description: `${c.subscribes.length}`, icon: "arrow-left",
@@ -69,12 +68,11 @@ export const lifecycle: Family = {
       const bits: string[] = [];
       const shown = [...hooks, ...(supOf.length && !hooks.includes("on_failure") ? ["on_failure"] : [])];
       if (shown.length) bits.push(shown.join(" → "));
-      if (modes.length) bits.push(`modes ${modes.join(", ")}`);
       if (supOf.length) bits.push(`supervises ${supOf.map((s) => s.child).join(", ")}`);
       nodes.push({
         label: c.locus,
         description: `${c.sealed ? "@sealed · " : ""}${bits.join(" · ") || `${methods.length} method(s)`}`,
-        tooltip: `${c.locus}${c.sealed ? " @sealed" : ""}\nhooks: ${hooks.join(", ") || "none"}\nmodes: ${modes.join(", ") || "none"}\n${methods.length} method(s), ${inst.length} instance(s)`,
+        tooltip: `${c.locus}${c.sealed ? " @sealed" : ""}\nhooks: ${hooks.join(", ") || "none"}\n${methods.length} method(s), ${inst.length} instance(s)`,
         icon: inst.some((i) => i.owner === null) ? "home" : c.sealed ? "lock" : "symbol-class",
         location: loc,
         children,

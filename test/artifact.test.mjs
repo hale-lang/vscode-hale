@@ -110,9 +110,10 @@ console.log("artifact test passed");
   check("lifecycle: on_failure row says what the parent does for the child", hooks.children.find((h) => h.label === "on_failure").description === "Worker on ClosureViolation: restart");
   check("lifecycle: supervision edges at the top", flat(lf).some((n) => n.label === "Coordinator → Worker" && /restart/.test(n.description)));
   check("lifecycle: the child knows who supervises it", worker.children.some((c) => c.label === "supervised by" && /Coordinator/.test(c.description)));
-  const modes = lifecycle.build(load("modes"));
-  const agg = modes.find((n) => n.label === "AggregatorL");
-  check("lifecycle: the three modes are listed apart from the hooks", agg && agg.children.some((c) => c.label === "modes" && c.description === "bulk, harmonic, resolution") && /accept → run/.test(agg.description), agg?.description);
+  // F.61: modes were removed; a method named like one is a method (hale v0.38's mode_is_a_name_test.hl).
+  const named = lifecycle.build(load("mode_names"));
+  const sensor = named.find((n) => n.label === "Sensor");
+  check("lifecycle: a method named bulk or resolution is listed as a method, and there is no modes row", sensor && sensor.children.some((c) => c.label === "methods" && c.children.map((m) => m.label).join(",") === "bulk,resolution") && !sensor.children.some((c) => c.label === "modes"), sensor?.children.map((c) => `${c.label}:${c.description}`).join(" | "));
   const persp = lifecycle.build(load("perspective"));
   check("lifecycle: a method table locus lists its methods", flat(persp).some((n) => n.label === "methods" && n.children.some((c) => c.label === "route")));
   const ef = effects.build(load("effects"));

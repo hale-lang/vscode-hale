@@ -63,10 +63,10 @@
     },
     {
       "name": "entity.name.function.lifecycle.hale",
-      "match": "\\b(birth|accept|release|run|drain|dissolve|on_failure|bulk|harmonic|resolution|on_full|on_overflow)(?=\\s*\\()"
+      "match": "\\b(birth|accept|release|run|drain|dissolve|on_failure|on_full|on_overflow)(?=\\s*\\()"
     },
     {
-      "match": "(?:^|(?<=[{;]))\\s*(params|contract|bus|capacity|placement|bindings|claims|mode|topology|birth_check|projection|captures|epoch|payload|subject|domain|edges|seed|origin|round)(?=\\s*(\\{|\\(|:|$))",
+      "match": "(?:^|(?<=[{;]))\\s*(params|contract|bus|capacity|placement|bindings|claims|topology|birth_check|projection|captures|epoch|payload|subject|domain|edges|seed|origin|round)(?=\\s*(\\{|\\(|:|$))",
       "captures": {
         "1": {
           "name": "keyword.other.block.hale"
@@ -165,7 +165,7 @@
     },
     {
       "name": "support.type.primitive.hale",
-      "match": "\\b(Int|Uint|Float|Decimal|U256|I256|String|Bool|Time|Duration|Bytes|StringView|BytesView|BytesMut|Never|Unit)\\b"
+      "match": "\\b(Int|U64|I32|U32|I16|U16|I8|U8|Float|Decimal|U256|I256|String|Bool|Time|Duration|Bytes|StringView|BytesView|BytesMut|Never|Unit)\\b"
     },
     {
       "name": "support.function.std.hale",
@@ -347,6 +347,6 @@
     }
   },
   "x-generated-from": "keywords.rs",
-  "x-keyword-count": 158,
+  "x-keyword-count": 154,
   "x-unclassified": []
 }

@@ -80,7 +80,6 @@ const HEADS: [string, RegExp][] = [
   ["accept", /^accept\s*\(([^)]*)\)\s*$/],
   ["release", /^release\s*\(([^)]*)\)\s*$/],
   ["on_failure", /^on_failure\s*\(([^)]*)\)\s*$/],
-  ["mode", /^mode\s+([A-Za-z_]\w*)\s*\([^)]*\)[^{]*$/],
   ["fn", /^(?:@\w+(?:\([^)]*\))?\s*)*fn\s+([A-Za-z_]\w*)\s*\(([^)]*)\)[^{]*$/],
   ["match", /^match\b/],
   ["block", /^(?:if|else|while|for)\b/],
@@ -141,7 +140,6 @@ const memberOffers = (c: Here): Offer[] => [
   offer("closure { }", "an invariant the runtime checks at an epoch; breaking it is structural failure", "closure ${1:name} {\n    ${2:self.a} ~~ ${3:self.b} within ${4:0.01d};\n    epoch ${5:tick};\n}", c.has(/\bclosure\s+\w+\s*\{/)),
   offer("contract { }", "what the locus exposes to its parent and consumes from it", "contract {\n    expose ${1:field};\n}", c.has(/\bcontract\s*\{/)),
   offer("capacity { }", "bounded storage slots the locus owns: pools and heaps", "capacity {\n    pool ${1:items} of ${2:Item};\n}", c.has(/\bcapacity\s*\{/)),
-  offer("mode", "a named projection of the kernel: bulk, harmonic or resolution", "mode ${1|bulk,harmonic,resolution|}() -> ${2:Int} {\n    $0\n}", c.has(/\bmode\s+\w+/)),
   offer("birth_check", "a check after birth; failing it violates a closure", "birth_check { ${1:self.ready} } -> violate ${2:fuse};", c.has(/\bbirth_check\b/)),
 ];
 const annotationOffers = (c: Here): Offer[] => {
@@ -210,6 +208,8 @@ const fnAnnotations: Offer[] = [
   offer("@bounded_by", "name what bounds this fn's growth", "@bounded_by(${1:input})"),
   offer("@unbounded", "own a growth the compiler flagged", "@unbounded"),
   offer("@hot", "a certified hot path", "@hot"),
+  offer("@vectorize", "every innermost loop must vectorize on the build's target, or the build says why not", "@vectorize"),
+  offer("@vectorize(min_width:)", "and at least N lanes wide", "@vectorize(min_width: ${1:4})"),
   offer("@rpc", "mark a method callable from a surface", "@rpc"),
   offer("@secret param", "a parameter whose value must not leak", "@secret ${1:b}: Bytes"),
 ];
@@ -254,7 +254,7 @@ const serveOffers = (c: Here): Offer[] => {
 const DOC = {
   lifecycle: "docs/src/services/lifecycle.md", bus: "docs/src/services/bus.md", failure: "docs/src/services/failure.md", conc: "docs/src/services/concurrency.md",
   parents: "docs/src/services/parents-children.md", claims: "docs/src/claims.md", api: "docs/src/services/build-an-api.md", multi: "docs/src/services/multi-binary.md",
-  memory: "docs/src/systems/memory.md", modes: "docs/src/systems/modes.md", locus: "docs/src/everyday/locus-gently.md",
+  memory: "docs/src/systems/memory.md", locus: "docs/src/everyday/locus-gently.md",
   fns: "docs/src/basics/functions.md", fallible: "docs/src/basics/fallible.md", records: "docs/src/everyday/records.md", projects: "spec/projects.md", units: "docs/src/units.md",
 };
 
@@ -286,7 +286,8 @@ export const GUIDES: Record<string, Guide> = {
       offer("constitution", "a named claimset entrypoints adopt", "constitution ${1:Name} {\n    $0\n}"),
       offer("import", "another seed under a name", "import \"${1:../lib}\" as ${2:lib};"),
       offer("import list", "names of another seed brought in bare", "import \"${1:../lib}\" as ${2:lib} { ${3:Name} };"),
-      offer("distinct", "an identity: an Int that is not a number", "type ${1:OrderId} = distinct Int;"),
+      offer("distinct", "an identity: an integer that is not a number", "type ${1:OrderId} = distinct Int;"),
+      offer("quantity over U64", "a quantity whose every value is a U64 or a fixed-width integer", "unit ${1:wei};\ntype ${2:Wei} = quantity ${3|U64,U32,U16,U8,I32,I16,I8|} in ${1:wei};"),
       offer("point", "a position on a quantity's axis", "type ${1:Price} = point ${2:Tick};"),
       offer("bounded list type", "a list with a compile-time capacity", "type ${1:Batch} { items: bounded[${2:Int}; ${3:16}] = []; }"),
       offer("fn … fallible(E)", "a free fn that may fail", "fn ${1:name}(${2:x: Int}) -> ${3:Int} fallible(${4:Error}) {\n    $0\n}"),
@@ -367,14 +368,14 @@ export const GUIDES: Record<string, Guide> = {
     offers: (c) => [...memberOffers(c), ...hookOffers(c, false), ...annotationOffers(c)],
     derived: (c) => {
       const a = c.a; const l = c.locus; const ct = c.contract(); if (!a || !l || !ct) return [{ label: "not in the checked artifact yet: save to check", icon: "info" }];
-      const { hooks, modes, methods } = phasesOf(a, l);
+      const { hooks, methods } = phasesOf(a, l);
       const { pubs, subs } = busRows(a);
       const inst = ct.instances ?? [];
       const sup = (a.supervision ?? []).filter((s) => s.child === l);
       const eff = new Set<string>(); for (const [fn, cls] of Object.entries(a.effects ?? {})) if (ownerOf(fn) === l) for (const e of cls) eff.add(e);
       return [
         { label: inst.length ? `${inst.length} instance(s)` : "no standing instance", description: inst.map((i) => `${i.path} (${i.domain})`).join(", ") || "no param of the tower holds one: spawned per use, or never born", icon: inst.length ? "symbol-class" : "warning", tone: inst.length ? undefined : "warn" },
-        { label: `hooks: ${hooks.join(" → ") || "none"}`, description: modes.length ? `modes ${modes.join(", ")}` : `${methods.length} method(s)`, icon: "symbol-event" },
+        { label: `hooks: ${hooks.join(" → ") || "none"}`, description: `${methods.length} method(s)`, icon: "symbol-event" },
         { label: `bus: ${subs.filter((x) => x.locus === l).length} subscription(s), ${new Set(pubs.filter((x) => ownerOf(x.fn) === l && !isGenerated(x.subject)).map((x) => x.subject)).size} topic(s) published`, description: [...subs.filter((x) => x.locus === l).map((x) => `← ${x.subject}`), ...new Set(pubs.filter((x) => ownerOf(x.fn) === l && !isGenerated(x.subject)).map((x) => `→ ${x.subject}`))].join(" "), icon: "broadcast" },
         { label: `effects: ${[...eff].filter((e) => e !== "alloc").sort().join(", ") || "none beyond alloc"}`, description: eff.has("block") ? "blocks: fine pinned or on an async_io pool, not as a main-thread handler" : "", icon: "symbol-misc", tone: eff.has("block") ? "warn" : undefined },
         { label: sup.length ? `supervised by ${sup.map((s) => `${s.locus} (${s.ops.join("/")})`).join(", ")}` : "no supervisor handles its failure", description: sup.length ? "" : "a parent's on_failure(c: " + l + ", err) would restart, quarantine or bubble", icon: "shield" },
@@ -543,7 +544,6 @@ export const GUIDES: Record<string, Guide> = {
     offers: (c) => { const child = c.frame?.args?.split(",")[0]?.split(":")[0]?.trim() ?? "c"; return [offer("restart", "re-run birth on the same memory", `restart(${child});`), offer("restart for N", "with a retry cap", `restart(${child}) for \${1:3};`), offer("restart_in_place", "restart without re-accepting", `restart_in_place(${child});`), offer("quarantine", "keep it, stop routing to it", `quarantine(${child});`), offer("bubble", "pass it to the grandparent", "bubble(err);"), offer("println err", "say what broke", `println("${c.locus}: ", err.closure, " on ", err.locus);`)]; },
     derived: (c) => { const l = c.locus; return (c.a?.supervision ?? []).filter((s) => s.locus === l).map((s) => ({ label: `${s.child} on ${s.err}`, description: s.ops.join(", "), icon: "shield" })); },
   },
-  mode: { title: (f) => `mode ${f.name}`, gloss: "One of three named projections of the locus's kernel: bulk, harmonic, resolution. They share the arena; self.bulk() runs one.", doc: DOC.modes, rules: ["A method may not take a mode's name."], offers: stmtOffers, derived: () => [] },
   birth_check: { title: () => "birth_check", gloss: "A condition checked right after birth; `-> violate name` names the closure it breaks when false, so a bad start is a structural failure the parent handles.", doc: "spec/semantics.md", rules: [], offers: () => [], derived: () => [] },
   fn: {
     title: (f) => `fn ${f.name}`,

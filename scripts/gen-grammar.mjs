@@ -39,12 +39,14 @@ const bare = {
   "variable.language.hale": ["self"],
   "keyword.operator.word.hale": ["or", "where", "with", "via", "during", "avoiding", "within", "requires", "includes", "ordered_by", "keyed_by", "persists_through", "resets_on", "resets_per_epoch", "as_parent_for", "indexed_by"],
 };
-const blockHeads = ["params", "contract", "bus", "capacity", "placement", "bindings", "claims", "mode", "topology", "birth_check", "projection", "captures", "epoch", "payload", "subject", "domain", "edges", "seed", "origin", "round"];
+// F.61: locus modes were removed; `mode`, `bulk`, `harmonic` and
+// `resolution` are ordinary identifiers.
+const blockHeads = ["params", "contract", "bus", "capacity", "placement", "bindings", "claims", "topology", "birth_check", "projection", "captures", "epoch", "payload", "subject", "domain", "edges", "seed", "origin", "round"];
 const statementHeads = ["subscribe", "publish", "expose", "consume", "forbid", "require", "count", "bound", "cover", "listen", "connect", "reserve", "tick", "duration"];
 // F.43: a recovery primitive is a keyword at statement head only when
 // its `(` follows (`restart(c) for 3;`); `restart = true;` is a local.
 const recoveryOps = ["restart", "restart_in_place", "quarantine", "reorganize"];
-const hooks = ["birth", "accept", "release", "run", "drain", "dissolve", "on_failure", "bulk", "harmonic", "resolution", "on_full", "on_overflow"];
+const hooks = ["birth", "accept", "release", "run", "drain", "dissolve", "on_failure", "on_full", "on_overflow"];
 const placementFns = ["cooperative", "pinned", "pool", "core", "cores", "replicas", "host", "node", "l3", "heap", "slot_count", "unix", "shm_ring", "role", "intra_process", "intra_machine", "cross_machine", "zero_copy"];
 const policies = ["floor", "ceil", "trunc", "half_even", "half_up", "clamp", "wrap", "raise", "discard", "block", "drop", "refuse", "default", "wait", "sum", "prod"];
 const projectionClasses = ["rich", "chunked", "recognition", "tier", "fixed_cell", "shared_slab", "spillover", "summary_only", "cap", "inferred", "may_be_empty", "of", "on", "reaches", "effects"];
@@ -86,7 +88,8 @@ const patterns = [
   // leaves the name to the call rule.
   { match: "\\b(fn)\\s+([a-z_][A-Za-z0-9_]*)", captures: { 1: { name: "storage.type.hale" }, 2: { name: "entity.name.function.hale" } } },
   ...Object.entries(bare).map(([name, ws]) => ({ name, match: `\\b(${alt(ws)})\\b` })),
-  { name: "support.type.primitive.hale", match: "\\b(Int|Uint|Float|Decimal|U256|I256|String|Bool|Time|Duration|Bytes|StringView|BytesView|BytesMut|Never|Unit)\\b" },
+  // F.60 / F.64: `U64` and the fixed-width integers; `Uint` is gone.
+  { name: "support.type.primitive.hale", match: "\\b(Int|U64|I32|U32|I16|U16|I8|U8|Float|Decimal|U256|I256|String|Bool|Time|Duration|Bytes|StringView|BytesView|BytesMut|Never|Unit)\\b" },
   { name: "support.function.std.hale", match: "\\bstd(::[a-z_][A-Za-z0-9_]*)+\\b" },
   // F.58: `.Variant` in a pattern names a variant of the matched value's
   // enum (`.Buy ->`, `.Refused(_) | .Pending`, `if let .Result(n) =`).

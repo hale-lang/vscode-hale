@@ -125,7 +125,7 @@ The table drives:
 level, `main locus`, `locus`, `perspective`, `params`, `contract`,
 `bus`, `capacity`, `closure`, `claims`, `constitution`, `placement`,
 `bindings`, `topology`, `api`, `topic`, each lifecycle hook,
-`on_failure`, `mode`, `fn`, `match`, a statement block, a literal. For
+`on_failure`, `fn`, `match`, a statement block, a literal. For
 the block the cursor is in, the **Here** view shows what the block is
 (two or three sentences, for someone who has not read the book, with
 the chapter and the examples), what this seed already has there (a
@@ -154,10 +154,10 @@ compiler family lands in "Other sections" raw until it has a lens.
 - **Tower**: every locus instance under the entry, by ownership, with
   its thread domain.
 - **Lifecycle**: each locus as a lifecycle: the seven hooks in the order
-  they run, declared ones marked and missing ones named; its modes
-  (`bulk`, `harmonic`, `resolution`), methods, subscriptions with their
-  capacity and shed policy, what it supervises and how (`restart`,
-  `quarantine`, `bubble`), who supervises it, its params and instances.
+  they run, declared ones marked and missing ones named; its methods,
+  subscriptions with their capacity and shed policy, what it supervises
+  and how (`restart`, `quarantine`, `bubble`), who supervises it, its
+  params and instances.
   The supervision tree at the bottom.
 - **Bus**: every topic with its publishers (and how many sites send),
   its subscribers, who declares the publish, and a flag when one side is
