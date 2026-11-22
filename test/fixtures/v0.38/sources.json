@@ -1,0 +1,247 @@
+{
+  "repository": "hale-lang/hale",
+  "revision": "75746408fb9e2db621a7052855c9b5971feb391b",
+  "files": {
+    "fixed_int_arith_test.hl": {
+      "source": "tests/hale/fixed_int_arith_test.hl",
+      "sha256": "3d00ca36f8693cc08d20b5eb63044ebcf385bb98ff52db33750ddda56a87701b",
+      "assertions": [
+        {
+          "line": "fn widened(x: U8) -> U32 {",
+          "token": "U8",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn widened(x: U8) -> U32 {",
+          "token": "U32",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn as_int(x: I32) -> Int {",
+          "token": "I32",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn twice(x: I16) -> I16 {",
+          "token": "I16",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn twice(x: I16) -> I16 {",
+          "token": "I16",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 1
+        },
+        {
+          "line": "    let b: I8 = -128;",
+          "token": "I8",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let d: U16 = 65535;",
+          "token": "U16",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let f: U32 = 4294967295;",
+          "token": "4294967295",
+          "scope": "constant.numeric.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert(a == U8::max() && b == I8::min() && c == I8::max(), \"max and min\");",
+          "token": "U8",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert(a == U8::max() && b == I8::min() && c == I8::max(), \"max and min\");",
+          "token": "max",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert(a == U8::max() && b == I8::min() && c == I8::max(), \"max and min\");",
+          "token": "::",
+          "scope": "punctuation.accessor.hale",
+          "occurrence": 2
+        },
+        {
+          "line": "    let zeros: [U16; 4] = [0; 4];",
+          "token": "U16",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "u64_arith_test.hl": {
+      "source": "tests/hale/u64_arith_test.hl",
+      "sha256": "0dd670f419a85e045fb9d0ed2b8254133cb38820099f6a599722e423e60abe1d",
+      "assertions": [
+        {
+          "line": "fn twice(x: U64) -> U64 {",
+          "token": "U64",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn twice(x: U64) -> U64 {",
+          "token": "U64",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 1
+        },
+        {
+          "line": "    let m: U64 = 18446744073709551615;",
+          "token": "U64",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let m: U64 = 18446744073709551615;",
+          "token": "18446744073709551615",
+          "scope": "constant.numeric.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let m = U64::max();",
+          "token": "U64",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "units_fixed_int_test.hl": {
+      "source": "tests/hale/units_fixed_int_test.hl",
+      "sha256": "fba83640ddc28e8d952341fe8dc23ca3fd454ce05316093dbf9db987e6b06086",
+      "assertions": [
+        {
+          "line": "type Ticks = quantity U32 in tick;",
+          "token": "quantity",
+          "scope": "storage.type.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Ticks = quantity U32 in tick;",
+          "token": "U32",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Level = U8 { range: 0..100; }",
+          "token": "U8",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Port = distinct U16;",
+          "token": "distinct",
+          "scope": "storage.type.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Port = distinct U16;",
+          "token": "U16",
+          "scope": "support.type.primitive.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "mode_is_a_name_test.hl": {
+      "source": "tests/hale/mode_is_a_name_test.hl",
+      "sha256": "4c1a8d9977d918dda297815ecfdc71a1d2c6d148cbf2a1c298be1267e0bc38d6",
+      "assertions": [
+        {
+          "line": "type Reading { mode: String; resolution: Int = 1; }",
+          "token": "mode",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "type Reading { mode: String; resolution: Int = 1; }",
+          "token": "resolution",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn harmonic(bulk: Int) -> Int { return bulk * 2; }",
+          "token": "harmonic",
+          "scope": "entity.name.function.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    params { mode: String = \"idle\"; samples: Int = 4; }",
+          "token": "mode",
+          "scope": "variable.other.property.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    fn bulk() -> Int { return self.samples * 10; }",
+          "token": "bulk",
+          "scope": "entity.name.function.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    fn resolution() -> Int { return self.bulk() + 1; }",
+          "token": "resolution",
+          "scope": "entity.name.function.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    fn resolution() -> Int { return self.bulk() + 1; }",
+          "token": "bulk",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    let mode = harmonic(3);",
+          "token": "harmonic",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert_eq_int(s.bulk(), 40, \"a locus method named `bulk`\");",
+          "token": "bulk",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    std::test::assert_eq_int(s.resolution(), 41, \"a method named `resolution` calling `bulk`\");",
+          "token": "resolution",
+          "scope": "entity.name.function.call.hale",
+          "occurrence": 0
+        }
+      ]
+    },
+    "vectorize_doc.hl": {
+      "source": "docs/src/systems/performance.md",
+      "sha256": "5d27cd3bab6d360c7e31923e7fa1ddcadf4c17ed31a75991a7600948a23fef07",
+      "note": "the first hale block under \"Loops That Must Vectorize (`@vectorize`)\"; no .hl file at the revision writes @vectorize",
+      "assertions": [
+        {
+          "line": "@vectorize",
+          "token": "@vectorize",
+          "scope": "entity.name.tag.attribute.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "fn total(xs: bounded[Int; 1024]) -> Int {",
+          "token": "total",
+          "scope": "entity.name.function.hale",
+          "occurrence": 0
+        },
+        {
+          "line": "    for x in xs {",
+          "token": "for",
+          "scope": "keyword.control.hale",
+          "occurrence": 0
+        }
+      ]
+    }
+  }
+}

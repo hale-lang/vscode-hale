@@ -59,7 +59,7 @@ console.log("grammar test passed");
 
 // A scope must cover the requested position in the actual source line:
 // matching a word in a comment or an unrelated occurrence cannot pass.
-for (const fixtureRoot of ["test/fixtures/v0.28", "test/fixtures/v0.36", "test/fixtures/v0.37"]) {
+for (const fixtureRoot of ["test/fixtures/v0.28", "test/fixtures/v0.36", "test/fixtures/v0.37", "test/fixtures/v0.38"]) {
 const sources = JSON.parse(fs.readFileSync(`${fixtureRoot}/sources.json`, "utf8"));
 for (const [file, fixture] of Object.entries(sources.files)) {
   const raw = fs.readFileSync(`${fixtureRoot}/${file}`);

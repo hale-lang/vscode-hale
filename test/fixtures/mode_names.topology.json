@@ -1,0 +1,121 @@
+{
+  "schema": "1.21",
+  "semantics": 2,
+  "shape_hash": "4adf24f99578ab50",
+  "sorts": {
+    "loci": ["Sensor"],
+    "fns": ["Sensor::bulk", "Sensor::resolution", "harmonic", "main"],
+    "topics": []
+  },
+  "sealed": [],
+  "relations": {
+    "calls": [
+      {"from": "Sensor::resolution", "to": "Sensor::bulk"},
+      {"from": "main", "to": "Sensor::bulk"},
+      {"from": "main", "to": "Sensor::resolution"},
+      {"from": "main", "to": "harmonic"}
+    ],
+    "calls_via_stdlib": [
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ]
+  },
+  "groups": {
+  },
+  "labels": {
+  },
+  "phases": {
+    "Sensor::bulk": {"phase": "bulk", "kind": "method"},
+    "Sensor::resolution": {"phase": "resolution", "kind": "method"}
+  },
+  "seeds": {
+  },
+  "effects": {
+    "main": ["alloc"]
+  },
+  "supervision": [
+  ],
+  "unknowns": [
+  ],
+  "sources": [
+    {"id": 0, "path": "mode_is_a_name_test.hl", "digest": "3a629dc511e69d22"}
+  ],
+  "provenance": {
+    "calls": [
+      {"from": "Sensor::resolution", "to": "Sensor::bulk", "source": 0, "span": [518, 529]},
+      {"from": "main", "to": "Sensor::bulk", "source": 0, "span": [1010, 1018]},
+      {"from": "main", "to": "Sensor::resolution", "source": 0, "span": [1085, 1099]},
+      {"from": "main", "to": "harmonic", "source": 0, "span": [567, 578]}
+    ],
+    "publishes": [
+    ],
+    "subscribes": [
+    ],
+    "decls": {
+      "Reading": {"source": 0, "span": [260, 267]},
+      "Sensor": {"source": 0, "span": [366, 372]},
+      "harmonic": {"source": 0, "span": [311, 319]},
+      "main": {"source": 0, "span": [543, 547]}
+    },
+    "supervision": [
+    ]
+  },
+  "topics": [
+  ],
+  "endpoints": [],
+  "declares_publish": [],
+  "contracts": [{"locus": "Sensor", "sealed": false, "params": [{"name": "mode", "type": "String"}, {"name": "samples", "type": "Int"}], "methods": ["Sensor::bulk", "Sensor::resolution"], "publishes": [], "subscribes": [], "supervises": [], "instances": [], "file": "mode_is_a_name_test.hl", "span": [366, 372]}],
+  "bindings": [],
+  "claims": [
+  ],
+  "lowered": [
+  ],
+  "law": {
+    "law_digest": "12b423cce001087a",
+    "inputs_digest": "be90000e725a42a5",
+    "fn_universe": [{"name": "Sensor::bulk", "display": "Sensor::bulk", "analyzed": true, "summarized": true, "kind": "method", "owner": "Sensor"}, {"name": "Sensor::resolution", "display": "Sensor::resolution", "analyzed": true, "summarized": true, "kind": "method", "owner": "Sensor"}, {"name": "harmonic", "display": "harmonic", "analyzed": true, "summarized": true, "kind": "free"}, {"name": "main", "display": "main", "analyzed": true, "summarized": true, "kind": "free"}],
+    "loci": [{"name": "Sensor", "display": "Sensor", "analyzable": true}],
+    "groups": [],
+    "topics": [],
+    "subjects": [],
+    "effect_classes": [],
+    "legacy": [],
+    "issues": [],
+    "rows": [
+    ]
+  },
+  "capabilities": {
+    "exact_calls": true,
+    "exact_publishes": true,
+    "exact_subscribes": true,
+    "exact_key_filters": true,
+    "exact_ownership": false,
+    "exact_placement": false,
+    "exact_routes": true,
+    "exact_effects": true,
+    "exact_cardinality": true,
+    "exact_delivery_guarantees": false,
+    "exact_costs": true
+  },
+  "adequacy": {
+    "reachability": "exact",
+    "boundary": "exact",
+    "endpoint": "exact",
+    "placement": "degraded",
+    "bound": "exact",
+    "certificate": "exact",
+    "causes": "degraded",
+    "depends": "degraded",
+    "budget": "degraded"
+  },
+  "evaluation": {
+    "roots": [
+    ],
+    "closure": [
+    ]
+  },
+  "verdict": "clean",
+  "artifact_digest": "f23c50f05f50bfc8"
+}

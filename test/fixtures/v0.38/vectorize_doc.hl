@@ -1,0 +1,8 @@
+@vectorize
+fn total(xs: bounded[Int; 1024]) -> Int {
+    let mut s = 0;
+    for x in xs {
+        s = s + x;
+    }
+    return s;
+}

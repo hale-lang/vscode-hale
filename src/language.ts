@@ -36,7 +36,7 @@ export const PARTS: Part[] = [
   { id: "lifecycle", title: "The lifecycle", doc: "docs/src/services/lifecycle.md", gloss: "birth, accept, release, run, drain, dissolve; draining, terminate, yield" },
   { id: "bus", title: "The bus", doc: "docs/src/services/bus.md", gloss: "topics, subscriptions, publishes, keys, bounds" },
   { id: "placement", title: "Concurrency & placement", doc: "docs/src/services/concurrency.md", gloss: "pinned, cooperative, pools, replicas, the machine's topology" },
-  { id: "modes", title: "Modes & projections", doc: "docs/src/systems/modes.md", gloss: "the three modes, projection classes, memory tiers" },
+  { id: "projections", title: "Projections & tiers", doc: "docs/src/systems/memory.md", gloss: "projection classes, memory tiers" },
   { id: "failure", title: "When things fail", doc: "docs/src/services/failure.md", gloss: "closures, violate, on_failure, restart, quarantine, bubble" },
   { id: "memory", title: "Memory & lifetime", doc: "docs/src/systems/memory.md", gloss: "capacity slots, forms, sealing, secrets, bounded growth" },
   { id: "effects", title: "Effects & contracts", doc: "docs/src/effects.md", gloss: "what a fn may do, asserted and checked transitively" },
@@ -73,6 +73,8 @@ export const CONSTRUCTS: Construct[] = [
   row("list literal", "values", "a growable list, `[a, b]`", r("\\[\\s*[\\w\"\\-][^\\]]*,"), "docs/src/everyday/collections.md"),
   row("tuple", "values", "a fixed group of values, `(a, b)`", r("\\blet\\s+(?:mut\\s+)?\\(\\s*\\w+\\s*,"), "docs/src/basics/values.md"),
   row("Decimal", "values", "exact decimal arithmetic, `1.50d`", r("\\bDecimal\\b|\\b\\d+(?:\\.\\d+)?d\\b"), "docs/src/basics/math.md"),
+  row("U64", "values", "a 64-bit unsigned integer; a decimal literal past Int's max is one, and overflow is a violation", r("\\bU64\\b"), "docs/src/basics/math.md#unsigned-64-bit-integers-u64"),
+  row("I32 / U32 / I16 / U16 / I8 / U8", "values", "the fixed-width integers, each its own width wherever it is stored; a narrowing is a cast with an `or`", r("\\b(?:I32|U32|I16|U16|I8|U8)\\b"), "docs/src/basics/math.md#fixed-width-integers-i32-u32-i16-u16-i8-u8"),
   row("Duration literal", "values", "a duration with its unit, `100ms`, `2s`", r("\\b\\d+(?:ns|us|ms|s|m|h)\\b"), "docs/src/basics/math.md#time"),
   row("Time", "values", "a point in time; `std::time::now()`", r("\\bTime\\b|\\bstd::time::now\\("), "docs/src/basics/math.md#time"),
   row("Bytes", "values", "an owned byte buffer, and its views", r("\\bBytes(?:View|Mut)?\\b"), "spec/types.md"),
@@ -113,7 +115,8 @@ export const CONSTRUCTS: Construct[] = [
   row("unit", "units", "a unit of measure, alone or as a multiple of another", r("^\\s*unit\\s+\\w+"), "docs/src/units.md", "hale.units", "unit ${1:cent};\nunit ${2:USD} = 100 ${1:cent};"),
   row("quantity", "units", "an amount in a unit; arithmetic keeps the unit", r("\\bquantity\\s+\\w+\\s+in\\b"), "docs/src/units.md", "hale.units", "type ${1:Money} = quantity Int in ${2:cent};"),
   row("point", "units", "a position on a quantity's axis (a time, a price level)", r("=\\s*point\\s+\\w+"), "docs/src/units.md", "hale.units"),
-  row("distinct", "units", "an identity: an Int that is not a number", r("=\\s*distinct\\s+\\w+"), "docs/src/units.md", "hale.units", "type ${1:OrderId} = distinct Int;"),
+  row("distinct", "units", "an identity: an integer that is not a number", r("=\\s*distinct\\s+\\w+"), "docs/src/units.md", "hale.units", "type ${1:OrderId} = distinct Int;"),
+  row("integer base", "units", "a scalar counting a `U64` or a fixed-width integer: `quantity U64 in wei`, `distinct U16`, `U8 { range: … }`", r("\\b(?:quantity|distinct)\\s+(?:U64|I32|U32|I16|U16|I8|U8)\\b|=\\s*(?:U64|I32|U32|I16|U16|I8|U8)\\s*\\{"), "docs/src/units.md#unsigned-bases-u64", "hale.units"),
   row("range:", "units", "a scalar's admissible range", r("\\brange:\\s*[\\d_\\-]+\\.\\."), "docs/src/units.md", "hale.units"),
   row("round:", "units", "the rounding policy a narrowing uses", r("\\bround:\\s*\\w+"), "docs/src/units.md", "hale.units"),
   row("origin:", "units", "where a point's axis starts", r("\\borigin:\\s*"), "docs/src/units.md", "hale.units"),
@@ -178,13 +181,12 @@ export const CONSTRUCTS: Construct[] = [
   row("reserve", "placement", "cores the program leaves alone", r("\\breserve\\b"), "docs/src/services/concurrency.md", "hale.placement"),
   row("where async_io", "placement", "a pool whose handlers may block on I/O", r("\\bwhere\\s+async_io\\b"), "docs/src/services/concurrency.md#high-concurrency-io-where-async_io", "hale.placement"),
   row("recognition sub-mode", "placement", "how a recognition-class locus pools its children: fixed_cell, shared_slab, spillover, summary_only", r("\\b(?:fixed_cell|shared_slab|spillover|summary_only)\\b"), "spec/memory.md", "hale.lifecycle"),
-  // ---- modes, projections ------------------------------------------------
+  // ---- projections ----------------------------------------------------------
   // (F.55: perspectives were removed; an interface-typed param carries a
-  // contract, under "values".)
-  row("mode", "modes", "a named projection of one locus's kernel", r("\\bmode\\s+\\w+\\s*\\("), "docs/src/systems/modes.md", "hale.lifecycle"),
-  row("bulk / harmonic / resolution", "modes", "the three modes", r("\\bmode\\s+(?:bulk|harmonic|resolution)\\b"), "docs/src/systems/modes.md", "hale.lifecycle"),
-  row("projection", "modes", "a locus's projection class: rich, chunked, recognition", r("\\bprojection\\s+(?:rich|chunked|recognition)\\b"), "docs/src/systems/memory.md#projection-classes-committing-to-resolution", "hale.lifecycle"),
-  spec(row("tier", "modes", "a locus's memory tier", r("\\btier\\s+\\d"), "docs/src/systems/memory.md", "hale.lifecycle")),
+  // contract, under "values". F.61: locus modes were removed; a mode is
+  // written as a `fn` member.)
+  row("projection", "projections", "a locus's projection class: rich, chunked, recognition", r("\\bprojection\\s+(?:rich|chunked|recognition)\\b"), "docs/src/systems/memory.md#projection-classes-committing-to-resolution", "hale.lifecycle"),
+  spec(row("tier", "projections", "a locus's memory tier", r("\\btier\\s+\\d"), "docs/src/systems/memory.md", "hale.lifecycle")),
   // ---- failure -------------------------------------------------------------
   row("closure", "failure", "an invariant the locus holds; violating it is structural failure", r("\\bclosure\\s+\\w+\\s*\\{"), "docs/src/services/failure.md#declaring-an-invariant-closure", "hale.lifecycle", "closure ${1:name} {\n    captures: ${2:field};\n    epoch inline;\n}"),
   row("epoch", "failure", "when a closure's totals reset: inline, birth, tick, duration", r("\\bepoch\\s+\\w+"), "docs/src/services/failure.md", "hale.lifecycle"),
@@ -210,6 +212,7 @@ export const CONSTRUCTS: Construct[] = [
   row("@bounded_by", "memory", "name what bounds a growth", r("@bounded_by\\s*\\("), "docs/src/systems/memory.md", "hale.advice"),
   row("@locality", "memory", "a locality budget for a hot locus", r("@locality\\b"), "docs/src/systems/performance.md", "hale.advice"),
   row("@hot", "memory", "a certified hot path", r("@hot\\b"), "docs/src/systems/performance.md", "hale.advice"),
+  row("@vectorize", "systems", "every innermost loop of the fn must vectorize on the build's target; `min_width: N` asks for N lanes", r("@vectorize\\b"), "docs/src/systems/performance.md#loops-that-must-vectorize-vectorize", undefined, "@vectorize"),
   // ---- effects ---------------------------------------------------------------
   row("@effects", "effects", "what a fn may or may not do, by class: `none:`, `only:`, `does:`, `is:`", r("@effects\\s*\\("), "docs/src/effects.md#declaring-what-a-function-may-do", "hale.effects", "@effects(none: {${1:syscall}})"),
   row("@effects(only:)", "effects", "the whole list of what a fn may do", r("@effects\\s*\\([^)]*\\bonly\\s*:"), "docs/src/effects.md#saying-what-a-function-may-do-not-what-it-may-not", "hale.effects"),
@@ -329,7 +332,6 @@ export const KEYWORD_COVERAGE: Record<string, string> = {
   // contextual
   params: "params", contract: "contract", bus: "bus", capacity: "capacity", as_parent_for: "as_parent_for", indexed_by: "indexed_by",
   birth: "birth", accept: "accept", release: "release", run: "run", drain: "drain", dissolve: "dissolve", on_failure: "on_failure",
-  bulk: "bulk / harmonic / resolution", harmonic: "bulk / harmonic / resolution", resolution: "bulk / harmonic / resolution",
   projection: "projection", rich: "projection", chunked: "projection", recognition: "projection", tier: "tier",
   closure: "closure", epoch: "epoch", persists_through: "persists_through / resets_on", resets_on: "persists_through / resets_on", resets_per_epoch: "persists_through / resets_on",
   restart: "restart", restart_in_place: "restart_in_place", quarantine: "quarantine", reorganize: "reorganize", bubble: "bubble",
@@ -337,7 +339,7 @@ export const KEYWORD_COVERAGE: Record<string, string> = {
   subscribe: "subscribe", publish: "publish", on: "bound", of: "of type",
   yield: "yield", terminate: "terminate", where: "where key",
   topic: "topic", ring_layout: "ring_layout", as: "subscribe", main: "main locus",
-  mode: "mode", bindings: "bindings", birth_check: "birth_check", placement: "placement",
+  bindings: "bindings", birth_check: "birth_check", placement: "placement",
   cooperative: "cooperative", pinned: "pinned", pool: "pool", core: "pinned", cores: "cores", heap: "heap",
   fleet: "fleet locus", host: "host",
   topology: "topology", node: "node / l3", l3: "node / l3", reserve: "reserve", replicas: "replicas",
